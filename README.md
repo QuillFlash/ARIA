@@ -2,7 +2,7 @@
 
 <p align="center">
     <img src="artwork/Aria_bday.png" alt="Aria's birthday" width="350"><br>
-    <em>The image is the copyrighted work of HoYoverse/Cognosphere Pte. Ltd. and is used under fair use as part of a work that is considered fan fiction. All rights reserved.</em>
+    <em>The image is the copyrighted work of HoYoverse/Cognosphere Pte. Ltd. and is used under fair use as part of a work that is considered fan fiction and is not affiliated with HoYoverse in any capacity. All rights reserved.</em>
 </p>
 
 ## Introduction
