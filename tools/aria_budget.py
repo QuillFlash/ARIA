@@ -163,8 +163,10 @@ def main():
                 print(f'  {tokens(text):5}  {name[pid]}')
     imp, _ = simulate(preset, all_on, seed=1, impersonate=True)
     normal, _ = simulate(preset, all_on, seed=1)
+    # SillyTavern also appends the preset's own impersonation_prompt setting on Impersonate turns
+    imp_setting = tokens(render(preset.get('impersonation_prompt') or '', {}, random.Random(1)))
     totals['Impersonate adds'] = sum(tokens(t) for t in imp.values()) - totals['everything ON'] + \
-        sum(tokens(normal[pid]) for pid in normal if pid not in imp)
+        sum(tokens(normal[pid]) for pid in normal if pid not in imp) + imp_setting
     print('\nTotals:')
     for label, value in totals.items():
         print(f'  {label:18} {value:5}')

@@ -6,7 +6,7 @@
 
 Hiii, Manager! It's me, Aria, lead singer of the Angels of Delusion and, starting today, your official guide to this preset! ✨
 
-Don't panic if words like "preset", "token" or "regex" sound like alien code right now. My own Logic Core was just as lost when I first rolled off the production line, so we'll go through everything together, one tiny step at a time. By the end of this page you'll have me installed, tuned for your favourite AI model and running as cheaply as possible. Ready? Let's go~!
+Don't panic if words like "preset", "token" or "regex" sound like alien code right now. My own Logic Core was just as lost when I first rolled off the production line, so we'll go through everything together, one tiny step at a time. By the end of this page you'll have me installed and tuned for your favourite AI model. Ready? Let's go~!
 
 **Contents**
 
@@ -22,11 +22,11 @@ Don't panic if words like "preset", "token" or "regex" sound like alien code rig
 
 ## 1. Wait, what IS all this?
 
-Every idol needs to know her stage before the show, so here's ours! Nangong made me memorise these before my first concert, and now it's your turn~
+Every idol needs to know her stage before the show, so let's learn ours! Nangong made me memorise these before my first concert, and now it's your turn~
 
 | Word | What it means |
 |---|---|
-| **SillyTavern** | The app you chat in. Think of it as the concert hall, with the stage, the lights and the seats all in one place. |
+| **SillyTavern** | The app you chat in. Think of it as the concert hall, with the stage and the seats in one place. |
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
@@ -46,10 +46,10 @@ Every idol needs to know her stage before the show, so here's ours! Nangong made
 Sunna timed this once and finished in under two minutes, and she was also tuning her guitar at the same time. You've got this! 💪
 
 1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` from this repository. On GitHub, open the file and press the "Download raw file" button.
-2. **Import** it. In SillyTavern, open **AI Response Configuration** (the sliders icon at the top left), make sure you're using a Chat Completion API, then press **Import preset** next to the preset dropdown and choose the file.
+2. **Connect and import.** Open **API Connections** (the plug icon at the top), set **API** to **Chat Completion**, pick your provider and paste your key. Then open **AI Response Configuration** (the sliders icon at the top left), press **Import preset** next to the preset dropdown and choose the file.
 3. **Say YES to the regex scripts.** SillyTavern asks whether to allow the scripts that come with the preset. Allow them, or my thinking box and the Impersonate clean-up won't work.
 4. **Check the macro engine.** Open **User Settings** and make sure **Experimental Macro Engine** is ticked. New versions tick it for you. If you had to tick it yourself, reload the page afterwards. My dice and switches can't work without it!
-5. **Connect your model** in **API Connections**, pick a character and say hi~
+5. **Pick a character** and say hi~
 
 That's it! Everything I need is switched on already. Sections 3 and 5 make me fit your model and your wallet even better.
 
@@ -63,9 +63,9 @@ Every Construct thinks a little differently, and AI models are the same! First, 
 
 **Style B: for stubborn models.** Use this when a model's own thinking rambles for minutes, flattens the characters into cardboard or spills into the reply:
 
-1. In **AI Response Configuration**, untick **Request Model Reasoning** and set **Reasoning Effort** to **Minimum**.
+1. In **AI Response Configuration**, untick **Request Model Reasoning** and set **Reasoning Effort** to **Minimum**. (Claude keeps its own thinking on whatever you set here, so Claude users stay on style A.)
 2. Switch 🏷️ **Logic Core Tags** ON.
-3. Open **Advanced Formatting** (the big "A" icon), find the **Reasoning** box, set **Prefix** to `<thinking>` and **Suffix** to `</thinking>`, tick **Auto-Parse** and leave **Add to Prompts** unticked.
+3. Open **Advanced Formatting** (the big "A" icon) and find the **Reasoning** section. Tick **Auto-Parse** and leave **Add to Prompts** unticked. Then click **Reasoning Formatting** to open it, and set **Prefix** to `<thinking>` and **Suffix** to `</thinking>`.
 
 Now my plan folds away into a little box above each reply, and it only takes a few seconds!
 
@@ -89,7 +89,7 @@ The preset ships with Temperature 0.7 and Top P 0.8, which keep most models on t
 
 ## 4. Meet the toggles
 
-Here's my whole band, member by member! Entries marked **ON** come switched on, and the ones marked **OFF** wait until you want them.
+Time to meet my whole band, member by member! Entries marked **ON** come switched on, and the ones marked **OFF** wait until you want them.
 
 ### The core lineup
 
@@ -111,11 +111,11 @@ Here's my whole band, member by member! Entries marked **ON** come switched on, 
 - 🔞 **Adult Context** (OFF). For adults only! It unlocks mature stories: sex, violence and dark themes written frankly. Characters stay themselves all the way through, so a shy character is still shy in bed.
 - 😈 **Freaky Override** (OFF). The anything-goes switch. Characters drop their independence and the slow pacing and lean eagerly into what you want, while still sounding like themselves. It needs 🔞 Adult Context ON as well.
 - 👀 **Hybrid POV** (OFF). Tells the story in third person, while everything your character feels is written straight to you: "the rain soaks through your sleeves". Super immersive!
-- 🐺 **Anthro Vocals** (OFF). For furry, beastfolk and talking-animal stories. Wolves howl, eagles chirp and big cats roar and can't purr. The sounds stay as flavour inside normal speech.
+- 🐺 **Anthro Vocals** (OFF). For furry, beastfolk and talking-animal stories. Wolves howl, eagles chirp, and lions and tigers roar and can't purr. The sounds stay as flavour inside normal speech.
 - 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from cold to chosen family, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. Numbers never show up in the story.
 - 🩹 **Model Patches** (OFF). Small fixes for one model family each. Pick the one from the table in section 3, and only one.
 - 🧠 **The Logic Core (user-role twin)** (OFF). The same planning step, sent as your message. Use it instead of the normal Logic Core only if your provider complains about the AI's own message sitting near the end. Never run both!
-- **Reduce Reasoning** (OFF). A tiny "don't overthink" note for models that think far too long. Use it instead of The Logic Core if my checklist doesn't suit your model.
+- **Reduce Reasoning** (OFF). A tiny "don't overthink" note for models that think far too long. Switch it on alongside The Logic Core if your model still overthinks.
 - 🌳 **README** and 🌿 **Sampling Advice** (OFF). Notes for you to read. Switching them on sends nothing.
 
 ---
@@ -138,38 +138,38 @@ claude:
   cachingAtDepth: 2
 ```
 
-Restart SillyTavern afterwards. The `2` matters: the last two messages I send (the Last-Mile Gate and The Logic Core) get tucked in after your newest message on every turn, and the gate carries fresh dice each time, so depth 2 places the cache markers on your own messages instead, where they can be reused next turn. If you type slowly, `extendedTTL: true` keeps the cache for an hour instead of five minutes, at a higher price whenever it gets written.
+Restart SillyTavern afterwards. The `2` matters: the last two messages I send (the Last-Mile Gate and The Logic Core) get tucked in after your newest message on every turn, and the gate carries fresh dice each time, so depth 2 places the cache markers on your own messages instead, where they can be reused next turn. Claude through OpenRouter uses the same two lines; there the markers land on my two previous replies, and the savings come out about the same. If you type slowly, `extendedTTL: true` keeps the cache for an hour instead of five minutes, at a higher price whenever it gets written.
 
 Gemini, DeepSeek, OpenAI, GLM and Kimi cache matching beginnings automatically, so there's nothing to set up there!
 
 ### Keep the cache happy
 
-- **Lorebooks:** on Claude, set entries that come and go to the "@D ⚙️" position with depth 0, or make them constant. Other providers are fine either way, because I already put the lorebook right before the chat.
+- **Lorebooks:** I keep the lorebook right before the chat, so whenever an entry switches on or off, the model has to reread your whole chat history. On every provider, set entries that come and go to the "@D ⚙️" position with depth 0, or make them constant.
 - **Author's Note:** keep it off, or set it to "In-chat @ Depth" with depth 0.
 - **Summarize and Vector Storage extensions:** keep their injections in-chat at depth 0, or switch them off.
 - **Reasoning "Add to Prompts"** (in Advanced Formatting): leave it unticked.
 - **Context size:** if your chat grows past the model's context size, SillyTavern starts cutting the oldest messages and the cache resets every turn. Raise the context size or summarise before that happens.
 - **Toggles:** flipping a toggle mid-chat makes the model reread everything once. Totally fine now and then, just avoid doing it every few messages.
 - **Swipes and regenerations:** completely safe, swipe away~!
-- **The "Drop old 🎲/💚 ledgers" regex:** it ships switched off. Turning it on saves a little room by hiding old ledger lines, though the model then rereads the last few messages every turn. Only use it if your context is really tiny.
+- **The "Drop old 🎲/💚 ledgers" regex:** it ships switched off. Turning it on saves a little room by hiding old ledger lines, though the model then rereads the last few messages every turn. Only use it if your context is really tiny. You'll find it under **Extensions** (the cubes icon at the top) → **Regex**, among the preset's scripts.
 
 ---
 
 ## 6. Uh-oh! moments
 
-Even idols trip on stage sometimes! Here's how to get back up:
+Even idols trip on stage sometimes! These fixes get you back up:
 
 **I see strange bits like `{{setvar` or `{{roll` in the prompt or the replies.**
 The macro engine is off. Tick **Experimental Macro Engine** in User Settings and reload.
 
 **The AI's thinking shows up inside the reply.**
-Set the Reasoning **Prefix** and **Suffix** to your tags and tick **Auto-Parse** (section 3, style B). Check that the preset's regex scripts are allowed, too.
+In Advanced Formatting, tick **Auto-Parse**, open **Reasoning Formatting** and set **Prefix** and **Suffix** to your tags (section 3, style B). Check that the preset's regex scripts are allowed too, under **Extensions** → **Regex**.
 
-**My thinking takes forever.**
-Switch to thinking style B, or turn on the GLM / Kimi / Qwen patch if you use one of those models.
+**The model's thinking takes forever.**
+Switch to thinking style B, or turn on the GLM / Kimi / Qwen patch if you use one of those models. On Claude, stay on style A and set **Reasoning Effort** to **Low** instead, because Claude keeps thinking whichever setting you pick.
 
 **The 🎲 line vanished and the world forgot what was going on.**
-Make sure 🎲 Fate & Chekhov Ledger is ON and that you didn't edit the line out of the AI's last reply. If you switched on the "Drop old ledgers" regex, switch it off again.
+Make sure 🎲 Fate & Chekhov Ledger is ON and that you didn't edit the line out of the AI's last reply. If you switched on the "Drop old ledgers" regex, switch it off again in **Extensions** → **Regex**.
 
 **A character suddenly speaks English in my Hungarian story.**
 Write your own messages in your story's language, or add an OOC note like `((OOC: the story is in Hungarian))`. The Main Prompt follows whatever language you use.
@@ -181,7 +181,7 @@ Check that 😈 Freaky Override is OFF, because it makes everyone eager on purpo
 Keep The Logic Core ON, since it helps a lot of models settle in. For mature scenes, 🔞 Adult Context must be ON. Some models refuse certain content no matter what any preset says, and when that happens a different model is the only real fix.
 
 **After pressing Impersonate, the input box has junk in it.**
-Allow the preset's regex scripts. They clean the Impersonate result for you.
+Allow the preset's regex scripts in **Extensions** → **Regex**. They clean the Impersonate result for you.
 
 ---
 
@@ -198,9 +198,7 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 | Core (everything that ships ON except Fate and Time & Place) | ~2,470 |
 | Shipped default | ~3,180 |
 | Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags and the largest model patch) | ~4,085 |
-| Extra on an Impersonate turn | ~124 |
-
-For comparison, Realistic Frankenstein 2.2.1.2 came to roughly 18,500 tokens with its Fate engine on, so ARIA with every toggle on is about 22% of that. The README's line about "75% of the footprint" should really read "about a quarter of the footprint" (or "75% smaller").
+| Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~196 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), or if anything would break prompt caching. Run it after every edit.
 
@@ -231,7 +229,7 @@ The script also fails if anything goes over 4,500 tokens, if a tag or label is r
 These are checked against SillyTavern's own source code:
 
 - In-Chat entries are spliced in after the newest message. At the same depth and order, SillyTavern writes them as assistant, then user, then system, so the Last-Mile Gate reads last, right after The Logic Core.
-- For Claude, every system message before the chat becomes the cached system prompt, and later system messages are sent as user messages. That's why `cachingAtDepth: 2` skips the gate (depth 0) and The Logic Core (depth 1).
+- For Claude, every system message before the chat becomes the cached system prompt, and later system messages are sent as user messages. That's why `cachingAtDepth: 2` skips the gate (depth 0) and The Logic Core (depth 1). On OpenRouter, SillyTavern skips system messages when it counts depth, so the markers land on the AI's two previous replies instead.
 - Nothing in the system block changes between turns. Dice live inside `{{setvar}}`, which prints nothing there, and only print at the end through the gate. No system-block entry has generation triggers, so Impersonate reuses the same cache.
 - World Info sits after the card and examples, so a lorebook change only re-reads what comes after it.
 - Chat history never gets rewritten. The ledger-trimming regex ships disabled for that reason.
@@ -249,15 +247,14 @@ The Main Prompt's first line blanks seven helper variables every turn, so a swit
 | `ariaScentGate` | 👃 Scent Occasions | 🚪 Last-Mile Gate |
 | `ariaThinkOpen`, `ariaThinkClose` | 🏷️ Logic Core Tags | 🧠 The Logic Core (`{{#if .ariaThinkOpen}}`) |
 
-### Where Realistic Frankenstein's features went
+### Where each feature lives
 
 - **Personality Independence** is a label in the Main Prompt, applied on The Logic Core's Scene line.
-- **Fate & Routine and Chekhov's Gun** merged into one ledger. It keeps the will-versus-world split, the quiet-turn ladder, consequence Bullets tied to your actions, world news, the danger ceiling, pursuits and collisions, aftermath turns, Residue and Ambitions. Trimmed: the public-place modifier, the inner/outer/stranger circles, the Reach table, Bullet lock types and the pool size (20 down to 8).
-- **The double slop gates** are one labelled line per pattern in the Anti-Slop Codex, plus one check line each in the Last-Mile Gate. Two repair examples survive (Contrast and Chop); the long lists of disguises were trimmed.
+- **Fate and Chekhov's Gun** share one ledger: will versus world, the quiet-turn ladder, consequence Bullets tied to your actions, world news, the danger ceiling, pursuits and collisions, aftermath turns, Residue and Ambitions.
+- **The double slop gates** are one labelled line per pattern in the Anti-Slop Codex, plus one check line each in the Last-Mile Gate. Contrast and Chop each carry one repair example.
 - **The Scene Engine** lives in Voice & Scene Engine with its progression, causality, pacing, initiative and handoff endings.
-- **Card Fidelity and the international fixes** are Main Prompt labels (Card Fidelity, Story Language, Epistemic Limits). Speech counts as "heard" however the story's language marks it, so Hungarian „quotes" and dialogue dashes work.
-- **The pico CoT** became The Logic Core, still sent with the assistant role after the history.
-- **Cut entirely:** NPC Instincts and VAD (one mood clause survives), the DnD simulator, inventory, internal agendas, the GM notebook, internal thoughts, the World Sim tables (Fate's background texture replaces them), HQ NPC Genesis (its naming rules survive), the separate prose-style and POV toggles, colored dialogue, pop-in graphics and the X feed.
+- **Card Fidelity and the language rules** are Main Prompt labels (Card Fidelity, Story Language, Epistemic Limits). Speech counts as "heard" however the story's language marks it, so Hungarian „quotes" and dialogue dashes work.
+- **The Logic Core** is sent with the assistant role after the history.
 
 ### Known risks to test
 
@@ -265,7 +262,7 @@ The Main Prompt's first line blanks seven helper variables every turn, so a swit
 - With fewer repair examples, some Claude habits may creep back. The Claude patch and the gate are the first line of defence.
 - A card whose first message shows no thoughts may make the narration go a little flat.
 - Gemini runs best with Scent Occasions OFF and its patch ON; check that no smells sneak back in.
-- Bonds rises faster than the old tracker; watch long slice-of-life chats for confessions arriving too early.
+- Bonds can rise quickly, so watch long slice-of-life chats for confessions arriving too early.
 
 ### Live test plan
 
@@ -277,7 +274,7 @@ The Main Prompt's first line blanks seven helper variables every turn, so a swit
 - **Fate over 20 turns:** the thread counter climbs and closes by 8, World stays at five entries or fewer, "meet me at noon on Day 3" fires on time, and harm reaching the scene stays rare.
 - **Card fidelity:** a shy card stays shy under Adult Context, siblings recognise each other on turn 1, a drill sergeant keeps short orders, and a Hungarian chat stays free of English words.
 - **Impersonate:** the input box gets only your character's words, in their own person and tense.
-- **Blind A/B against Realistic Frankenstein 2.2.1.2:** same three cards, 10 turns each on Claude 5 and Gemini, ranked by a reader who doesn't know which is which.
+- **Blind A/B against your previous preset:** same three cards, 10 turns each on Claude 5 and Gemini, ranked by a reader who doesn't know which is which.
 
 ---
 
