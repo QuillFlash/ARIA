@@ -170,18 +170,25 @@ Running a model at home with KoboldCpp, llama.cpp, TabbyAPI or text-generation-w
 1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` from this repository.
 2. **Connect.** In **API Connections** (the plug icon), set **API** to **Text Completion**, pick your backend and connect.
 3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. It fills in the Context Template and the System Prompt for you.
-4. **Finish the setup.** In the same panel, make sure the **System Prompt** is switched on, and pick the **Instruct Template** that matches your model (ChatML, Llama 3, Mistral, Gemma and so on). The model's download page usually names it. I don't bring one, because every model family speaks its own format.
+4. **Switch on Instruct Mode.** In the same panel, make sure the **System Prompt** is switched on. Then press the power button next to the **Instruct Template** title to switch on Instruct Mode, and pick the template that matches your model (ChatML, Llama 3, Mistral, Gemma and so on). The model's download page usually names it. Leave the link icon next to it (**Bind to Context**) off, so it keeps my Context Template. I don't bring an instruct template myself, because every model family speaks its own format.
 5. **Check the macro engine** in **User Settings**, just like in section 2: **Experimental Macro Engine** must be ticked.
+
+### Four settings that keep me happy
+
+- **Memory size:** in **AI Response Configuration**, tick **Unlocked** under **Context (tokens)** and set it to the size your backend loaded, like 32768. SillyTavern starts at 8,192, so skipping this step leaves most of your 32k unused! On KoboldCpp or llama.cpp you can tick **Derive context size from backend** in **API Connections** instead.
+- **One copy of the examples:** in **User Settings**, under **Chat/Message Handling**, set **Example Messages Behavior** to **Never include examples**. My story string already brings your card's example dialogue, and this stops SillyTavern from sending a second copy.
+- **My rules stay mine:** in **User Settings**, untick **Prefer Char. Prompt** and **Prefer Char. Instructions**. Otherwise a card with its own System Prompt or Post-History Instructions replaces my whole rulebook, switches included.
+- **Whole replies:** keep **Trim Incomplete Sentences** unticked in **Advanced Formatting**. I ship it off, because it would cut my 🎲 and 💚 lines in half.
 
 ### Flip my switches
 
-Text Completions has no toggle list, so my switches live at the very top of the **System Prompt** box in Advanced Formatting. Each one looks like this:
+Text Completions has no toggle list, so my switches live in the **Prompt Content** box under **System Prompt** in Advanced Formatting (the expand icon opens a bigger editor). Scroll past my README note at the top and you'll find the 🎛️ **ARIA SWITCHES** lines. Each one looks like this:
 
 ```
 {{.aria-fate = off}}
 ```
 
-Change `off` to `on` (or the other way round) and the change kicks in on your next reply. Every line carries a little note, so you can't get lost! The full list:
+Change `off` to `on` (or the other way round) and the change kicks in on your next reply. Press the save icon (**Update current prompt**) as well, so your choices survive picking my System Prompt again from the list. Every line carries a little note, so you can't get lost! The full list:
 
 | Switch | Starts | What it does | What it costs |
 |---|---|---|---|
@@ -210,7 +217,7 @@ My lean start uses about 2,200 tokens. Your character card usually takes 1,000 t
 
 ### Thinking on a local model
 
-The Logic Core asks your model to plan inside `<thinking>` tags. To fold that plan away and keep it out of the model's memory, open **Advanced Formatting**, tick **Auto-Parse** in the **Reasoning** section, open **Reasoning Formatting** and set **Prefix** to `<thinking>` and **Suffix** to `</thinking>`.
+The Logic Core asks your model to plan inside `<thinking>` tags. To fold that plan away and keep it out of the model's memory, open **Advanced Formatting**, tick **Auto-Parse** in the **Reasoning** section, open **Reasoning Formatting** and set **Prefix** to `<thinking>` and **Suffix** to `</thinking>`. Leave **Add to Prompts** unticked, so old plans never eat into your memory.
 
 Models that already think on their own, like Qwen 3 or the DeepSeek R1 distills, use `<think>` instead. For them, set `aria-thinking-tags` to `off`, and make the Prefix `<think>` and the Suffix `</think>`.
 
@@ -221,11 +228,13 @@ Your backend remembers the prompt it read last time and only reads the new part,
 - In **KoboldCpp**, keep **FastForwarding** and **ContextShift** on, as they are by default. ContextShift lets old messages drop out of a full context without rereading everything, as long as the start of the prompt stays the same.
 - Put lorebook entries that come and go on "@D ⚙️" with depth 0, or make them constant. I already placed the lorebook after the card and the examples, right before the chat.
 - Keep the Author's Note off or at depth 0.
+- Keep **Example Messages Behavior** on **Never include examples** (see the four settings above), so the examples sit still inside my story string.
 - Try not to flip switches mid-chat, because each flip makes the backend reread everything once.
 
 ### What's different from the Chat Completions file?
 
 - Same rules, same writing, with switches in place of toggles.
+- Your Custom Instructions slots, `player-instructions` and `player-posthistory`, sit in the System Prompt box right under my switches.
 - Time & Place, Fate, Bonds and The Logic Core start off to save memory.
 - No Claude 5 or Gemini patches.
 - No regex scripts come with this file, so set up Reasoning Formatting as above. If Impersonate ever leaves a plan in the input box, delete it by hand.
@@ -240,13 +249,13 @@ Even idols trip on stage sometimes! These fixes get you back up:
 The macro engine is off. Tick **Experimental Macro Engine** in User Settings and reload.
 
 **The AI's thinking shows up inside the reply.**
-In Advanced Formatting, tick **Auto-Parse**, open **Reasoning Formatting** and set **Prefix** and **Suffix** to your tags (section 3, style B). Check that the preset's regex scripts are allowed too, under **Extensions** → **Regex**.
+In Advanced Formatting, tick **Auto-Parse**, open **Reasoning Formatting** and set **Prefix** and **Suffix** to your tags (section 3, style B). Check that the preset's regex scripts are allowed too, under **Extensions** → **Regex**. On the Text Completions file there are no scripts, so the Prefix and Suffix from section 6 do the whole job.
 
 **The model's thinking takes forever.**
 Switch to thinking style B, or turn on the GLM / Kimi / Qwen patch if you use one of those models. On Claude, stay on style A and set **Reasoning Effort** to **Low** instead, because Claude keeps thinking whichever setting you pick.
 
 **The 🎲 line vanished and the world forgot what was going on.**
-Make sure 🎲 Fate & Chekhov Ledger is ON and that you didn't edit the line out of the AI's last reply. If you switched on the "Drop old ledgers" regex, switch it off again in **Extensions** → **Regex**.
+Make sure 🎲 Fate & Chekhov Ledger is ON and that you didn't edit the line out of the AI's last reply. If you switched on the "Drop old ledgers" regex, switch it off again in **Extensions** → **Regex**. Also check that **Trim Incomplete Sentences** in **Advanced Formatting** is unticked, because it cuts that line in half.
 
 **A character suddenly speaks English in my Hungarian story.**
 Write your own messages in your story's language, or add an OOC note like `((OOC: the story is in Hungarian))`. The Main Prompt follows whatever language you use.
@@ -264,7 +273,10 @@ Your backend is rereading the whole prompt each turn. Go through the "Keep it fa
 Set up Reasoning Formatting as shown in section 6. If the model still struggles, set `aria-logic-core` to `off`.
 
 **After pressing Impersonate, the input box has junk in it.**
-Allow the preset's regex scripts in **Extensions** → **Regex**. They clean the Impersonate result for you.
+Allow the preset's regex scripts in **Extensions** → **Regex**. They clean the Impersonate result for you. On the Text Completions file there are no scripts, so delete the leftovers by hand, or set `aria-logic-core` to `off`.
+
+**My rules, switches or dice do nothing with one particular card.**
+That card brings its own System Prompt or Post-History Instructions, and SillyTavern uses them in place of mine. In **User Settings**, untick **Prefer Char. Prompt** and **Prefer Char. Instructions**, or add `{{original}}` to the card's own prompt so mine comes along.
 
 ---
 
@@ -328,9 +340,10 @@ These are checked against SillyTavern's own source code:
 ### The Text Completions edition
 
 - The switches are chat variables set at the very top of the System Prompt (`{{.aria-fate = off}}`). The macro engine reads text from top to bottom, so every block below, like `{{#if .aria-fate}}`, already sees the new value. Empty, `off`, `false` and `0` all count as off.
-- Each optional module sits inside a `{{#if}}` block. The `#` keeps whitespace exactly as written, so switched-off modules leave no blank lines behind.
+- Each optional module sits inside a `{{#if}}` block, with its closing line break inside the block too. The `#` keeps whitespace exactly as written, so a switched-on module keeps that line break and the next one starts on a fresh line, while a switched-off module prints nothing at all.
 - SillyTavern adds the post-history block as the last user message after your newest one. It holds The Logic Core (when switched on) and the Last-Mile Gate with the dice and the new-name letter, so the System Prompt stays identical every turn.
-- The story string puts the card fields and examples first and World Info last, right before the chat.
+- The story string puts the card fields and examples first and World Info last, right before the chat. That only holds with **Example Messages Behavior** on **Never include examples**; otherwise SillyTavern sends a second copy of the examples after the story string.
+- The context template ships with **Trim Incomplete Sentences** off, since the 🎲 and 💚 lines end in an HTML tag that the trimmer doesn't count as the end of a sentence.
 
 ### Wiring (Chat Completions)
 
