@@ -5,7 +5,7 @@
     <em>The image is the copyrighted work of HoYoverse/Cognosphere Pte. Ltd. and is used under fair use as part of a work that is considered fan fiction and is not affiliated with HoYoverse in any capacity. All rights reserved.</em>
 </p>
 
-## Quick start (ARIA 1.0 beta 2)
+## Quick start (ARIA 1.0 beta 3)
 
 - **Online models** (Claude, Gemini, DeepSeek, OpenRouter and similar): download `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` and follow [Install me in five steps](docs/ARIA_Beginners_Guide.md#2-install-me-in-five-steps).
 - **Local models** (KoboldCpp, llama.cpp, TabbyAPI, text-generation-webui): download `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` and follow [Run me on your own computer](docs/ARIA_Beginners_Guide.md#6-run-me-on-your-own-computer).
@@ -16,7 +16,7 @@
 
 Please open an issue on the [GitHub issues page](https://github.com/QuillFlash/ARIA/issues) and include:
 
-- the build: ARIA 1.0 beta 2, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
+- the build: ARIA 1.0 beta 3, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
 - your SillyTavern version
 - your API source or local backend, and the model (plus the quant for local models)
 - your thinking style (A or B from the guide), or your `aria-*` switch lines on the Text Completions file
@@ -187,7 +187,7 @@ This means the Personality independence prompt, the card fidelity extensions, th
 and a significantly smaller and more cache-efficient Fate & Routine Engine stay inside the preset, reworded and made smaller, while the legacy prompts from old Freaky Frankenstein
 and other bloated mechanics get the boot.
 
-The goal is to put all of this into something **between 3000 and 4500 tokens**. This would mean quality output at about a quarter of the footprint of Realistic Frankenstein 2.2.1.2.
+The goal is to put all of this into something **between 3000 and 4500 tokens**. This would mean quality output at about a sixth of the footprint of Realistic Frankenstein 2.2.1.2.
 
 I hope you like what you see and you write me some feedback on the Reddit announcement posts for further improvements you want to see in the future.
 
