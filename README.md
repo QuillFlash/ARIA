@@ -187,7 +187,7 @@ This means the Personality independence prompt, the card fidelity extensions, th
 and a significantly smaller and more cache-efficient Fate & Routine Engine stay inside the preset, reworded and made smaller, while the legacy prompts from old Freaky Frankenstein
 and other bloated mechanics get the boot.
 
-The goal is to put all of this into something **between 3000 and 4500 tokens**. This would mean quality output at about a quarter of the footprint of Realistic Frankenstein 2.2.1.2.
+The goal is to put all of this into something **between 3000 and 4500 tokens**. This would mean quality output at about a sixth of the footprint of Realistic Frankenstein 2.2.1.2.
 
 I hope you like what you see and you write me some feedback on the Reddit announcement posts for further improvements you want to see in the future.
 

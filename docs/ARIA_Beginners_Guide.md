@@ -33,7 +33,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,400 tokens as shipped and about 4,350 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,200. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 2,550 tokens as shipped and about 3,300 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 1,550. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -75,7 +75,7 @@ Every Construct thinks a little differently, and AI models are the same! First, 
 2. Switch 🏷️ **Logic Core Tags** ON.
 3. Open **Advanced Formatting** (the big "A" icon) and find the **Reasoning** section. Tick **Auto-Parse** and leave **Add to Prompts** unticked. Then click **Reasoning Formatting** to open it, and set **Prefix** to `<thinking>` and **Suffix** to `</thinking>`.
 
-With the tags on, The Logic Core spells the routine out for the model: open the reply with `<thinking>`, write the plan, end on `go`, close the tag, then tell the story. Now my plan folds away into a little box above each reply, and it only takes a few seconds! Forgot step 3, or the model dropped its tags? My regex scripts still catch the plan and fold it into a 💭 **Thoughts** box, and they keep it out of what the model rereads next turn.
+With the tags on, The Logic Core spells the routine out for the model: open the reply with `<thinking>`, write the plan, end on `go`, close the tag, then tell the story. Now my plan folds away into a little box above each reply, and it only takes a few seconds! Forgot step 3, or the model dropped its tags? My regex scripts still catch the plan and fold it into a 💭 **Thoughts** box, and they keep it out of what the model rereads next turn. One catch with **Auto-Parse**: if the model opens `<thinking>` and never closes it, or closes it with `</think>`, SillyTavern moves the WHOLE reply into the reasoning box and the story looks empty. If that keeps happening with your model, untick **Auto-Parse** and let my regex scripts do the folding.
 
 Then find your model in this table:
 
@@ -83,13 +83,13 @@ Then find your model in this table:
 |---|---|---|---|
 | Claude 5 (Fable, Opus, Sonnet) | A | 🩹 Claude 5 | Set up caching in section 5, it saves a lot! |
 | Gemini | A | 🩹 Gemini | Switch 👃 Scent Occasions OFF |
-| GLM, Kimi, Qwen | A, or B if the thinking loops | 🩹 GLM / Kimi / Qwen | |
+| GLM, Kimi, Qwen | A, or B if the thinking loops | 🩹 GLM / Kimi / Qwen | GLM Flash: switch 🔦 Flash Gate ON too |
 | DeepSeek | A | none | |
 | MiMo V2.6 Pro | B first, A works too | none | |
-| MiMo V2.6 Flash | B | 🩹 MiMo V2.6 Flash | |
+| MiMo V2.6 Flash | B | 🩹 MiMo V2.6 Flash | Switch 🔦 Flash Gate ON too |
 | Something else | A, then B if it misbehaves | none | |
 
-**One model patch at most!** Two patches at once would be like two lead singers grabbing the same microphone. 🎤🎤
+**One model patch at most!** Two patches at once would be like two lead singers grabbing the same microphone. 🎤🎤 The 🔦 Flash Gate is the one exception: it's a small add-on for Flash-tier models, so it plays alongside their patch.
 
 The preset ships with Temperature 0.7 and Top P 0.8, which keep most models on track. If replies get strange (typos, derailing, weird logic), the 🌿 **Sampling Advice** entry explains what to adjust. It's a note for you and costs zero tokens.
 
@@ -115,13 +115,14 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 
 ### Optional extras
 
-- 🏷️ **Logic Core Tags** (OFF). Turn ON for thinking style B (section 3). Every reply then opens with my plan inside `<thinking>` tags, the trick for models whose own thinking runs wild. Keep the tag name `<thinking>`: hosts running Qwen, GLM or DeepSeek reasoning models delete everything before a `</think>` in the AI's earlier messages, and that would wipe my checklist.
+- 🏷️ **Logic Core Tags** (OFF). Turn ON for thinking style B (section 3). Every reply then opens with my plan inside `<thinking>` tags, the trick for models whose own thinking runs wild. Keep the tag name `<thinking>`: hosts running Qwen, GLM or DeepSeek reasoning models cut my planning message at a `</think>` tag, and the part they cut is the line that tells the model to open its reply with the tag.
 - 🔞 **Adult Context** (OFF). For adults only! It unlocks mature stories: sex, violence and dark themes written frankly. Characters stay themselves all the way through, so a shy character is still shy in bed.
 - 😈 **Freaky Override** (OFF). The anything-goes switch. Characters drop their independence and the slow pacing and lean eagerly into what you want, while still sounding like themselves. It needs 🔞 Adult Context ON as well.
 - 👀 **Hybrid POV** (OFF). Tells the story in third person, while everything your character feels is written straight to you: "the rain soaks through your sleeves". Super immersive!
 - 🐺 **Anthro Vocals** (OFF). For furry, beastfolk and talking-animal stories. Wolves howl, eagles chirp, and lions and tigers roar and can't purr. The sounds stay as flavour inside normal speech.
 - 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from cold to chosen family, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. The numbers sit in the ledger, where my regex scripts draw each pair as a little card with Bond, Sparks and Grudge bars.
 - 🩹 **Model Patches** (OFF). Small fixes for one model family each. Pick the one from the table in section 3, and only one.
+- 🔦 **Flash Gate** (OFF). For the Flash-tier models, GLM Flash and MiMo V2.6 Flash. They keep borrowing office words like "filing" and "notarising" for feelings, even in tender scenes where nobody is doing paperwork, while the full-size models dropped that habit. This adds one firm rule to the end of the 🚪 Last-Mile Gate, where Flash models listen best. Run it alongside your model patch.
 - 🧠 **The Logic Core (user-role twin)** (OFF). The same planning step, sent as your message. Use it instead of the normal Logic Core only if your provider complains about the AI's own message sitting near the end. Never run both!
 - **Reduce Reasoning** (OFF). A tiny "don't overthink" note for models that think far too long. Switch it on alongside The Logic Core if your model still overthinks.
 - 🌳 **README** and 🌿 **Sampling Advice** (OFF). Notes for you to read. Switching them on sends nothing.
@@ -214,24 +215,25 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 
 | Switch | Starts | What it does | What it costs |
 |---|---|---|---|
-| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~360 tokens per turn as shipped, plus a few seconds of planning |
+| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~260 tokens per turn as shipped, plus a few seconds of planning |
 | `aria-thinking-tags` | on | With The Logic Core on: every reply opens with the plan inside `<thinking>` tags (on), or the plan runs inside the model's own `<think>` reasoning (off) | ~17 tokens, already counted in the Logic Core's 360 |
-| `aria-adult` | off | 🔞 Adult Context, for adults only | ~165 tokens |
-| `aria-freaky` | off | 😈 Freaky Override, needs `aria-adult` on too | ~60 tokens |
-| `aria-hybrid-pov` | off | 👀 Hybrid POV | ~40 tokens |
-| `aria-anthro` | off | 🐺 Anthro Vocals | ~300 tokens |
-| `aria-scent` | on | 👃 Scent Occasions | ~70 tokens |
-| `aria-time-place` | off | ⏰ Time & Place status line | ~60 tokens, plus ~30 in every reply |
-| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~820 tokens, plus ~90 in every reply |
-| `aria-bonds` | off | 🥰 Bonds Lite | ~240 tokens, plus ~20 to 40 in every reply |
-| `aria-patch-glm-qwen` | off | 🩹 GLM / Kimi / Qwen patch | ~95 tokens |
-| `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 Flash patch | ~95 tokens |
+| `aria-adult` | off | 🔞 Adult Context, for adults only | ~120 tokens |
+| `aria-freaky` | off | 😈 Freaky Override, needs `aria-adult` on too | ~45 tokens |
+| `aria-hybrid-pov` | off | 👀 Hybrid POV | ~30 tokens |
+| `aria-anthro` | off | 🐺 Anthro Vocals | ~125 tokens |
+| `aria-scent` | on | 👃 Scent Occasions | ~60 tokens |
+| `aria-time-place` | off | ⏰ Time & Place status line | ~55 tokens, plus ~30 in every reply |
+| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~715 tokens, plus ~90 in every reply |
+| `aria-bonds` | off | 🥰 Bonds Lite | ~220 tokens, plus ~20 to 40 in every reply |
+| `aria-patch-glm-qwen` | off | 🩹 GLM / Kimi / Qwen patch | ~60 tokens |
+| `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 Flash patch | ~75 tokens |
+| `aria-flash-gate` | off | 🔦 Flash Gate for GLM Flash and MiMo V2.6 Flash; runs alongside a patch | ~85 tokens |
 
 The Claude 5 and Gemini patches live only in the Chat Completions file, since those models aren't run through Text Completion. Use one patch at most, same as always!
 
 ### Fitting into 32k
 
-My lean start uses about 2,200 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
+My lean start uses about 1,550 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
 
 - **32k:** stay lean. Turn on The Logic Core only if your model has 24B parameters or more and a few extra seconds per reply don't bother you.
 - **64k or more:** switch on `aria-fate` and `aria-time-place` together for the full world engine, and add `aria-bonds` if you love relationship drama~
@@ -329,18 +331,20 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 
 | Chat Completions configuration | Tokens |
 |---|---|
-| Core (everything that ships ON except Fate and Time & Place) | ~2,510 |
-| Shipped default | ~3,430 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags and the largest model patch) | ~4,350 |
-| Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~196 |
+| Core (everything that ships ON except Fate and Time & Place) | ~1,760 |
+| Shipped default | ~2,560 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~3,270 |
+| Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~126 |
+
+For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 86% smaller.
 
 The Text Completions file, measured the same way:
 
 | Text Completions configuration | Tokens |
 |---|---|
-| Lean start, as shipped for 32k | ~2,184 |
-| Plus The Logic Core, Fate and Time & Place | ~3,470 |
-| Everything ON (largest patch included) | ~4,380 |
+| Lean start, as shipped for 32k | ~1,535 |
+| Plus The Logic Core, Fate and Time & Place | ~2,606 |
+| Everything ON (largest patch and 🔦 Flash Gate included) | ~3,309 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), or if anything would break prompt caching. Run it after every edit.
 
@@ -357,14 +361,14 @@ The script also fails if anything goes over 4,500 tokens, if a tag or label is r
 | 7 | 🐺 Anthro Vocals | system block | off |
 | 8 | 🖋️ Anti-Slop Codex, 👃 Scent Occasions | system block | on |
 | 9 | ⏰ Time & Place, 🎲 Fate & Chekhov Ledger | system block | on |
-| 10 | 🥰 Bonds Lite, 🩹 Model Patches | system block | off |
+| 10 | 🥰 Bonds Lite, 🩹 Model Patches, 🔦 Flash Gate (setter only) | system block | off |
 | 11 | 📖 Story Context | system block | on |
 | 12 | Persona, card, personality, scenario, examples, then World Info before and after | system block | on |
 | 13 | Chat History | | on |
-| 14 | 🚪 Last-Mile Gate | In-Chat depth 0, system | on |
-| 15 | 🧠 The Logic Core | In-Chat depth 0, assistant | on |
-| 16 | 🧠 Logic Core twin, Reduce Reasoning | In-Chat depth 0, user | off |
-| 17 | 🪞 Impersonation Turn | In-Chat depth 0, user, Impersonate only | on |
+| 14 | 🪞 Impersonation Turn | In-Chat depth 0, user, Impersonate only; it sits before the gate so it can clear the Fate and ledger lines on Impersonate | on |
+| 15 | 🚪 Last-Mile Gate | In-Chat depth 0, system | on |
+| 16 | 🧠 The Logic Core | In-Chat depth 0, assistant | on |
+| 17 | 🧠 Logic Core twin, Reduce Reasoning | In-Chat depth 0, user | off |
 
 ### Cache-first rules
 
@@ -387,7 +391,7 @@ These are checked against SillyTavern's own source code:
 
 ### Wiring (Chat Completions)
 
-The Main Prompt's first line blanks seven helper variables every turn, so a switched-off module leaves nothing behind:
+The Main Prompt's first line blanks every helper variable each turn, so a switched-off module leaves nothing behind. The Text Completions file uses the very same variables: its System Prompt is read before its post-history block, so the switched-on modules set them there.
 
 | Variable | Set by | Read by |
 |---|---|---|
@@ -397,6 +401,11 @@ The Main Prompt's first line blanks seven helper variables every turn, so a swit
 | `ariaModeLine` | 🔞 Adult Context, overwritten by 😈 Freaky | 🧠 The Logic Core |
 | `ariaScentGate` | 👃 Scent Occasions | 🚪 Last-Mile Gate |
 | `ariaThinkOpen`, `ariaThinkClose` | 🏷️ Logic Core Tags | 🧠 The Logic Core (`{{#if .ariaThinkOpen}}`) |
+| `ariaLedgerLine`, `ariaLedgerGate` | 🎲 Fate, or 🥰 Bonds Lite when Fate is off (Bonds adds its field to Fate's when both are on) | 🧠 The Logic Core, 🚪 Last-Mile Gate |
+| `ariaFlashGate` | 🔦 Flash Gate | 🚪 Last-Mile Gate |
+| `logicCoreLines` | 🧠 The Logic Core itself: 7 plus one per Mode, Fate, Bonds and Ledger line | 🧠 The Logic Core ("N dashed lines") |
+
+On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and dice variables before the gate and The Logic Core read them.
 
 ### Where each feature lives
 
@@ -409,6 +418,7 @@ The Main Prompt's first line blanks seven helper variables every turn, so a swit
 
 ### Known risks to test
 
+- Beta 2 squeezed every module by about a quarter compared with beta 1, with reviewers checking each rule against Realistic Frankenstein along the way. Compare a few scenes with beta 1 and report anything that feels flatter or gets forgotten.
 - Fate is the most compressed piece. Mid-size or quantized models may forget to age entries or let Bullets pile up, so try it on a strong model first.
 - With fewer repair examples, some Claude habits may creep back. The Claude patch and the gate are the first line of defence.
 - A card whose first message shows no thoughts may make the narration go a little flat.
