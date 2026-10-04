@@ -31,7 +31,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,200 tokens as shipped and about 4,100 with every single toggle on. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,250 tokens as shipped and about 4,150 with every single toggle on. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -105,7 +105,7 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 - 🖋️ **Anti-Slop Codex** (ON). My style rulebook against tired AI habits: "it wasn't anger, it was grief", choppy one-word sentences, characters announcing "here's the deal", shopkeepers who only talk about their shop, and overused words like "palpable" or "a beat".
 - 👃 **Scent Occasions** (ON). Stops the AI from smelling everything! Smells only appear at meals, rituals or when something strong is right there, and at most once per scene. Gemini users, switch this OFF.
 - ⏰ **Time & Place** (ON). Every reply starts with a little status line showing the time, day, date, place and weather in °C and °F, so time moves realistically and characters react to the cold or the late hour.
-- 🎲 **Fate & Chekhov Ledger** (ON). My world engine! Every turn I roll three hidden dice to decide whether the world does something on its own: everyday background life, a small hiccup or, rarely, a big event. I also remember setups that should pay off later, deliver news the way your setting would (a radio, a rumour, a phone notification), keep appointments and make your actions ripple outward. I never decide your next move for you. My memory lives in a tiny folded 🎲 line at the end of each reply, so please leave that line in the chat.
+- 🎲 **Fate & Chekhov Ledger** (ON). My world engine! Every turn I roll three hidden dice to decide whether the world does something on its own: everyday background life, a small hiccup or, rarely, a big event. I also remember setups that should pay off later, deliver news the way your setting would (a radio, a rumour, a phone notification), keep appointments and make your actions ripple outward. I never decide your next move for you. Scene-breaking surprises, like someone getting hurt or everyone being sent outside, only happen on the rarest roll, so the scene you're in carries on. My memory lives in a tiny folded 🎲 line at the end of each reply, so please leave that line in the chat.
 - 📖 **Story Context** (ON). A tiny header telling the AI that what follows is your persona, the character card, the scenario, examples and lorebook.
 - 🚪 **Last-Mile Gate** (ON). The final check right before a reply goes out. It runs through the anti-slop list, picks the first letter for any brand-new character's name (no more endless Elaras!) and carries this turn's dice.
 - 🧠 **The Logic Core** (ON). My planning step! Before writing, the AI jots a few quick lines: your OOC requests, where everyone is, what each character knows and wants, how they sound, what happens next, then a last check. It arrives as the AI's own message after the chat, which helps many models settle into the scene.
@@ -200,7 +200,7 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 | `aria-anthro` | off | 🐺 Anthro Vocals | ~300 tokens |
 | `aria-scent` | on | 👃 Scent Occasions | ~70 tokens |
 | `aria-time-place` | off | ⏰ Time & Place status line | ~60 tokens, plus ~30 in every reply |
-| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~630 tokens, plus ~80 in every reply |
+| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~700 tokens, plus ~80 in every reply |
 | `aria-bonds` | off | 🥰 Bonds Lite | ~210 tokens, plus ~20 to 40 in every reply |
 | `aria-patch-glm-qwen` | off | 🩹 GLM / Kimi / Qwen patch | ~95 tokens |
 | `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 Flash patch | ~95 tokens |
@@ -291,8 +291,8 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 | Chat Completions configuration | Tokens |
 |---|---|
 | Core (everything that ships ON except Fate and Time & Place) | ~2,470 |
-| Shipped default | ~3,180 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags and the largest model patch) | ~4,085 |
+| Shipped default | ~3,250 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags and the largest model patch) | ~4,155 |
 | Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~196 |
 
 The Text Completions file, measured the same way:
@@ -300,8 +300,8 @@ The Text Completions file, measured the same way:
 | Text Completions configuration | Tokens |
 |---|---|
 | Lean start, as shipped for 32k | ~2,184 |
-| Plus The Logic Core, Fate and Time & Place | ~3,217 |
-| Everything ON (largest patch included) | ~4,113 |
+| Plus The Logic Core, Fate and Time & Place | ~3,290 |
+| Everything ON (largest patch included) | ~4,185 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), or if anything would break prompt caching. Run it after every edit.
 
