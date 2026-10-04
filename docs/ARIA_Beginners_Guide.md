@@ -31,7 +31,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,250 tokens as shipped and about 4,150 with every single toggle on. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,300 tokens as shipped and about 4,200 with every single toggle on. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -200,7 +200,7 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 | `aria-anthro` | off | 🐺 Anthro Vocals | ~300 tokens |
 | `aria-scent` | on | 👃 Scent Occasions | ~70 tokens |
 | `aria-time-place` | off | ⏰ Time & Place status line | ~60 tokens, plus ~30 in every reply |
-| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~700 tokens, plus ~80 in every reply |
+| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~770 tokens, plus ~80 in every reply |
 | `aria-bonds` | off | 🥰 Bonds Lite | ~210 tokens, plus ~20 to 40 in every reply |
 | `aria-patch-glm-qwen` | off | 🩹 GLM / Kimi / Qwen patch | ~95 tokens |
 | `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 Flash patch | ~95 tokens |
@@ -291,8 +291,8 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 | Chat Completions configuration | Tokens |
 |---|---|
 | Core (everything that ships ON except Fate and Time & Place) | ~2,470 |
-| Shipped default | ~3,250 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags and the largest model patch) | ~4,155 |
+| Shipped default | ~3,320 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags and the largest model patch) | ~4,225 |
 | Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~196 |
 
 The Text Completions file, measured the same way:
@@ -300,8 +300,8 @@ The Text Completions file, measured the same way:
 | Text Completions configuration | Tokens |
 |---|---|
 | Lean start, as shipped for 32k | ~2,184 |
-| Plus The Logic Core, Fate and Time & Place | ~3,290 |
-| Everything ON (largest patch included) | ~4,185 |
+| Plus The Logic Core, Fate and Time & Place | ~3,355 |
+| Everything ON (largest patch included) | ~4,250 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), or if anything would break prompt caching. Run it after every edit.
 
