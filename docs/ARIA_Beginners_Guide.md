@@ -1,5 +1,7 @@
 # 🎤 ARIA's Beginner's Guide
 
+*For ARIA 1.0 beta 1, built for SillyTavern 1.19.0 or newer.*
+
 <p align="center">
     <img src="../artwork/Aria_bday.png" alt="Aria" width="250">
 </p>
@@ -31,7 +33,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,300 tokens as shipped and about 4,200 with every single toggle on. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,300 tokens as shipped and about 4,200 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,200. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -41,7 +43,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **Chat Completion and Text Completion** | The two ways SillyTavern can talk to a model. Chat Completion is for online services like Claude, Gemini or OpenRouter. Text Completion is for models running on your own computer through apps like KoboldCpp or llama.cpp. I come as one file for each! |
 | **Context window** | How much text a model can hold in its memory at once, counted in tokens. A 32k window fits about 24,000 words: my rules, your character card and as much of the chat as still fits. |
 | **Instruct template** | The chat format a local model was trained on, like ChatML, Llama 3, Mistral or Gemma. Text Completion setups need the right one picked by hand. |
-| **Regex scripts** | Tiny find-and-replace helpers that ship inside the preset. Mine fold the AI's thinking into a neat box and tidy up after Impersonate. |
+| **Regex scripts** | Tiny find-and-replace helpers that ship inside the preset. Mine fold the AI's thinking into a neat box and tidy up after Impersonate. Only the Chat Completions file has them. |
 
 ---
 
@@ -49,10 +51,10 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 
 Sunna timed this once and finished in under two minutes, and she was also tuning her guitar at the same time. You've got this! 💪
 
-These steps are for the Chat Completions file. Running a model on your own computer instead? Hop over to [section 6](#6-run-me-on-your-own-computer)!
+These steps are for the Chat Completions file. Running a model on your own computer instead? Hop over to [section 6](#6-run-me-on-your-own-computer)! Either way, you need SillyTavern 1.19.0 or newer; its version shows on the welcome screen.
 
 1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` from this repository. On GitHub, open the file and press the "Download raw file" button.
-2. **Connect and import.** Open **API Connections** (the plug icon at the top), set **API** to **Chat Completion**, pick your provider and paste your key. Then open **AI Response Configuration** (the sliders icon at the top left), press **Import preset** next to the preset dropdown and choose the file.
+2. **Connect and import.** Open **API Connections** (the plug icon at the top), set **API** to **Chat Completion**, pick your provider and paste your key. Then open **AI Response Configuration** (the sliders icon at the top left), press **Import preset** next to the preset dropdown and choose the file. The prompt list below the sliders should start with 🌳 README and ⚡ ARIA Main Prompt. If you see a plain "Main Prompt" and "NSFW Prompt" instead, you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
 3. **Say YES to the regex scripts.** SillyTavern asks whether to allow the scripts that come with the preset. Allow them, or my thinking box and the Impersonate clean-up won't work.
 4. **Check the macro engine.** Open **User Settings** and make sure **Experimental Macro Engine** is ticked. New versions tick it for you. If you had to tick it yourself, reload the page afterwards. My dice and switches can't work without it!
 5. **Pick a character** and say hi~
@@ -69,7 +71,7 @@ Every Construct thinks a little differently, and AI models are the same! First, 
 
 **Style B: for stubborn models.** Use this when a model's own thinking rambles for minutes, flattens the characters into cardboard or spills into the reply:
 
-1. In **AI Response Configuration**, untick **Request Model Reasoning** and set **Reasoning Effort** to **Minimum**. (Claude keeps its own thinking on whatever you set here, so Claude users stay on style A.)
+1. In **AI Response Configuration**, untick **Request Model Reasoning** and set **Reasoning Effort** to **Minimum**. (Claude keeps its own thinking on whatever you set here, so Claude users stay on style A.) On OpenRouter, if the model answers with an error after this, set **Reasoning Effort** to **Auto** and keep **Request Model Reasoning** unticked.
 2. Switch 🏷️ **Logic Core Tags** ON.
 3. Open **Advanced Formatting** (the big "A" icon) and find the **Reasoning** section. Tick **Auto-Parse** and leave **Add to Prompts** unticked. Then click **Reasoning Formatting** to open it, and set **Prefix** to `<thinking>` and **Suffix** to `</thinking>`.
 
@@ -169,12 +171,13 @@ Running a model at home with KoboldCpp, llama.cpp, TabbyAPI or text-generation-w
 
 1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` from this repository.
 2. **Connect.** In **API Connections** (the plug icon), set **API** to **Text Completion**, pick your backend and connect.
-3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. It fills in the Context Template and the System Prompt for you.
+3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. A window asks what to import: keep **Context Template** and **System Prompt** ticked and press **Import**. Both dropdowns should now read **ARIA 1.0 beta 1 (Text Completions)**. If they say "Geechan - Universal Roleplay", you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
 4. **Switch on Instruct Mode.** In the same panel, make sure the **System Prompt** is switched on. Then press the power button next to the **Instruct Template** title to switch on Instruct Mode, and pick the template that matches your model (ChatML, Llama 3, Mistral, Gemma and so on). The model's download page usually names it. Leave the link icon next to it (**Bind to Context**) off, so it keeps my Context Template. I don't bring an instruct template myself, because every model family speaks its own format.
 5. **Check the macro engine** in **User Settings**, just like in section 2: **Experimental Macro Engine** must be ticked.
 
-### Four settings that keep me happy
+### Five settings that keep me happy
 
+- **Room to answer:** in **AI Response Configuration**, set **Response (tokens)** to at least 600, or 800 with The Logic Core on. SillyTavern starts at 350, which cuts my replies off before the 🎲 and 💚 lines at the end.
 - **Memory size:** in **AI Response Configuration**, tick **Unlocked** under **Context (tokens)** and set it to the size your backend loaded, like 32768. SillyTavern starts at 8,192, so skipping this step leaves most of your 32k unused! On KoboldCpp or llama.cpp you can tick **Derive context size from backend** in **API Connections** instead.
 - **One copy of the examples:** in **User Settings**, under **Chat/Message Handling**, set **Example Messages Behavior** to **Never include examples**. My story string already brings your card's example dialogue, and this stops SillyTavern from sending a second copy.
 - **My rules stay mine:** in **User Settings**, untick **Prefer Char. Prompt** and **Prefer Char. Instructions**. Otherwise a card with its own System Prompt or Post-History Instructions replaces my whole rulebook, switches included.
@@ -188,12 +191,12 @@ Text Completions has no toggle list, so my switches live in the **Prompt Content
 {{.aria-fate = off}}
 ```
 
-Change `off` to `on` (or the other way round) and the change kicks in on your next reply. Press the save icon (**Update current prompt**) as well, so your choices survive picking my System Prompt again from the list. Every line carries a little note, so you can't get lost! The full list:
+Change `off` to `on` (or the other way round) and the change kicks in on your next reply. Press the save icon (**Update current prompt**) as well, so your choices survive picking my System Prompt again from the list. Every line carries a little note, so you can't get lost! Updating to a newer build later? Copy your switch lines and your `player-instructions` and `player-posthistory` text somewhere safe first, because importing the new file replaces them. The full list:
 
 | Switch | Starts | What it does | What it costs |
 |---|---|---|---|
-| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~310 tokens per turn, plus a few seconds of planning |
-| `aria-thinking-tags` | on | With The Logic Core on: plan inside `<thinking>` tags (on) or inside the model's own `<think>` reasoning (off) | ~13 tokens |
+| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~320 tokens per turn as shipped, plus a few seconds of planning |
+| `aria-thinking-tags` | on | With The Logic Core on: plan inside `<thinking>` tags (on) or inside the model's own `<think>` reasoning (off) | ~13 tokens, already counted in the Logic Core's 320 |
 | `aria-adult` | off | 🔞 Adult Context, for adults only | ~165 tokens |
 | `aria-freaky` | off | 😈 Freaky Override, needs `aria-adult` on too | ~60 tokens |
 | `aria-hybrid-pov` | off | 👀 Hybrid POV | ~40 tokens |
@@ -209,7 +212,7 @@ The Claude 5 and Gemini patches live only in the Chat Completions file, since th
 
 ### Fitting into 32k
 
-My lean start uses about 2,200 tokens. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 8,000 tokens, a quarter of a 32k window! My advice:
+My lean start uses about 2,200 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 8,000 tokens, a quarter of a 32k window! My advice:
 
 - **32k:** stay lean. Turn on The Logic Core only if your model has 24B parameters or more and a few extra seconds per reply don't bother you.
 - **64k or more:** switch on `aria-fate` and `aria-time-place` together for the full world engine, and add `aria-bonds` if you love relationship drama~
@@ -228,7 +231,7 @@ Your backend remembers the prompt it read last time and only reads the new part,
 - In **KoboldCpp**, keep **FastForwarding** and **ContextShift** on, as they are by default. ContextShift lets old messages drop out of a full context without rereading everything, as long as the start of the prompt stays the same.
 - Put lorebook entries that come and go on "@D ⚙️" with depth 0, or make them constant. I already placed the lorebook after the card and the examples, right before the chat.
 - Keep the Author's Note off or at depth 0.
-- Keep **Example Messages Behavior** on **Never include examples** (see the four settings above), so the examples sit still inside my story string.
+- Keep **Example Messages Behavior** on **Never include examples** (see the five settings above), so the examples sit still inside my story string.
 - Try not to flip switches mid-chat, because each flip makes the backend reread everything once.
 
 ### What's different from the Chat Completions file?
@@ -252,10 +255,10 @@ The macro engine is off. Tick **Experimental Macro Engine** in User Settings and
 In Advanced Formatting, tick **Auto-Parse**, open **Reasoning Formatting** and set **Prefix** and **Suffix** to your tags (section 3, style B). Check that the preset's regex scripts are allowed too, under **Extensions** → **Regex**. On the Text Completions file there are no scripts, so the Prefix and Suffix from section 6 do the whole job.
 
 **The model's thinking takes forever.**
-Switch to thinking style B, or turn on the GLM / Kimi / Qwen patch if you use one of those models. On Claude, stay on style A and set **Reasoning Effort** to **Low** instead, because Claude keeps thinking whichever setting you pick.
+Switch to thinking style B, or turn on the GLM / Kimi / Qwen patch if you use one of those models. On Claude, stay on style A and set **Reasoning Effort** to **Low** instead, because Claude keeps thinking whichever setting you pick. On the Text Completions file, set `aria-logic-core` to `off`, or set `aria-patch-glm-qwen` to `on` for those models.
 
 **The 🎲 line vanished and the world forgot what was going on.**
-Make sure 🎲 Fate & Chekhov Ledger is ON and that you didn't edit the line out of the AI's last reply. If you switched on the "Drop old ledgers" regex, switch it off again in **Extensions** → **Regex**. Also check that **Trim Incomplete Sentences** in **Advanced Formatting** is unticked, because it cuts that line in half.
+Make sure 🎲 Fate & Chekhov Ledger is ON and that you didn't edit the line out of the AI's last reply. If you switched on the "Drop old ledgers" regex, switch it off again in **Extensions** → **Regex**. Also check that **Trim Incomplete Sentences** in **Advanced Formatting** is unticked, because it cuts that line in half. On the Text Completions file, check that `aria-fate` is `on` and that **Response (tokens)** is large enough (section 6), since a reply cut off at the limit loses the 🎲 line.
 
 **A character suddenly speaks English in my Hungarian story.**
 Write your own messages in your story's language, or add an OOC note like `((OOC: the story is in Hungarian))`. The Main Prompt follows whatever language you use.
@@ -264,7 +267,7 @@ Write your own messages in your story's language, or add an OOC note like `((OOC
 Check that 😈 Freaky Override is OFF, because it makes everyone eager on purpose. On MiMo V2.6 Flash, switch on its model patch.
 
 **The model refuses or tiptoes around a scene.**
-Keep The Logic Core ON, since it helps a lot of models settle in. For mature scenes, 🔞 Adult Context must be ON. Some models refuse certain content no matter what any preset says, and when that happens a different model is the only real fix.
+Turn The Logic Core ON (on the Text Completions file, set `aria-logic-core` to `on`), since it helps a lot of models settle in. For mature scenes, 🔞 Adult Context must be ON. Some models refuse certain content no matter what any preset says, and when that happens a different model is the only real fix.
 
 **My local model takes ages to start every reply.**
 Your backend is rereading the whole prompt each turn. Go through the "Keep it fast" list in section 6, especially the lorebook and switch tips.
@@ -275,8 +278,12 @@ Set up Reasoning Formatting as shown in section 6. If the model still struggles,
 **After pressing Impersonate, the input box has junk in it.**
 Allow the preset's regex scripts in **Extensions** → **Regex**. They clean the Impersonate result for you. On the Text Completions file there are no scripts, so delete the leftovers by hand, or set `aria-logic-core` to `off`.
 
-**My rules, switches or dice do nothing with one particular card.**
+**(Text Completions file) My rules, switches or dice do nothing with one particular card.**
 That card brings its own System Prompt or Post-History Instructions, and SillyTavern uses them in place of mine. In **User Settings**, untick **Prefer Char. Prompt** and **Prefer Char. Instructions**, or add `{{original}}` to the card's own prompt so mine comes along.
+On the Chat Completions file, the Main Prompt and the Last-Mile Gate are locked against card overrides. Check instead that the card's own text doesn't contradict my rules, and that ⚡ ARIA Main Prompt and 🚪 Last-Mile Gate are still ON in the prompt manager.
+
+**There is no Experimental Macro Engine box in User Settings.**
+Your SillyTavern is too old for me. Update it to 1.19.0 or newer.
 
 ---
 
@@ -300,8 +307,8 @@ The Text Completions file, measured the same way:
 | Text Completions configuration | Tokens |
 |---|---|
 | Lean start, as shipped for 32k | ~2,184 |
-| Plus The Logic Core, Fate and Time & Place | ~3,355 |
-| Everything ON (largest patch included) | ~4,250 |
+| Plus The Logic Core, Fate and Time & Place | ~3,356 |
+| Everything ON (largest patch included) | ~4,252 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), or if anything would break prompt caching. Run it after every edit.
 
@@ -377,7 +384,7 @@ The Main Prompt's first line blanks seven helper variables every turn, so a swit
 
 ### Live test plan
 
-- **Plumbing:** with everything ON, open the prompt inspector twice in a row. The system block should match exactly, the dice and the name letter should change only in the last message, and Claude should report cache reads on the second turn. Switching Fate, Bonds, Adult, Freaky, Scent and Logic Core Tags off should remove their lines completely.
+- **Plumbing:** with everything ON, send two messages in a row and open each reply's **Prompt** button in the message menu, or install the Prompt Inspector extension from **Extensions** → **Download Extensions & Assets**. The system block should match exactly, and the dice and the name letter should change only in the last message. To confirm caching, look for cache-read tokens on the second request in the Anthropic Console logs (direct Claude) or on the OpenRouter Activity page (Claude through OpenRouter). Switching Fate, Bonds, Adult, Freaky, Scent and Logic Core Tags off should remove their lines completely.
 - **Claude 5 with its patch,** a two-character tavern scene over 30 turns: look for banned words, "it wasn't X, it was Y", choppy dialogue and "I respect that".
 - **Gemini with its patch and Scent OFF:** no smells at all, at most one question per reply, and clumsy human reactions to heavy news.
 - **GLM, Kimi or Qwen with their patch:** nervous characters keep their stammer; confident ones never mutter a filler word to themselves.
@@ -385,7 +392,19 @@ The Main Prompt's first line blanks seven helper variables every turn, so a swit
 - **Fate over 20 turns:** the thread counter climbs and closes by 8, World stays at five entries or fewer, "meet me at noon on Day 3" fires on time, and harm reaching the scene stays rare.
 - **Card fidelity:** a shy card stays shy under Adult Context, siblings recognise each other on turn 1, a drill sergeant keeps short orders, and a Hungarian chat stays free of English words.
 - **Impersonate:** the input box gets only your character's words, in their own person and tense.
+- **Text Completions, local 32k:** the System Prompt and story string in the Prompt itemization should match on two turns in a row, with only the dice and the new-name letter in the last block changing. Flipping each `aria-*` switch should add or remove only its own block. The KoboldCpp console should process only the new tokens each turn. With `aria-fate` on and Response (tokens) at 600 or more, the 🎲 line should survive 20 turns. With `aria-logic-core` on, the plan should fold into the reasoning box; note whether any of it reaches the input box after Impersonate.
 - **Blind A/B against your previous preset:** same three cards, 10 turns each on Claude 5 and Gemini, ranked by a reader who doesn't know which is which.
+
+### Reporting bugs (beta)
+
+Please open an issue on the [GitHub issues page](https://github.com/QuillFlash/ARIA/issues) and include:
+
+- the build: ARIA 1.0 beta 1, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
+- your SillyTavern version
+- your API source or local backend, and the model (plus the quant for local models)
+- your thinking style (A or B), or your `aria-*` switch lines on the Text Completions file
+- every toggle or switch you changed from the defaults
+- the prompt of the failing turn (the message's **Prompt** button) or an exported chat
 
 ---
 
