@@ -5,18 +5,18 @@
     <em>The image is the copyrighted work of HoYoverse/Cognosphere Pte. Ltd. and is used under fair use as part of a work that is considered fan fiction and is not affiliated with HoYoverse in any capacity. All rights reserved.</em>
 </p>
 
-## Quick start (ARIA 1.0 beta 1)
+## Quick start (ARIA 1.0 beta 2)
 
 - **Online models** (Claude, Gemini, DeepSeek, OpenRouter and similar): download `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` and follow [Install me in five steps](docs/ARIA_Beginners_Guide.md#2-install-me-in-five-steps).
 - **Local models** (KoboldCpp, llama.cpp, TabbyAPI, text-generation-webui): download `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` and follow [Run me on your own computer](docs/ARIA_Beginners_Guide.md#6-run-me-on-your-own-computer).
-- **You need** SillyTavern 1.19.0 or newer with **Experimental Macro Engine** ticked in User Settings. With the Chat Completions file, also allow the preset's regex scripts when SillyTavern asks. With the Text Completions file, import `regex/ARIA 1.0 Regex Scripts (Text Completions).json` under Extensions → Regex for the thinking box, the Fate & Routine and Bonds panels and the Impersonate clean-up.
+- **You need** SillyTavern 1.19.0 or newer with **Experimental Macro Engine** ticked in User Settings. With the Chat Completions file, also allow the preset's regex scripts when SillyTavern asks. With the Text Completions file, import `regex/ARIA 1.0 Regex Scripts (Text Completions).json` under Extensions → Regex. It brings the thinking box and the Impersonate clean-up, and it draws the Fate & Routine and Bonds panels.
 - **Something broke?** Check [Uh-oh! moments](docs/ARIA_Beginners_Guide.md#7-uh-oh-moments). The full [Beginner's Guide](docs/ARIA_Beginners_Guide.md) covers every toggle and switch.
 
 ## Reporting bugs (beta)
 
 Please open an issue on the [GitHub issues page](https://github.com/QuillFlash/ARIA/issues) and include:
 
-- the build: ARIA 1.0 beta 1, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
+- the build: ARIA 1.0 beta 2, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
 - your SillyTavern version
 - your API source or local backend, and the model (plus the quant for local models)
 - your thinking style (A or B from the guide), or your `aria-*` switch lines on the Text Completions file

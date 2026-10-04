@@ -2,8 +2,25 @@
     {
         "id": "b75828b7-ad31-5db1-986b-b7b839f6ff55",
         "scriptName": "ARIA - Fold thinking into a Thoughts box (display only)",
-        "findRegex": "/(?:<\\s{0,8}(think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue)\\b[^>]{0,120}>([\\s\\S]{0,20000}?)<\\s{0,8}\\/\\s{0,8}\\1[^>]{0,120}>|###\\s{0,8}(?:Internal Monologue|Reasoning|Thoughts?|Thinking)\\s{0,8}\\n?([\\s\\S]{0,20000}?)###\\s{0,8}(?:Response|Output|Narrative|Final Answer)\\s{0,8})/gi",
+        "findRegex": "/(?:<\\s{0,8}(think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>([\\s\\S]{0,20000}?)<\\s{0,8}\\/\\s{0,8}\\1[^>]{0,120}>|###\\s{0,8}(?:Internal Monologue|Reasoning|Thoughts?|Thinking)\\s{0,8}\\n?([\\s\\S]{0,20000}?)###\\s{0,8}(?:Response|Output|Narrative|Final Answer)\\s{0,8})/gi",
         "replaceString": "<details style=\"background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.3); border-left: 4px solid #a855f7; border-radius: 8px; margin: 10px 0; padding: 10px 14px; font-size: 0.92em;\"><summary style=\"cursor: pointer; font-weight: bold; color: #c084fc; user-select: none;\">💭 Thoughts</summary>\n\n$2$3\n</details>",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "56f7108e-7214-5e25-914e-15fe6f00585b",
+        "scriptName": "ARIA - Fold a plan whose opening and closing tags differ (display only)",
+        "findRegex": "/^\\s*<\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>([\\s\\S]{0,20000}?)<\\s{0,8}\\/\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>/i",
+        "replaceString": "<details style=\"background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.3); border-left: 4px solid #a855f7; border-radius: 8px; margin: 10px 0; padding: 10px 14px; font-size: 0.92em;\"><summary style=\"cursor: pointer; font-weight: bold; color: #c084fc; user-select: none;\">💭 Thoughts</summary>\n\n$1\n</details>",
         "trimStrings": [],
         "placement": [
             2
@@ -19,7 +36,7 @@
     {
         "id": "ea9f8421-1eb0-5312-8df6-81d7c8d95761",
         "scriptName": "ARIA - Fold an untagged Logic Core plan into a Thoughts box (display only)",
-        "findRegex": "/^\\s*(?:<(?:thinking|think)>\\s*)?((?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:OOC|Scene|Knows)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?go(?:\\*\\*)?[ \\t]*[.!]?)[ \\t]*(?:\\n[ \\t]*)?(?:<\\/(?:thinking|think)>)?[ \\t]*(?=\\n|$)/i",
+        "findRegex": "/^\\s*(?:<(?:thinking|think|logic_core)>\\s*)?((?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:OOC|Scene|Knows)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:Scene|Knows|Mode|Voice|Move|Fate|Bonds|Fresh|Check)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?go(?:\\*\\*)?[ \\t]*[.!]?(?=[ \\t]*(?:<\\/(?:thinking|think|logic_core)>)?[ \\t]*(?:\\n|$)))[ \\t]*(?:\\n[ \\t]*)?(?:<\\/(?:thinking|think|logic_core)>)?[ \\t]*(?=\\n|$)/i",
         "replaceString": "<details style=\"background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.3); border-left: 4px solid #a855f7; border-radius: 8px; margin: 10px 0; padding: 10px 14px; font-size: 0.92em;\"><summary style=\"cursor: pointer; font-weight: bold; color: #c084fc; user-select: none;\">💭 Thoughts</summary>\n\n$1\n</details>",
         "trimStrings": [],
         "placement": [
@@ -36,7 +53,25 @@
     {
         "id": "31641aab-a9dd-5ab1-b456-25bc7a65f29f",
         "scriptName": "ARIA - Keep thinking out of the prompt (all depths, cache-safe)",
-        "findRegex": "/(?:<\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue)\\b[^>]{0,120}>[\\s\\S]{0,20000}?<\\s{0,8}\\/\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue)[^>]{0,120}>|###\\s{0,8}(?:Internal Monologue|Reasoning|Thoughts?|Thinking)\\s{0,8}[\\s\\S]{0,20000}?###\\s{0,8}(?:Response|Output|Narrative|Final Answer)\\s{0,8})/gi",
+        "findRegex": "/(?:<\\s{0,8}(think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>[\\s\\S]{0,20000}?<\\s{0,8}\\/\\s{0,8}\\1[^>]{0,120}>|###\\s{0,8}(?:Internal Monologue|Reasoning|Thoughts?|Thinking)\\s{0,8}[\\s\\S]{0,20000}?###\\s{0,8}(?:Response|Output|Narrative|Final Answer)\\s{0,8})/gi",
+        "replaceString": "",
+        "trimStrings": [],
+        "placement": [
+            2,
+            1
+        ],
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "2af3f2db-6ca3-54bb-9bb8-40651725529a",
+        "scriptName": "ARIA - Keep mismatched thinking tags out of the prompt (all depths, cache-safe)",
+        "findRegex": "/<\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>[\\s\\S]{0,20000}?<\\s{0,8}\\/\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)[^>]{0,120}>/gi",
         "replaceString": "",
         "trimStrings": [],
         "placement": [
@@ -54,7 +89,7 @@
     {
         "id": "83c16b20-cc5c-5e13-ae20-364dc0674d00",
         "scriptName": "ARIA - Keep an untagged Logic Core plan out of the prompt (all depths, cache-safe)",
-        "findRegex": "/^\\s*(?:<(?:thinking|think)>\\s*)?((?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:OOC|Scene|Knows)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?go(?:\\*\\*)?[ \\t]*[.!]?)[ \\t]*(?:\\n[ \\t]*)?(?:<\\/(?:thinking|think)>)?[ \\t]*(?=\\n|$)/i",
+        "findRegex": "/^\\s*(?:<(?:thinking|think|logic_core)>\\s*)?((?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:OOC|Scene|Knows)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:Scene|Knows|Mode|Voice|Move|Fate|Bonds|Fresh|Check)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?go(?:\\*\\*)?[ \\t]*[.!]?(?=[ \\t]*(?:<\\/(?:thinking|think|logic_core)>)?[ \\t]*(?:\\n|$)))[ \\t]*(?:\\n[ \\t]*)?(?:<\\/(?:thinking|think|logic_core)>)?[ \\t]*(?=\\n|$)/i",
         "replaceString": "",
         "trimStrings": [],
         "placement": [
@@ -241,7 +276,7 @@
     {
         "id": "96ed1fec-0048-56d5-8aed-7d5eb5642603",
         "scriptName": "ARIA Impersonate - strip reasoning through its closing tag",
-        "findRegex": "/^[\\s\\S]*<\\/(?:thinking|think)>[ \\t]*\\n*/i",
+        "findRegex": "/^[\\s\\S]*<\\/(?:thinking|think|logic_core)>[ \\t]*\\n*/i",
         "replaceString": "",
         "trimStrings": [],
         "placement": [
@@ -258,7 +293,7 @@
     {
         "id": "1af76660-8868-5ca2-90c7-4c227605cc8c",
         "scriptName": "ARIA Impersonate - strip an unclosed <thinking>/<think> plan",
-        "findRegex": "/^\\s*<(?:thinking|think)>[\\s\\S]*?\\n-\\s*go\\b[^\\n]*\\n*/i",
+        "findRegex": "/^\\s*<(?:thinking|think|logic_core)>[\\s\\S]*?\\n-\\s*go\\b[^\\n]*\\n*/i",
         "replaceString": "",
         "trimStrings": [],
         "placement": [
@@ -275,7 +310,7 @@
     {
         "id": "d7a2ca91-3964-52e8-b335-ccb53daa6b83",
         "scriptName": "ARIA Impersonate - strip an untagged plan",
-        "findRegex": "/^\\s*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:OOC|Scene|Knows)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?go(?:\\*\\*)?[ \\t]*[.!]?[ \\t]*\\n*/i",
+        "findRegex": "/^\\s*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:OOC|Scene|Knows)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:Scene|Knows|Mode|Voice|Move|Fate|Bonds|Fresh|Check)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?go(?:\\*\\*)?[ \\t]*[.!]?(?=[ \\t]*(?:<\\/(?:thinking|think|logic_core)>)?[ \\t]*(?:\\n|$))[ \\t]*\\n*/i",
         "replaceString": "",
         "trimStrings": [],
         "placement": [
