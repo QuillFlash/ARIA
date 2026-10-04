@@ -76,6 +76,13 @@ def render(s, state, rng):
         elif m.startswith('setvar::'):
             name, _, value = m[len('setvar::'):].partition('::')
             state[name] = render(value, state, rng)
+        elif m.startswith('addvar::'):
+            name, _, value = m[len('addvar::'):].partition('::')
+            value = render(value, state, rng)
+            try:
+                state[name] = str(int(state.get(name) or 0) + int(value))
+            except ValueError:
+                state[name] = (state.get(name) or '') + value
         elif m.startswith('getvar::'):
             out.append(state.get(m[len('getvar::'):], ''))
         elif m.startswith('.') and '=' in m:
