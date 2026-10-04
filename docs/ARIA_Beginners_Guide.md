@@ -1,6 +1,6 @@
 # 🎤 ARIA's Beginner's Guide
 
-*For ARIA 1.0 beta 2, built for SillyTavern 1.19.0 or newer.*
+*For ARIA 1.0 beta 3, built for SillyTavern 1.19.0 or newer.*
 
 <p align="center">
     <img src="../artwork/Aria_bday.png" alt="Aria" width="250">
@@ -191,7 +191,7 @@ Running a model at home with KoboldCpp, llama.cpp, TabbyAPI or text-generation-w
 
 1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` from this repository.
 2. **Connect.** In **API Connections** (the plug icon), set **API** to **Text Completion**, pick your backend and connect.
-3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. A window asks what to import: keep **Context Template** and **System Prompt** ticked and press **Import**. Both dropdowns should now read **ARIA 1.0 beta 2 (Text Completions)**. If they say "Geechan - Universal Roleplay", you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
+3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. A window asks what to import: keep **Context Template** and **System Prompt** ticked and press **Import**. Both dropdowns should now read **ARIA 1.0 beta 3 (Text Completions)**. If they say "Geechan - Universal Roleplay", you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
 4. **Switch on Instruct Mode.** In the same panel, make sure the **System Prompt** is switched on. Then press the power button next to the **Instruct Template** title to switch on Instruct Mode, and pick the template that matches your model (ChatML, Llama 3, Mistral, Gemma and so on). The model's download page usually names it. Leave the link icon next to it (**Bind to Context**) off, so it keeps my Context Template. I don't bring an instruct template myself, because every model family speaks its own format.
 5. **Check the macro engine** in **User Settings**, just like in section 2: **Experimental Macro Engine** must be ticked.
 
@@ -418,7 +418,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and d
 
 ### Known risks to test
 
-- Beta 2 squeezed every module by about a quarter compared with beta 1, with reviewers checking each rule against Realistic Frankenstein along the way. Compare a few scenes with beta 1 and report anything that feels flatter or gets forgotten.
+- Beta 3 squeezed every module by about a quarter compared with beta 2, with reviewers checking each rule against Realistic Frankenstein along the way. Compare a few scenes with beta 2 and report anything that feels flatter or gets forgotten.
 - Fate is the most compressed piece. Mid-size or quantized models may forget to age entries or let Bullets pile up, so try it on a strong model first.
 - With fewer repair examples, some Claude habits may creep back. The Claude patch and the gate are the first line of defence.
 - A card whose first message shows no thoughts may make the narration go a little flat.
@@ -445,7 +445,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and d
 
 Please open an issue on the [GitHub issues page](https://github.com/QuillFlash/ARIA/issues) and include:
 
-- the build: ARIA 1.0 beta 2, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
+- the build: ARIA 1.0 beta 3, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
 - your SillyTavern version
 - your API source or local backend, and the model (plus the quant for local models)
 - your thinking style (A or B), or your `aria-*` switch lines on the Text Completions file
