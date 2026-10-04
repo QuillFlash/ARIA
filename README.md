@@ -9,7 +9,7 @@
 
 - **Online models** (Claude, Gemini, DeepSeek, OpenRouter and similar): download `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` and follow [Install me in five steps](docs/ARIA_Beginners_Guide.md#2-install-me-in-five-steps).
 - **Local models** (KoboldCpp, llama.cpp, TabbyAPI, text-generation-webui): download `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` and follow [Run me on your own computer](docs/ARIA_Beginners_Guide.md#6-run-me-on-your-own-computer).
-- **You need** SillyTavern 1.19.0 or newer with **Experimental Macro Engine** ticked in User Settings. With the Chat Completions file, also allow the preset's regex scripts when SillyTavern asks.
+- **You need** SillyTavern 1.19.0 or newer with **Experimental Macro Engine** ticked in User Settings. With the Chat Completions file, also allow the preset's regex scripts when SillyTavern asks. With the Text Completions file, import `regex/ARIA 1.0 Regex Scripts (Text Completions).json` under Extensions → Regex for the thinking box, the Fate & Routine and Bonds panels and the Impersonate clean-up.
 - **Something broke?** Check [Uh-oh! moments](docs/ARIA_Beginners_Guide.md#7-uh-oh-moments). The full [Beginner's Guide](docs/ARIA_Beginners_Guide.md) covers every toggle and switch.
 
 ## Reporting bugs (beta)
