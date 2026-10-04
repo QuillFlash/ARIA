@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """ARIA budget and cache checker.
 
-Simulates one SillyTavern turn for the Chat Completions preset, counts the
-rendered tokens (characters / 4, comments stripped) for three configurations,
-and fails when something would break the budget, the wiring or prompt caching.
+Simulates SillyTavern turns for ARIA's Chat Completions and Text Completions
+presets, counts the rendered tokens (characters / 4, comments stripped) for a
+few configurations, and fails when something would break the budget, the
+wiring or prompt caching.
 
-Usage: python3 tools/aria_budget.py [path/to/preset.json]
+Usage: python3 tools/aria_budget.py [preset.json ...]   (no arguments: both ARIA presets)
 """
 import json
 import random
@@ -14,10 +15,15 @@ import sys
 from pathlib import Path
 
 BUDGET = 4500
-DEFAULT_PRESET = Path(__file__).resolve().parent.parent / "Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json"
+ROOT = Path(__file__).resolve().parent.parent
+DEFAULT_PRESETS = [
+    ROOT / "Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json",
+    ROOT / "Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json",
+]
 VOLATILE = re.compile(r'\{\{(roll|random|pick|time|date|weekday|isotime|isodate|idle_duration|lastMessage|'
                       r'lastCharMessage|lastUserMessage|lastMessageId|currentSwipeId|char|group|charIfNotGroup|input)\b')
 HTML_TAGS = {'details', 'summary', 'thinking', 'think', 'br', 'b', 'span', 'div'}
+FALSE_WORDS = {'', 'off', 'false', '0'}
 
 
 def take_macro(s, i):
@@ -35,22 +41,26 @@ def take_macro(s, i):
     raise ValueError(f'unclosed macro near: {s[i:i + 60]!r}')
 
 
-def find_endif(s, i):
-    """Return (start, end) of the {{/if}} matching an {{#if}} whose body starts at s[i]."""
-    depth, j = 1, i
+def split_if(s, i):
+    """For an if-block whose body starts at s[i], return (then_text, else_text or None, end_index)."""
+    depth, j, else_at = 1, i, None
     while j < len(s):
-        if s.startswith('{{#if', j):
+        if re.match(r'\{\{[#]?if[\s}]', s[j:]):
             depth += 1
         elif s.startswith('{{/if}}', j):
             depth -= 1
             if depth == 0:
-                return j, j + len('{{/if}}')
+                if else_at is None:
+                    return s[i:j], None, j + len('{{/if}}')
+                return s[i:else_at], s[else_at + len('{{else}}'):j], j + len('{{/if}}')
+        elif s.startswith('{{else}}', j) and depth == 1 and else_at is None:
+            else_at = j
         j += 1
-    raise ValueError('unclosed {{#if}}')
+    raise ValueError('unclosed {{if}}')
 
 
 def render(s, state, rng):
-    """Render the macros ARIA uses, roughly the way SillyTavern's macro engine does."""
+    """Render the macros ARIA uses, the way SillyTavern's experimental macro engine does."""
     out, i = [], 0
     while i < len(s):
         if not s.startswith('{{', i):
@@ -71,11 +81,15 @@ def render(s, state, rng):
         elif m.startswith('.') and '=' in m:
             name, _, value = m[1:].partition('=')
             state[name.strip()] = value.strip()
-        elif m.startswith('#if'):
-            cond = m[3:].strip().lstrip('.')
-            k, end = find_endif(s, j)
-            if state.get(cond, '').strip():
-                out.append(render(s[j:k], state, rng))
+        elif re.match(r'#?if\s', m):
+            cond = m.split(None, 1)[1].strip()
+            inverted = cond.startswith('!')
+            name = cond.lstrip('!').strip().lstrip('.')
+            then_text, else_text, end = split_if(s, j)
+            truthy = state.get(name, '').strip().lower() not in FALSE_WORDS
+            branch = then_text if truthy != inverted else (else_text or '')
+            text = render(branch, state, rng)
+            out.append(text if m.startswith('#') else text.strip())
             j = end
         elif m.startswith('roll::'):
             out.append(str(rng.randint(1, 20)))
@@ -89,11 +103,12 @@ def render(s, state, rng):
             out.append(s[i:j])
         i = j
     text = ''.join(out)
-    return re.sub(r'\n*[ \t]*\x00TRIM\x00[ \t]*\n*', '', text)
+    # SillyTavern strips the newlines (only the newlines) on both sides of {{trim}}
+    return re.sub(r'(?:\r?\n)*\x00TRIM\x00(?:\r?\n)*', '', text)
 
 
 def strip_setvar_bodies(s):
-    """Content with every setvar body removed, to find volatile macros that would render in place."""
+    """Content with every setvar body and comment removed, to find volatile macros that would render in place."""
     out, i = [], 0
     while i < len(s):
         if s.startswith('{{setvar::', i) or s.startswith('{{//', i):
@@ -104,8 +119,40 @@ def strip_setvar_bodies(s):
     return ''.join(out)
 
 
-def simulate(preset, enabled, seed, state=None, impersonate=False):
-    """Render one turn: relative entries top to bottom, then In-Chat entries. Returns {id: text}."""
+def tokens(text):
+    return round(len(text) / 4)
+
+
+def wiring_errors(rendered, main_text, raw_all, label_owner='the Main Prompt'):
+    """Dangling tags, dangling bold labels and unpaired variables across one rendered configuration."""
+    errors = []
+    text_all = '\n'.join(rendered.values())
+    defined = {t for t in re.findall(r'<([A-Za-z_]+)>', text_all) if f'</{t}>' in text_all}
+    for t in sorted(set(re.findall(r'<([A-Za-z_]+)>', text_all)) - defined - HTML_TAGS):
+        errors.append(f'dangling tag reference <{t}>')
+    labels = set(re.findall(r'\*\*([^*]+?):\*\*', main_text))
+    for name, t in rendered.items():
+        if t is main_text:
+            continue
+        for hit in re.finditer(r'\*\*([^*]+?):\*\*', t):
+            line_start = t.rfind('\n', 0, hit.start()) + 1
+            if re.fullmatch(r'[\s\-*#]*', t[line_start:hit.start()]):
+                continue  # a label opening a line is a local heading
+            if hit.group(1) not in labels:
+                errors.append(f"{name} points at **{hit.group(1)}:**, which {label_owner} does not define")
+    setters = set(re.findall(r'\{\{setvar::([\w-]+)::', raw_all)) | set(re.findall(r'\{\{\.([\w-]+)\s*=', raw_all))
+    readers = set(re.findall(r'\{\{getvar::([\w-]+)\}\}', raw_all)) | set(re.findall(r'\{\{#?if !?\.([\w-]+)\}\}', raw_all))
+    for v in sorted(readers - setters):
+        errors.append(f'variable read but never set: {v}')
+    for v in sorted(setters - readers):
+        errors.append(f'variable set but never read: {v}')
+    return errors, setters
+
+
+# ---------------------------------------------------------------- Chat Completions
+
+def simulate_cc(preset, enabled, seed, state=None, impersonate=False):
+    """Render one turn: relative entries top to bottom, then In-Chat entries. Returns ({id: text}, state)."""
     rng = random.Random(seed)
     state = dict(state or {})
     prompts = {p['identifier']: p for p in preset['prompts']}
@@ -123,19 +170,12 @@ def simulate(preset, enabled, seed, state=None, impersonate=False):
     return rendered, state
 
 
-def tokens(text):
-    return round(len(text) / 4)
-
-
-def main():
-    path = Path(sys.argv[1]) if len(sys.argv) > 1 else DEFAULT_PRESET
-    preset = json.loads(path.read_text(encoding='utf-8'))
+def analyse_cc(preset):
     prompts = {p['identifier']: p for p in preset['prompts']}
     order = preset['prompt_order'][1]['order']
     name = {pid: prompts[pid].get('name', pid) for pid in prompts}
     errors = []
 
-    # --- structure ---
     ids = [p['identifier'] for p in preset['prompts']]
     if len(ids) != len(set(ids)):
         errors.append('duplicate prompt identifiers')
@@ -143,7 +183,6 @@ def main():
         if row['identifier'] not in prompts:
             errors.append(f"prompt_order names a missing prompt: {row['identifier']}")
 
-    # --- configurations ---
     shipped = {row['identifier'] for row in order if row['enabled']}
     by_prefix = lambda *pre: {pid for pid in prompts if name[pid].startswith(pre)}
     patches = by_prefix('🩹')
@@ -155,58 +194,34 @@ def main():
 
     totals = {}
     for label, enabled in (('core', core), ('shipped default', shipped), ('everything ON', all_on)):
-        rendered, _ = simulate(preset, enabled, seed=1)
+        rendered, _ = simulate_cc(preset, enabled, seed=1)
         totals[label] = sum(tokens(t) for t in rendered.values())
         if label == 'everything ON':
             print('Per-entry tokens with everything ON:')
             for pid, text in rendered.items():
                 print(f'  {tokens(text):5}  {name[pid]}')
-    imp, _ = simulate(preset, all_on, seed=1, impersonate=True)
-    normal, _ = simulate(preset, all_on, seed=1)
+    imp, _ = simulate_cc(preset, all_on, seed=1, impersonate=True)
+    normal, _ = simulate_cc(preset, all_on, seed=1)
     # SillyTavern also appends the preset's own impersonation_prompt setting on Impersonate turns
     imp_setting = tokens(render(preset.get('impersonation_prompt') or '', {}, random.Random(1)))
     totals['Impersonate adds'] = sum(tokens(t) for t in imp.values()) - totals['everything ON'] + \
         sum(tokens(normal[pid]) for pid in normal if pid not in imp) + imp_setting
-    print('\nTotals:')
-    for label, value in totals.items():
-        print(f'  {label:18} {value:5}')
     if totals['everything ON'] > BUDGET:
         errors.append(f"everything ON is {totals['everything ON']} tokens, over the {BUDGET} budget")
 
-    # --- wiring: tags, labels, variables ---
-    rendered, _ = simulate(preset, all_on, seed=1)
-    text_all = '\n'.join(rendered.values())
-    defined = {t for t in re.findall(r'<([A-Za-z_]+)>', text_all) if f'</{t}>' in text_all}
-    for t in sorted(set(re.findall(r'<([A-Za-z_]+)>', text_all)) - defined - HTML_TAGS):
-        errors.append(f'dangling tag reference <{t}>')
-    main_text = rendered.get('main', '')
-    labels = set(re.findall(r'\*\*([^*]+?):\*\*', main_text))
-    for pid, t in rendered.items():
-        if pid == 'main':
-            continue
-        # a label in the middle of a line points at the Main Prompt; one opening a line is a local heading
-        for hit in re.finditer(r'\*\*([^*]+?):\*\*', t):
-            line_start = t.rfind('\n', 0, hit.start()) + 1
-            if re.fullmatch(r'[\s\-*#]*', t[line_start:hit.start()]):
-                continue
-            label = hit.group(1)
-            if label not in labels:
-                errors.append(f"{name[pid]} points at **{label}:**, which the Main Prompt does not define")
+    rendered, _ = simulate_cc(preset, all_on, seed=1)
+    named = {name[pid]: t for pid, t in rendered.items()}
+    main_text = named.get(name.get('main', ''), '')
     raw_all = '\n'.join(p.get('content') or '' for p in preset['prompts'])
-    setters = set(re.findall(r'\{\{setvar::([\w-]+)::', raw_all)) | set(re.findall(r'\{\{\.([\w-]+)\s*=', raw_all))
-    readers = set(re.findall(r'\{\{getvar::([\w-]+)\}\}', raw_all)) | set(re.findall(r'\{\{#if \.([\w-]+)\}\}', raw_all))
-    for v in sorted(readers - setters):
-        errors.append(f'variable read but never set: {v}')
-    for v in sorted(setters - readers):
-        errors.append(f'variable set but never read: {v}')
+    wiring, setters = wiring_errors(named, main_text, raw_all)
+    errors += wiring
     blanked = set(re.findall(r'\{\{setvar::([\w-]+)::\}\}', prompts['main']['content']))
     for v in sorted(v for v in setters if v.startswith('aria') and v not in blanked):
         errors.append(f'splice variable not blanked by the Main Prompt: {v}')
 
-    # --- cache lint ---
     stale = {v: 'stale value from an earlier turn' for v in setters}
-    a, _ = simulate(preset, all_on, seed=1)
-    b, _ = simulate(preset, all_on, seed=99, state=stale)
+    a, _ = simulate_cc(preset, all_on, seed=1)
+    b, _ = simulate_cc(preset, all_on, seed=99, state=stale)
     for pid in a:
         p = prompts[pid]
         relative = (p.get('injection_position') or 0) == 0
@@ -220,14 +235,95 @@ def main():
         p = prompts[row['identifier']]
         if p.get('injection_position') == 1 and (p.get('injection_depth') or 0) != 0:
             errors.append(f"cache: {name[row['identifier']]} is In-Chat at depth {p['injection_depth']}; keep it at 0")
+    return totals, errors
 
-    print()
-    if errors:
-        print('FAILED:')
-        for e in errors:
-            print('  -', e)
-        sys.exit(1)
-    print('OK: budget, wiring and cache checks all pass.')
+
+# ---------------------------------------------------------------- Text Completions
+
+SWITCH = re.compile(r'\{\{\.(aria-[\w-]+) = (on|off)\}\}')
+
+
+def simulate_tc(preset, overrides, seed, state=None):
+    """Render the system prompt, then the post-history block, with switch overrides applied."""
+    rng = random.Random(seed)
+    state = dict(state or {})
+    system = SWITCH.sub(lambda m: '{{.%s = %s}}' % (m.group(1), overrides.get(m.group(1), m.group(2))),
+                        preset['sysprompt']['content'])
+    rendered_system = render(system, state, rng)
+    rendered_post = render(preset['sysprompt'].get('post_history') or '', state, rng)
+    return {'System Prompt': rendered_system, 'Post-History': rendered_post}, state
+
+
+def analyse_tc(preset):
+    errors = []
+    system = preset['sysprompt']['content']
+    shipped = dict(SWITCH.findall(system))
+    if not shipped:
+        errors.append('no aria-* switches found in the System Prompt')
+    patches = [s for s in shipped if s.startswith('aria-patch')]
+
+    def patch_cost(p):
+        on = {s: 'off' for s in shipped} | {p: 'on'}
+        off = {s: 'off' for s in shipped}
+        r_on, _ = simulate_tc(preset, on, 1)
+        r_off, _ = simulate_tc(preset, off, 1)
+        return tokens(r_on['System Prompt']) - tokens(r_off['System Prompt'])
+
+    largest = max(patches, key=patch_cost, default=None)
+    all_on = {s: 'on' for s in shipped if not s.startswith('aria-patch')} | {p: ('on' if p == largest else 'off') for p in patches}
+    roomy = dict(shipped) | {'aria-logic-core': 'on', 'aria-fate': 'on', 'aria-time-place': 'on'}
+
+    totals = {}
+    for label, overrides in (('shipped (lean, 32k)', shipped), ('+ Logic Core, Fate, Time', roomy), ('everything ON', all_on)):
+        rendered, _ = simulate_tc(preset, overrides, seed=1)
+        totals[label] = sum(tokens(t) for t in rendered.values())
+        if label == 'everything ON':
+            print('Tokens with everything ON:')
+            for part, text in rendered.items():
+                print(f'  {tokens(text):5}  {part}')
+    if totals['everything ON'] > BUDGET:
+        errors.append(f"everything ON is {totals['everything ON']} tokens, over the {BUDGET} budget")
+
+    rendered, _ = simulate_tc(preset, all_on, seed=1)
+    raw_all = system + '\n' + (preset['sysprompt'].get('post_history') or '')
+    wiring, setters = wiring_errors(rendered, rendered['System Prompt'], raw_all, 'the System Prompt')
+    errors += wiring
+
+    stale = {v: 'stale value from an earlier turn' for v in setters}
+    for overrides in (shipped, all_on):
+        a, _ = simulate_tc(preset, overrides, seed=1)
+        b, _ = simulate_tc(preset, overrides, seed=99, state=stale)
+        if a['System Prompt'] != b['System Prompt']:
+            errors.append('cache: the System Prompt renders differently between turns')
+            break
+    if VOLATILE.search(strip_setvar_bodies(system)):
+        errors.append('cache: the System Prompt contains a per-turn macro')
+    story = preset.get('context', {}).get('story_string', '')
+    if story and story.find('wiBefore') < story.find('mesExamples'):
+        errors.append('cache: World Info comes before the static card fields in the story string')
+    return totals, errors
+
+
+def main():
+    paths = [Path(p) for p in sys.argv[1:]] or DEFAULT_PRESETS
+    failed = False
+    for path in paths:
+        preset = json.loads(path.read_text(encoding='utf-8'))
+        kind = 'Text Completions' if 'sysprompt' in preset else 'Chat Completions'
+        print(f'=== {path.name} ({kind})')
+        totals, errors = (analyse_tc if 'sysprompt' in preset else analyse_cc)(preset)
+        print('Totals:')
+        for label, value in totals.items():
+            print(f'  {label:26} {value:5}')
+        if errors:
+            failed = True
+            print('FAILED:')
+            for e in errors:
+                print('  -', e)
+        else:
+            print('OK: budget, wiring and cache checks all pass.')
+        print()
+    sys.exit(1 if failed else 0)
 
 
 if __name__ == '__main__':
