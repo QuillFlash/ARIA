@@ -33,7 +33,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,300 tokens as shipped and about 4,300 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,200. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,400 tokens as shipped and about 4,350 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,200. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -222,8 +222,8 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 | `aria-anthro` | off | 🐺 Anthro Vocals | ~300 tokens |
 | `aria-scent` | on | 👃 Scent Occasions | ~70 tokens |
 | `aria-time-place` | off | ⏰ Time & Place status line | ~60 tokens, plus ~30 in every reply |
-| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~775 tokens, plus ~90 in every reply |
-| `aria-bonds` | off | 🥰 Bonds Lite | ~230 tokens, plus ~20 to 40 in every reply |
+| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~820 tokens, plus ~90 in every reply |
+| `aria-bonds` | off | 🥰 Bonds Lite | ~240 tokens, plus ~20 to 40 in every reply |
 | `aria-patch-glm-qwen` | off | 🩹 GLM / Kimi / Qwen patch | ~95 tokens |
 | `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 Flash patch | ~95 tokens |
 
@@ -330,8 +330,8 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 | Chat Completions configuration | Tokens |
 |---|---|
 | Core (everything that ships ON except Fate and Time & Place) | ~2,510 |
-| Shipped default | ~3,360 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags and the largest model patch) | ~4,285 |
+| Shipped default | ~3,430 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags and the largest model patch) | ~4,350 |
 | Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~196 |
 
 The Text Completions file, measured the same way:
@@ -339,8 +339,8 @@ The Text Completions file, measured the same way:
 | Text Completions configuration | Tokens |
 |---|---|
 | Lean start, as shipped for 32k | ~2,184 |
-| Plus The Logic Core, Fate and Time & Place | ~3,400 |
-| Everything ON (largest patch included) | ~4,311 |
+| Plus The Logic Core, Fate and Time & Place | ~3,470 |
+| Everything ON (largest patch included) | ~4,380 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), or if anything would break prompt caching. Run it after every edit.
 
@@ -422,6 +422,7 @@ The Main Prompt's first line blanks seven helper variables every turn, so a swit
 - **Gemini with its patch and Scent OFF:** no smells at all, at most one question per reply, and clumsy human reactions to heavy news.
 - **GLM, Kimi or Qwen with their patch:** nervous characters keep their stammer; confident ones never mutter a filler word to themselves.
 - **MiMo V2.6 Flash with its patch, style B:** card facts and moods hold from turn 15 to turn 25.
+- **MiMo V2.6 with Fate on:** exactly one 🎲 block closes every reply for 20 turns, with every field present and `none` in the empty ones.
 - **Fate over 20 turns:** the thread counter climbs and closes by 8, World stays at five entries or fewer, "meet me at noon on Day 3" fires on time, and harm reaching the scene stays rare.
 - **Card fidelity:** a shy card stays shy under Adult Context, siblings recognise each other on turn 1, a drill sergeant keeps short orders, and a Hungarian chat stays free of English words.
 - **Impersonate:** the input box gets only your character's words, in their own person and tense.
