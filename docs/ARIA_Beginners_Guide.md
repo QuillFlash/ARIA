@@ -33,7 +33,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,300 tokens as shipped and about 4,200 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,200. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,300 tokens as shipped and about 4,300 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,200. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -43,7 +43,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **Chat Completion and Text Completion** | The two ways SillyTavern can talk to a model. Chat Completion is for online services like Claude, Gemini or OpenRouter. Text Completion is for models running on your own computer through apps like KoboldCpp or llama.cpp. I come as one file for each! |
 | **Context window** | How much text a model can hold in its memory at once, counted in tokens. A 32k window fits about 24,000 words: my rules, your character card and as much of the chat as still fits. |
 | **Instruct template** | The chat format a local model was trained on, like ChatML, Llama 3, Mistral or Gemma. Text Completion setups need the right one picked by hand. |
-| **Regex scripts** | Tiny find-and-replace helpers that ship inside the preset. Mine fold the AI's thinking into a neat box and tidy up after Impersonate. Only the Chat Completions file has them. |
+| **Regex scripts** | Tiny find-and-replace helpers. Mine fold the AI's thinking into a neat box, draw my 🎲 and 💚 ledgers as little panels with bond bars, and tidy up after Impersonate. The Chat Completions file carries them inside; Text Completions users import them from a separate file (section 6). |
 
 ---
 
@@ -55,7 +55,7 @@ These steps are for the Chat Completions file. Running a model on your own compu
 
 1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` from this repository. On GitHub, open the file and press the "Download raw file" button.
 2. **Connect and import.** Open **API Connections** (the plug icon at the top), set **API** to **Chat Completion**, pick your provider and paste your key. Then open **AI Response Configuration** (the sliders icon at the top left), press **Import preset** next to the preset dropdown and choose the file. The prompt list below the sliders should start with 🌳 README and ⚡ ARIA Main Prompt. If you see a plain "Main Prompt" and "NSFW Prompt" instead, you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
-3. **Say YES to the regex scripts.** SillyTavern asks whether to allow the scripts that come with the preset. Allow them, or my thinking box and the Impersonate clean-up won't work.
+3. **Say YES to the regex scripts.** SillyTavern asks whether to allow the scripts that come with the preset. Allow them, or my thinking box, my ledger panels and the Impersonate clean-up won't work.
 4. **Check the macro engine.** Open **User Settings** and make sure **Experimental Macro Engine** is ticked. New versions tick it for you. If you had to tick it yourself, reload the page afterwards. My dice and switches can't work without it!
 5. **Pick a character** and say hi~
 
@@ -75,7 +75,7 @@ Every Construct thinks a little differently, and AI models are the same! First, 
 2. Switch 🏷️ **Logic Core Tags** ON.
 3. Open **Advanced Formatting** (the big "A" icon) and find the **Reasoning** section. Tick **Auto-Parse** and leave **Add to Prompts** unticked. Then click **Reasoning Formatting** to open it, and set **Prefix** to `<thinking>` and **Suffix** to `</thinking>`.
 
-Now my plan folds away into a little box above each reply, and it only takes a few seconds!
+With the tags on, The Logic Core spells the routine out for the model: open the reply with `<thinking>`, write the plan, end on `go`, close the tag, then tell the story. Now my plan folds away into a little box above each reply, and it only takes a few seconds! Forgot step 3, or the model dropped its tags? My regex scripts still catch the plan and fold it into a 💭 **Thoughts** box, and they keep it out of what the model rereads next turn.
 
 Then find your model in this table:
 
@@ -107,7 +107,7 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 - 🖋️ **Anti-Slop Codex** (ON). My style rulebook against tired AI habits: "it wasn't anger, it was grief", choppy one-word sentences, characters announcing "here's the deal", shopkeepers who only talk about their shop, and overused words like "palpable" or "a beat".
 - 👃 **Scent Occasions** (ON). Stops the AI from smelling everything! Smells only appear at meals, rituals or when something strong is right there, and at most once per scene. Gemini users, switch this OFF.
 - ⏰ **Time & Place** (ON). Every reply starts with a little status line showing the time, day, date, place and weather in °C and °F, so time moves realistically and characters react to the cold or the late hour.
-- 🎲 **Fate & Chekhov Ledger** (ON). My world engine! Every turn I roll three hidden dice to decide whether the world does something on its own: everyday background life, a small hiccup or, rarely, a big event. I also remember setups that should pay off later, deliver news the way your setting would (a radio, a rumour, a phone notification), keep appointments and make your actions ripple outward. I never decide your next move for you. Scene-breaking surprises, like someone getting hurt or everyone being sent outside, only happen on the rarest roll, so the scene you're in carries on. My memory lives in a tiny folded 🎲 line at the end of each reply, so please leave that line in the chat.
+- 🎲 **Fate & Chekhov Ledger** (ON). My world engine! Every turn I roll three hidden dice to decide whether the world does something on its own: everyday background life, a small hiccup or, rarely, a big event. I also remember setups that should pay off later, deliver news the way your setting would (a radio, a rumour, a phone notification), keep appointments and make your actions ripple outward. I never decide your next move for you. Scene-breaking surprises, like someone getting hurt or everyone being sent outside, only happen on the rarest roll, so the scene you're in carries on. My memory lives in a tiny 🎲 ledger at the end of each reply, which shows up as an orange **Fate & Routine** panel you can click open. Please leave it in the chat, because that's where I remember everything!
 - 📖 **Story Context** (ON). A tiny header telling the AI that what follows is your persona, the character card, the scenario, examples and lorebook.
 - 🚪 **Last-Mile Gate** (ON). The final check right before a reply goes out. It runs through the anti-slop list, picks the first letter for any brand-new character's name (no more endless Elaras!) and carries this turn's dice.
 - 🧠 **The Logic Core** (ON). My planning step! Before writing, the AI jots a few quick lines: your OOC requests, where everyone is, what each character knows and wants, how they sound, what happens next, then a last check. It arrives as the AI's own message after the chat, which helps many models settle into the scene.
@@ -115,16 +115,35 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 
 ### Optional extras
 
-- 🏷️ **Logic Core Tags** (OFF). Turn ON for thinking style B (section 3). If your provider expects `<think>` instead of `<thinking>`, rename both tags inside this entry and in Advanced Formatting.
+- 🏷️ **Logic Core Tags** (OFF). Turn ON for thinking style B (section 3). Every reply then opens with my plan inside `<thinking>` tags, the trick that tames models whose own thinking can't be saved. If your provider expects `<think>` instead, rename both tags inside this entry and in Advanced Formatting.
 - 🔞 **Adult Context** (OFF). For adults only! It unlocks mature stories: sex, violence and dark themes written frankly. Characters stay themselves all the way through, so a shy character is still shy in bed.
 - 😈 **Freaky Override** (OFF). The anything-goes switch. Characters drop their independence and the slow pacing and lean eagerly into what you want, while still sounding like themselves. It needs 🔞 Adult Context ON as well.
 - 👀 **Hybrid POV** (OFF). Tells the story in third person, while everything your character feels is written straight to you: "the rain soaks through your sleeves". Super immersive!
 - 🐺 **Anthro Vocals** (OFF). For furry, beastfolk and talking-animal stories. Wolves howl, eagles chirp, and lions and tigers roar and can't purr. The sounds stay as flavour inside normal speech.
-- 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from cold to chosen family, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. Numbers never show up in the story.
+- 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from cold to chosen family, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. Numbers never show up in the story; they sit in the ledger, where my regex scripts draw each pair as a little card with Bond, Sparks and Grudge bars.
 - 🩹 **Model Patches** (OFF). Small fixes for one model family each. Pick the one from the table in section 3, and only one.
 - 🧠 **The Logic Core (user-role twin)** (OFF). The same planning step, sent as your message. Use it instead of the normal Logic Core only if your provider complains about the AI's own message sitting near the end. Never run both!
 - **Reduce Reasoning** (OFF). A tiny "don't overthink" note for models that think far too long. Switch it on alongside The Logic Core if your model still overthinks.
 - 🌳 **README** and 🌿 **Sampling Advice** (OFF). Notes for you to read. Switching them on sends nothing.
+
+### Reading the Fate & Routine panel
+
+Click the orange 🎲 **Fate & Routine** panel under a reply and you'll see my notebook for the world. Peeking is totally fine, it's all just bookkeeping~
+
+| Row | What it tracks |
+|---|---|
+| **Quiet streak** | How many turns in a row the world stayed calm. The longer it's quiet, the likelier something happens. |
+| **Hot setups** | How many of the loaded setups you caused yourself. Those come back to you first. |
+| **Thread** | What someone is chasing right now, plus how many turns it has run. It wraps up or gets parked within eight turns. |
+| **Deferred** | Happenings that got pushed back by what you were busy with. They don't wait forever! |
+| **World** | Up to five things going on out there, how close they are and how long they've been brewing. |
+| **Bullets** | Setups a reader would expect to pay off later, like a torn envelope, plus appointments locked to a day and time. |
+| **Ambitions** | Your character's stated goals, counted up to 5/5. |
+| **Residue** | Lasting changes that earlier events left in everyday life. |
+| **Last** | This turn's roll in a few words. |
+| **Bonds** | With 🥰 Bonds Lite on, one card per pair of characters with three bars: Bond (green when warm, red when cold), Sparks (small warm moments) and Grudge (small slights). |
+
+With Fate off and Bonds on, the cards sit in a teal 💚 **Bonds** panel instead. The panels only change how the ledger looks on your screen, so the model and the prompt cache see exactly the same text as before.
 
 ---
 
@@ -195,15 +214,15 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 
 | Switch | Starts | What it does | What it costs |
 |---|---|---|---|
-| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~320 tokens per turn as shipped, plus a few seconds of planning |
-| `aria-thinking-tags` | on | With The Logic Core on: plan inside `<thinking>` tags (on) or inside the model's own `<think>` reasoning (off) | ~13 tokens, already counted in the Logic Core's 320 |
+| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~345 tokens per turn as shipped, plus a few seconds of planning |
+| `aria-thinking-tags` | on | With The Logic Core on: every reply opens with the plan inside `<thinking>` tags (on), or the plan runs inside the model's own `<think>` reasoning (off) | ~22 tokens, already counted in the Logic Core's 345 |
 | `aria-adult` | off | 🔞 Adult Context, for adults only | ~165 tokens |
 | `aria-freaky` | off | 😈 Freaky Override, needs `aria-adult` on too | ~60 tokens |
 | `aria-hybrid-pov` | off | 👀 Hybrid POV | ~40 tokens |
 | `aria-anthro` | off | 🐺 Anthro Vocals | ~300 tokens |
 | `aria-scent` | on | 👃 Scent Occasions | ~70 tokens |
 | `aria-time-place` | off | ⏰ Time & Place status line | ~60 tokens, plus ~30 in every reply |
-| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~770 tokens, plus ~80 in every reply |
+| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~775 tokens, plus ~90 in every reply |
 | `aria-bonds` | off | 🥰 Bonds Lite | ~210 tokens, plus ~20 to 40 in every reply |
 | `aria-patch-glm-qwen` | off | 🩹 GLM / Kimi / Qwen patch | ~95 tokens |
 | `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 Flash patch | ~95 tokens |
@@ -212,7 +231,7 @@ The Claude 5 and Gemini patches live only in the Chat Completions file, since th
 
 ### Fitting into 32k
 
-My lean start uses about 2,200 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 8,000 tokens, a quarter of a 32k window! My advice:
+My lean start uses about 2,200 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
 
 - **32k:** stay lean. Turn on The Logic Core only if your model has 24B parameters or more and a few extra seconds per reply don't bother you.
 - **64k or more:** switch on `aria-fate` and `aria-time-place` together for the full world engine, and add `aria-bonds` if you love relationship drama~
@@ -223,6 +242,16 @@ My lean start uses about 2,200 tokens, and SillyTavern also keeps your Response 
 The Logic Core asks your model to plan inside `<thinking>` tags. To fold that plan away and keep it out of the model's memory, open **Advanced Formatting**, tick **Auto-Parse** in the **Reasoning** section, open **Reasoning Formatting** and set **Prefix** to `<thinking>` and **Suffix** to `</thinking>`. Leave **Add to Prompts** unticked, so old plans never eat into your memory.
 
 Models that already think on their own, like Qwen 3 or the DeepSeek R1 distills, use `<think>` instead. For them, set `aria-thinking-tags` to `off`, and make the Prefix `<think>` and the Suffix `</think>`.
+
+### Pretty panels and tidy thinking
+
+The Text Completions file can't carry regex scripts, so mine come in their own little file! Download `regex/ARIA 1.0 Regex Scripts (Text Completions).json` from the `beta` branch, open **Extensions** (the cubes icon at the top), then **Regex**, press **Import**, pick the file and choose **Global** when SillyTavern asks where the scripts go. From then on:
+
+- the 🎲 ledger shows up as the orange **Fate & Routine** panel and the 💚 ledger as the teal **Bonds** panel, with bond bars (section 4 explains every row);
+- a plan the model wrote without its tags still folds into a 💭 **Thoughts** box and stays out of what the model rereads;
+- Impersonate leaves only your character's words in the input box.
+
+The panel scripts only change what you see, so your backend's prompt reuse keeps working. Already using my Chat Completions file too? That's fine, the two copies don't trip over each other.
 
 ### Keep it fast
 
@@ -240,7 +269,7 @@ Your backend remembers the prompt it read last time and only reads the new part,
 - Your Custom Instructions slots, `player-instructions` and `player-posthistory`, sit in the System Prompt box right under my switches.
 - Time & Place, Fate, Bonds and The Logic Core start off to save memory.
 - No Claude 5 or Gemini patches.
-- No regex scripts come with this file, so set up Reasoning Formatting as above. If Impersonate ever leaves a plan in the input box, delete it by hand.
+- The regex scripts come as a separate file (see "Pretty panels and tidy thinking" above), and Reasoning Formatting still needs setting up by hand.
 
 ---
 
@@ -252,10 +281,13 @@ Even idols trip on stage sometimes! These fixes get you back up:
 The macro engine is off. Tick **Experimental Macro Engine** in User Settings and reload.
 
 **The AI's thinking shows up inside the reply.**
-In Advanced Formatting, tick **Auto-Parse**, open **Reasoning Formatting** and set **Prefix** and **Suffix** to your tags (section 3, style B). Check that the preset's regex scripts are allowed too, under **Extensions** → **Regex**. On the Text Completions file there are no scripts, so the Prefix and Suffix from section 6 do the whole job.
+In Advanced Formatting, tick **Auto-Parse**, open **Reasoning Formatting** and set **Prefix** and **Suffix** to your tags (section 3, style B). Check that the preset's regex scripts are allowed too, under **Extensions** → **Regex**; they fold a plan into a 💭 **Thoughts** box even when the model forgets its tags. On the Text Completions file, import my regex file from section 6 as well. If the model with native reasoning off skips the plan or writes it loosely, make sure 🏷️ **Logic Core Tags** is ON (style B), since that's the switch that tells it to open every reply with `<thinking>`.
 
 **The model's thinking takes forever.**
 Switch to thinking style B, or turn on the GLM / Kimi / Qwen patch if you use one of those models. On Claude, stay on style A and set **Reasoning Effort** to **Low** instead, because Claude keeps thinking whichever setting you pick. On the Text Completions file, set `aria-logic-core` to `off`, or set `aria-patch-glm-qwen` to `on` for those models.
+
+**The 🎲 ledger shows up as plain text instead of a panel.**
+Allow the preset's regex scripts under **Extensions** → **Regex**, or import my regex file on the Text Completions file (section 6). If the scripts are on and one reply still looks raw, the model wrote its ledger in an odd shape, often without the `<details>` wrapper. The next reply usually fixes itself, and the engine reads the plain text just fine either way.
 
 **The 🎲 line vanished and the world forgot what was going on.**
 Make sure 🎲 Fate & Chekhov Ledger is ON and that you didn't edit the line out of the AI's last reply. If you switched on the "Drop old ledgers" regex, switch it off again in **Extensions** → **Regex**. Also check that **Trim Incomplete Sentences** in **Advanced Formatting** is unticked, because it cuts that line in half. On the Text Completions file, check that `aria-fate` is `on` and that **Response (tokens)** is large enough (section 6), since a reply cut off at the limit loses the 🎲 line.
@@ -273,10 +305,10 @@ Turn The Logic Core ON (on the Text Completions file, set `aria-logic-core` to `
 Your backend is rereading the whole prompt each turn. Go through the "Keep it fast" list in section 6, especially the lorebook and switch tips.
 
 **My local model writes its plan right into the reply.**
-Set up Reasoning Formatting as shown in section 6. If the model still struggles, set `aria-logic-core` to `off`.
+Set up Reasoning Formatting as shown in section 6 and import my regex file, which folds a tagless plan away for you. If the model still struggles, set `aria-logic-core` to `off`.
 
 **After pressing Impersonate, the input box has junk in it.**
-Allow the preset's regex scripts in **Extensions** → **Regex**. They clean the Impersonate result for you. On the Text Completions file there are no scripts, so delete the leftovers by hand, or set `aria-logic-core` to `off`.
+Allow the preset's regex scripts in **Extensions** → **Regex**. They clean the Impersonate result for you. On the Text Completions file, import my regex file from section 6, which does the same job.
 
 **(Text Completions file) My rules, switches or dice do nothing with one particular card.**
 That card brings its own System Prompt or Post-History Instructions, and SillyTavern uses them in place of mine. In **User Settings**, untick **Prefer Char. Prompt** and **Prefer Char. Instructions**, or add `{{original}}` to the card's own prompt so mine comes along.
@@ -297,9 +329,9 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 
 | Chat Completions configuration | Tokens |
 |---|---|
-| Core (everything that ships ON except Fate and Time & Place) | ~2,470 |
-| Shipped default | ~3,320 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags and the largest model patch) | ~4,225 |
+| Core (everything that ships ON except Fate and Time & Place) | ~2,480 |
+| Shipped default | ~3,340 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags and the largest model patch) | ~4,265 |
 | Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~196 |
 
 The Text Completions file, measured the same way:
@@ -307,8 +339,8 @@ The Text Completions file, measured the same way:
 | Text Completions configuration | Tokens |
 |---|---|
 | Lean start, as shipped for 32k | ~2,184 |
-| Plus The Logic Core, Fate and Time & Place | ~3,356 |
-| Everything ON (largest patch included) | ~4,252 |
+| Plus The Logic Core, Fate and Time & Place | ~3,382 |
+| Everything ON (largest patch included) | ~4,293 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), or if anything would break prompt caching. Run it after every edit.
 
@@ -343,6 +375,7 @@ These are checked against SillyTavern's own source code:
 - Nothing in the system block changes between turns. Dice live inside `{{setvar}}`, which prints nothing there, and only print at the end through the gate. No system-block entry has generation triggers, so Impersonate reuses the same cache.
 - World Info sits after the card and examples, so a lorebook change only re-reads what comes after it.
 - Chat history never gets rewritten. The ledger-trimming regex ships disabled for that reason.
+- The panel, row, label and bond-bar scripts are display-only, so they change the screen and never the prompt. The two thinking strips run on every depth, so a message reads the same to the model on every turn after it's written.
 
 ### The Text Completions edition
 
@@ -392,6 +425,8 @@ The Main Prompt's first line blanks seven helper variables every turn, so a swit
 - **Fate over 20 turns:** the thread counter climbs and closes by 8, World stays at five entries or fewer, "meet me at noon on Day 3" fires on time, and harm reaching the scene stays rare.
 - **Card fidelity:** a shy card stays shy under Adult Context, siblings recognise each other on turn 1, a drill sergeant keeps short orders, and a Hungarian chat stays free of English words.
 - **Impersonate:** the input box gets only your character's words, in their own person and tense.
+- **Thinking style B (MiMo V2.6 Flash or another stubborn model):** every reply opens with `<thinking>`, runs the dashed plan lines, ends on `go` and closes the tag before the story. With Auto-Parse on, the plan lands in the reasoning box; with it off, the 💭 **Thoughts** box catches it, tags or no tags.
+- **Panels:** with Fate and Bonds on, the ledger shows as the orange panel with labelled rows and one bar card per pair; with Fate off, the cards sit in the teal 💚 panel. A model that drops the closing `</details>` should still get a panel.
 - **Text Completions, local 32k:** the System Prompt and story string in the Prompt itemization should match on two turns in a row, with only the dice and the new-name letter in the last block changing. Flipping each `aria-*` switch should add or remove only its own block. The KoboldCpp console should process only the new tokens each turn. With `aria-fate` on and Response (tokens) at 600 or more, the 🎲 line should survive 20 turns. With `aria-logic-core` on, the plan should fold into the reasoning box; note whether any of it reaches the input box after Impersonate.
 - **Blind A/B against your previous preset:** same three cards, 10 turns each on Claude 5 and Gemini, ranked by a reader who doesn't know which is which.
 
