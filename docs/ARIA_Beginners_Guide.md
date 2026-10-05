@@ -1,6 +1,6 @@
 # 🎤 ARIA's Beginner's Guide
 
-*For ARIA 1.0 beta 3, built for SillyTavern 1.19.0 or newer.*
+*For ARIA 1.0 beta 5, built for SillyTavern 1.19.0 or newer.*
 
 <p align="center">
     <img src="../artwork/Aria_bday.png" alt="Aria" width="250">
@@ -75,7 +75,9 @@ Every Construct thinks a little differently, and AI models are the same! First, 
 2. Switch 🏷️ **Logic Core Tags** ON.
 3. Open **Advanced Formatting** (the big "A" icon) and find the **Reasoning** section. Tick **Auto-Parse** and leave **Add to Prompts** unticked. Then click **Reasoning Formatting** to open it, and set **Prefix** to `<thinking>` and **Suffix** to `</thinking>`.
 
-With the tags on, The Logic Core spells the routine out for the model: open the reply with `<thinking>`, write the plan, end on `go`, close the tag, then tell the story. Now my plan folds away into a little box above each reply, and it only takes a few seconds! Forgot step 3, or the model dropped its tags? My regex scripts still catch the plan and fold it into a 💭 **Thoughts** box, and they keep it out of what the model rereads next turn. One catch with **Auto-Parse**: if the model opens `<thinking>` and never closes it, or closes it with `</think>`, SillyTavern moves the WHOLE reply into the reasoning box and the story looks empty. If that keeps happening with your model, untick **Auto-Parse** and let my regex scripts do the folding.
+With the tags on, The Logic Core spells the routine out for the model: open the reply with `<thinking>`, write the plan, end on `go`, close the tag, then tell the story. The 🚪 Last-Mile Gate repeats that opening as the very last line of the prompt, so it's the freshest thing the model reads before it starts writing. The Logic Core itself begins on the `<thinking>` tag too, so a model that copies the start of its own last message lands right on the tag SillyTavern folds away. Now my plan folds away into a little box above each reply, and it only takes a few seconds! Forgot step 3, or the model dropped its tags? My regex scripts still catch the plan and fold it into a 💭 **Thoughts** box, and they keep it out of what the model rereads next turn. That purple box is my backup for apps like Tavo that can't parse a custom tag; in SillyTavern the plan belongs in its own reasoning box, which only opens when the reply's very first characters are `<thinking>`. One catch with **Auto-Parse**: if the model opens `<thinking>` and never closes it, or closes it with `</think>`, SillyTavern moves the WHOLE reply into the reasoning box and the story looks empty. If that keeps happening with your model, untick **Auto-Parse** and let my regex scripts do the folding.
+
+Does the reply still start straight with the story, with no plan anywhere? Switch 🧠 **The Logic Core** OFF and 🧠 **The Logic Core (system-role twin)** ON (section 4 explains the difference). Never run both at once!
 
 Then find your model in this table:
 
@@ -85,7 +87,7 @@ Then find your model in this table:
 | Gemini | A | 🩹 Gemini | Switch 👃 Scent Occasions OFF |
 | GLM, Kimi, Qwen | A, or B if the thinking loops | 🩹 GLM / Kimi / Qwen | GLM Flash: switch 🔦 Flash Gate ON too |
 | DeepSeek | A | none | |
-| MiMo V2.6 Pro | B first, A works too | none | |
+| MiMo V2.6 Pro | B first, A works too | none | No plan in the replies? Use the system-role twin of The Logic Core |
 | MiMo V2.6 Flash | B | 🩹 MiMo V2.6 Flash | Switch 🔦 Flash Gate ON too |
 | Something else | A, then B if it misbehaves | none | |
 
@@ -115,15 +117,15 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 
 ### Optional extras
 
-- 🏷️ **Logic Core Tags** (OFF). Turn ON for thinking style B (section 3). Every reply then opens with my plan inside `<thinking>` tags, the trick for models whose own thinking runs wild. Keep the tag name `<thinking>`: hosts running Qwen, GLM or DeepSeek reasoning models cut my planning message at a `</think>` tag, and the part they cut is the line that tells the model to open its reply with the tag.
+- 🏷️ **Logic Core Tags** (OFF). Turn ON for thinking style B (section 3). Every reply then opens with my plan inside `<thinking>` tags, the trick for models whose own thinking runs wild. Keep the tag name `<thinking>`: with the tags on, The Logic Core starts on that tag, and hosts running Qwen, GLM or DeepSeek reasoning models cut a message at a `</think>` tag, which would hide my whole checklist.
 - 🔞 **Adult Context** (OFF). For adults only! It unlocks mature stories: sex, violence and dark themes written frankly. Characters stay themselves all the way through, so a shy character is still shy in bed.
 - 😈 **Freaky Override** (OFF). The anything-goes switch. Characters drop their independence and the slow pacing and lean eagerly into what you want, while still sounding like themselves. It needs 🔞 Adult Context ON as well.
 - 👀 **Hybrid POV** (OFF). Tells the story in third person, while everything your character feels is written straight to you: "the rain soaks through your sleeves". Super immersive!
 - 🐺 **Anthro Vocals** (OFF). For furry, beastfolk and talking-animal stories. Wolves howl, eagles chirp, and lions and tigers roar and can't purr. The sounds stay as flavour inside normal speech.
-- 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from cold to chosen family, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. The numbers sit in the ledger, where my regex scripts draw each pair as a little card with Bond, Sparks and Grudge bars.
+- 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from cold to chosen family, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. The numbers sit in their own little 💚 ledger at the end of each reply, which my regex scripts draw as a teal **Bonds** panel with one card per pair.
 - 🩹 **Model Patches** (OFF). Small fixes for one model family each. Pick the one from the table in section 3, and only one.
 - 🔦 **Flash Gate** (OFF). For the Flash-tier models, GLM Flash and MiMo V2.6 Flash. They keep borrowing office words like "filing" and "notarising" for feelings, even in tender scenes where nobody is doing paperwork, while the full-size models dropped that habit. This adds one firm rule to the end of the 🚪 Last-Mile Gate, where Flash models listen best. Run it alongside your model patch.
-- 🧠 **The Logic Core (user-role twin)** (OFF). The same planning step, sent as your message. Use it instead of the normal Logic Core only if your provider complains about the AI's own message sitting near the end. Never run both!
+- 🧠 **The Logic Core (system-role twin)** (OFF). The same planning step, sent as a system message that joins the 🚪 Last-Mile Gate at the very end of the prompt. Some models, like MiMo V2.6 Pro on a few providers lately, skip a plan that arrives as the AI's own message, and this version reaches them as an instruction instead. Switch the normal Logic Core OFF when you switch this one ON, and never run both! Claude turns late system messages into your messages, so Claude users keep the normal one. There's no version sent as your message, because a plan in your voice breaks the jailbreak on these models.
 - **Reduce Reasoning** (OFF). A tiny "don't overthink" note for models that think far too long. Switch it on alongside The Logic Core if your model still overthinks.
 - 🌳 **README** and 🌿 **Sampling Advice** (OFF). Notes for you to read. Switching them on sends nothing.
 
@@ -142,9 +144,8 @@ Click the orange 🎲 **Fate & Routine** panel under a reply and you'll see my n
 | **Ambitions** | Your character's stated goals, counted up to 5/5. |
 | **Residue** | Lasting changes that earlier events left in everyday life. |
 | **Last** | This turn's roll in a few words. |
-| **Bonds** | With 🥰 Bonds Lite on, one card per pair of characters with three bars: Bond (green when warm, red when cold), Sparks (small warm moments) and Grudge (small slights). |
 
-With Fate off and Bonds on, the cards sit in a teal 💚 **Bonds** panel instead. The panels only change how the ledger looks on your screen, so the model and the prompt cache see exactly the same text as before.
+With 🥰 Bonds Lite on, the bonds get a teal 💚 **Bonds** panel of their own, right under the orange one (or alone, with Fate off). Each pair of characters gets a card with their names centred on top and three bars: Bond (green when warm, red when cold), Sparks (small warm moments) and Grudge (small slights). Older chats that still keep a `bonds:` row inside the 🎲 ledger get the same separate panel, and so does a bonds line the model left loose under the ledger. The panels only change how the ledger looks on your screen, so the model and the prompt cache see exactly the same text as before.
 
 ---
 
@@ -191,7 +192,7 @@ Running a model at home with KoboldCpp, llama.cpp, TabbyAPI or text-generation-w
 
 1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` from this repository.
 2. **Connect.** In **API Connections** (the plug icon), set **API** to **Text Completion**, pick your backend and connect.
-3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. A window asks what to import: keep **Context Template** and **System Prompt** ticked and press **Import**. Both dropdowns should now read **ARIA 1.0 beta 3 (Text Completions)**. If they say "Geechan - Universal Roleplay", you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
+3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. A window asks what to import: keep **Context Template** and **System Prompt** ticked and press **Import**. Both dropdowns should now read **ARIA 1.0 beta 5 (Text Completions)**. If they say "Geechan - Universal Roleplay", you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
 4. **Switch on Instruct Mode.** In the same panel, make sure the **System Prompt** is switched on. Then press the power button next to the **Instruct Template** title to switch on Instruct Mode, and pick the template that matches your model (ChatML, Llama 3, Mistral, Gemma and so on). The model's download page usually names it. Leave the link icon next to it (**Bind to Context**) off, so it keeps my Context Template. I don't bring an instruct template myself, because every model family speaks its own format.
 5. **Check the macro engine** in **User Settings**, just like in section 2: **Experimental Macro Engine** must be ticked.
 
@@ -211,12 +212,12 @@ Text Completions has no toggle list, so my switches live in the **Prompt Content
 {{.aria-fate = off}}
 ```
 
-Change `off` to `on` (or the other way round) and the change kicks in on your next reply. Press the save icon (**Update current prompt**) as well, so your choices survive picking my System Prompt again from the list. Every line carries a little note, so you can't get lost! Updating to a newer build later? Copy your switch lines and your `player-instructions` and `player-posthistory` text somewhere safe first, because the new build starts from my default switches and empty slots. The full list:
+Change `off` to `on` (or the other way round) and the change kicks in on your next reply. Press the save icon (**Update current prompt**) as well, so your choices survive picking my System Prompt again from the list. Every line carries a little note, so you can't get lost! Updating to a newer build later? Copy your switch lines and your `player-instructions` and `player-posthistory` text somewhere safe first, because the new build starts from my default switches and empty slots. Grab my new regex file as well (see "Pretty panels and tidy thinking" below). The full list:
 
 | Switch | Starts | What it does | What it costs |
 |---|---|---|---|
-| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~260 tokens per turn as shipped, plus a few seconds of planning |
-| `aria-thinking-tags` | on | With The Logic Core on: every reply opens with the plan inside `<thinking>` tags (on), or the plan runs inside the model's own `<think>` reasoning (off) | ~17 tokens, already counted in the Logic Core's 360 |
+| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~295 tokens per turn as shipped, plus a few seconds of planning |
+| `aria-thinking-tags` | on | With The Logic Core on: every reply opens with the plan inside `<thinking>` tags (on), or the plan runs inside the model's own `<think>` reasoning (off) | ~40 tokens, already counted in the Logic Core's 295 |
 | `aria-adult` | off | 🔞 Adult Context, for adults only | ~120 tokens |
 | `aria-freaky` | off | 😈 Freaky Override, needs `aria-adult` on too | ~45 tokens |
 | `aria-hybrid-pov` | off | 👀 Hybrid POV | ~30 tokens |
@@ -247,7 +248,7 @@ Models that already think on their own, like Qwen 3 or the DeepSeek R1 distills,
 
 ### Pretty panels and tidy thinking
 
-The Text Completions file can't carry regex scripts, so mine come in their own little file! Download `regex/ARIA 1.0 Regex Scripts (Text Completions).json` from the `beta` branch, open **Extensions** (the cubes icon at the top), then **Regex**, press **Import**, pick the file and choose **Global** when SillyTavern asks where the scripts go. From then on:
+The Text Completions file can't carry regex scripts, so mine come in their own little file! Download `regex/ARIA 1.0 Regex Scripts (Text Completions).json` from the `beta` branch, open **Extensions** (the cubes icon at the top), then **Regex**, press **Import**, pick the file and choose **Global** when SillyTavern asks where the scripts go. Updating from an older build? Delete every script whose name starts with ARIA from the **Global** list first, then import the new file. SillyTavern adds imported scripts next to the ones you already have, and the old copies run first, so my newer clean-up tricks would miss their chance. From then on:
 
 - the 🎲 ledger shows up as the orange **Fate & Routine** panel and the 💚 ledger as the teal **Bonds** panel, with bond bars (section 4 explains every row);
 - a plan the model wrote without its tags still folds into a 💭 **Thoughts** box and stays out of what the model rereads;
@@ -285,11 +286,21 @@ The macro engine is off. Tick **Experimental Macro Engine** in User Settings and
 **The AI's thinking shows up inside the reply.**
 In Advanced Formatting, tick **Auto-Parse**, open **Reasoning Formatting** and set **Prefix** and **Suffix** to your tags (section 3, style B). Check that the preset's regex scripts are allowed too, under **Extensions** → **Regex**; they fold a plan into a 💭 **Thoughts** box even when the model forgets its tags. On the Text Completions file, import my regex file from section 6 as well. If the model with native reasoning off skips the plan or writes it loosely, make sure 🏷️ **Logic Core Tags** is ON (style B), since that's the switch that tells it to open every reply with `<thinking>`. On the Text Completions file, that's `aria-thinking-tags`, which ships `on`.
 
+**The plan lands in a purple 💭 Thoughts box instead of SillyTavern's own reasoning box.**
+SillyTavern's **Auto-Parse** only catches a reply whose very first characters match your **Prefix**, so check that the Prefix is exactly `<thinking>` and the Suffix exactly `</thinking>`, with no spaces. Before beta 5, MiMo liked to copy the `<logic_core>` label my planning note started with, and SillyTavern can't parse that one. From beta 5 on, The Logic Core starts on `<thinking>` itself whenever 🏷️ Logic Core Tags is ON, so check that your 🌳 README entry (or the Text Completions template name) says beta 5. If it doesn't, re-import the preset, and on the Text Completions file swap in the new regex file from section 6 too. A time header written above the plan blocks Auto-Parse as well; my regex scripts still fold the plan then, which is exactly what the purple box is there for.
+Does SillyTavern's own reasoning box show up as well, full of the model's free-form musings, while my checklist sits in the purple box below it? Then your provider still sends the model's native reasoning, and SillyTavern skips Auto-Parse for any reply that already carries some, however neatly it opens with `<thinking>`. Untick **Request Model Reasoning** and set **Reasoning Effort** to **Minimum** again (section 3, style B). If that provider keeps thinking anyway, style A suits it better!
+
+**The plan never shows up, and the reply starts straight with the story.**
+First check that **Request Model Reasoning** is unticked and 🏷️ **Logic Core Tags** is ON. If the model still skips the plan, switch 🧠 **The Logic Core** OFF and 🧠 **The Logic Core (system-role twin)** ON, so the plan arrives as an instruction inside the very last message. MiMo V2.6 Pro follows that version more often on some providers. If the twin makes no difference on your model, switch back, since a few chat formats move every system message to the top of the prompt. A long pause before the first word with no plan in sight means the model still thinks in secret on its own, and style A suits it better.
+
 **The model's thinking takes forever.**
 Switch to thinking style B, or turn on the GLM / Kimi / Qwen patch if you use one of those models. On Claude, stay on style A and set **Reasoning Effort** to **Low** instead, because Claude keeps thinking whichever setting you pick. On the Text Completions file, set `aria-logic-core` to `off`, or set `aria-patch-glm-qwen` to `on` for those models.
 
 **The 🎲 ledger shows up as plain text instead of a panel.**
 Allow the preset's regex scripts under **Extensions** → **Regex**, or import my regex file on the Text Completions file (section 6). If the scripts are on and one reply still looks raw, the model wrote its ledger in an odd shape, like fields split over several lines or a ledger without its 🎲. The next reply usually fixes itself, and the engine reads the plain text just fine either way.
+
+**The bonds show up as a loose line or a bare card under the 🎲 panel.**
+That's a beta 3 habit! From beta 4 on, Bonds keeps its own 💚 ledger, and my regex scripts tuck a stray bonds line from older replies into the teal panel too. Re-import the preset, and on the Text Completions file import the new regex file as well (section 6).
 
 **The 🎲 line vanished and the world forgot what was going on.**
 Make sure 🎲 Fate & Chekhov Ledger is ON and that you didn't edit the line out of the AI's last reply. If you switched on the "Drop old ledgers" regex, switch it off again in **Extensions** → **Regex**. Also check that **Trim Incomplete Sentences** in **Advanced Formatting** is unticked, because it cuts that line in half. On the Text Completions file, check that `aria-fate` is `on` and that **Response (tokens)** is large enough (section 6), since a reply cut off at the limit loses the 🎲 line.
@@ -333,8 +344,8 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 |---|---|
 | Core (everything that ships ON except Fate and Time & Place) | ~1,760 |
 | Shipped default | ~2,560 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~3,270 |
-| Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~126 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~3,320 |
+| Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~110 |
 
 For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 86% smaller.
 
@@ -343,10 +354,10 @@ The Text Completions file, measured the same way:
 | Text Completions configuration | Tokens |
 |---|---|
 | Lean start, as shipped for 32k | ~1,535 |
-| Plus The Logic Core, Fate and Time & Place | ~2,606 |
-| Everything ON (largest patch and 🔦 Flash Gate included) | ~3,309 |
+| Plus The Logic Core, Fate and Time & Place | ~2,640 |
+| Everything ON (largest patch and 🔦 Flash Gate included) | ~3,360 |
 
-The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), or if anything would break prompt caching. Run it after every edit.
+The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), if an entry reads a variable before anything earlier in the list sets it, if any render with 🏷️ Logic Core Tags on still names `<logic_core>`, or if anything would break prompt caching. It checks every combination of the tags, each Logic Core (or none), each model patch and Impersonate. Run it after every edit.
 
 ### Prompt order (Chat Completions)
 
@@ -365,21 +376,23 @@ The script also fails if anything goes over 4,500 tokens, if a tag or label is r
 | 11 | 📖 Story Context | system block | on |
 | 12 | Persona, card, personality, scenario, examples, then World Info before and after | system block | on |
 | 13 | Chat History | | on |
-| 14 | 🪞 Impersonation Turn | In-Chat depth 0, user, Impersonate only; it sits before the gate so it can clear the Fate and ledger lines on Impersonate | on |
-| 15 | 🚪 Last-Mile Gate | In-Chat depth 0, system | on |
-| 16 | 🧠 The Logic Core | In-Chat depth 0, assistant | on |
-| 17 | 🧠 Logic Core twin, Reduce Reasoning | In-Chat depth 0, user | off |
+| 14 | 🪞 Impersonation Turn | In-Chat depth 0, user, Impersonate only; it comes first so it can clear the Fate and ledger lines before The Logic Core and the gate read them | on |
+| 15 | 🧠 The Logic Core | In-Chat depth 0, assistant | on |
+| 16 | 🧠 The Logic Core (system-role twin) | In-Chat depth 0, system, merged into the gate's message | off |
+| 17 | 🚪 Last-Mile Gate | In-Chat depth 0, system | on |
+| 18 | Reduce Reasoning | In-Chat depth 0, user | off |
 
 ### Cache-first rules
 
 These are checked against SillyTavern's own source code:
 
-- In-Chat entries are spliced in after the newest message. At the same depth and order, SillyTavern writes them as assistant, then user, then system, so the Last-Mile Gate reads last, right after The Logic Core.
+- In-Chat entries are spliced in after the newest message. At the same depth and order, SillyTavern writes them as assistant, then user, then system, so the Last-Mile Gate reads last, right after The Logic Core. Entries with the same role merge into one message in list order, so the system-role twin and the gate travel together as the final message.
+- SillyTavern reads the macros in list order, wherever each message lands. Both Logic Cores therefore sit above the gate in the list: the gate prints their closing cue (`ariaPlanCue`) as its very last line.
 - For Claude, every system message before the chat becomes the cached system prompt, and later system messages are sent as user messages. That's why `cachingAtDepth: 2` skips the gate (depth 0) and The Logic Core (depth 1). On OpenRouter, SillyTavern skips system messages when it counts depth, so the markers land on the AI's two previous replies instead.
 - Nothing in the system block changes between turns. Dice live inside `{{setvar}}`, which prints nothing there, and only print at the end through the gate. No system-block entry has generation triggers, so Impersonate reuses the same cache.
 - World Info sits after the card and examples, so a lorebook change only re-reads what comes after it.
 - Chat history never gets rewritten. The ledger-trimming regex ships disabled for that reason.
-- The panel, row, label and bond-bar scripts are display-only, so the prompt stays exactly as written. The two thinking strips run on every depth, so a message reads the same to the model on every turn after it's written.
+- The panel, row, label and bond-bar scripts are display-only, so the prompt stays exactly as written. The four thinking strips (tagged plans, mismatched tags, untagged plans and a copied Logic Core) run on every depth, so a message reads the same to the model on every turn after it's written.
 
 ### The Text Completions edition
 
@@ -401,8 +414,9 @@ The Main Prompt's first line blanks every helper variable each turn, so a switch
 | `ariaModeLine` | 🔞 Adult Context, overwritten by 😈 Freaky | 🧠 The Logic Core |
 | `ariaScentGate` | 👃 Scent Occasions | 🚪 Last-Mile Gate |
 | `ariaThinkOpen`, `ariaThinkClose` | 🏷️ Logic Core Tags | 🧠 The Logic Core (`{{#if .ariaThinkOpen}}`) |
-| `ariaLedgerLine`, `ariaLedgerGate` | 🎲 Fate, or 🥰 Bonds Lite when Fate is off (Bonds adds its field to Fate's when both are on) | 🧠 The Logic Core, 🚪 Last-Mile Gate |
+| `ariaLedgerLine`, `ariaLedgerGate` | 🎲 Fate, or 🥰 Bonds Lite when Fate is off (with both on, Bonds rewrites them so the 🎲 block is followed by its own 💚 block) | 🧠 The Logic Core, 🚪 Last-Mile Gate |
 | `ariaFlashGate` | 🔦 Flash Gate | 🚪 Last-Mile Gate |
+| `ariaPlanCue` | 🧠 The Logic Core or its system-role twin, with 🏷️ Logic Core Tags on | 🚪 Last-Mile Gate (its opener and its very last line) |
 | `logicCoreLines` | 🧠 The Logic Core itself: 7 plus one per Mode, Fate, Bonds and Ledger line | 🧠 The Logic Core ("N dashed lines") |
 
 On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and dice variables before the gate and The Logic Core read them.
@@ -414,10 +428,12 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and d
 - **The double slop gates** are one labelled line per pattern in the Anti-Slop Codex, plus one check line each in the Last-Mile Gate. Contrast and Chop each carry one repair example.
 - **The Scene Engine** lives in Voice & Scene Engine with its progression, causality, pacing, initiative and handoff endings.
 - **Card Fidelity and the language rules** are Main Prompt labels (Card Fidelity, Story Language, Epistemic Limits). Speech counts as "heard" however the story's language marks it, so Hungarian „quotes" and dialogue dashes work.
-- **The Logic Core** is sent with the assistant role after the history.
+- **The Logic Core** is sent with the assistant role after the history, or with the system role through its twin, inside the gate's message. With 🏷️ Logic Core Tags on it carries no wrapper tag and starts on `<thinking>`, the tag the reply has to open with. With them off it sits inside `<logic_core>` as before, since the plan then runs inside the model's own reasoning. Every other entry calls it "the plan", which reads right in both shapes and with The Logic Core off, so no other entry branches on the shape. The gate only prints the one-line reminder The Logic Core hands it.
 
 ### Known risks to test
 
+- Beta 5 starts The Logic Core on `<thinking>` whenever the tags are on, so MiMo copies the right tag. The catch: a model could read that note as thinking it already finished and skip its own plan. If plans go missing more often than in beta 4, tell me, and the opening sentence goes back to Realistic Frankenstein's wording.
+- Beta 4 ends the gate with a one-line reminder to open with the plan and gives The Logic Core a system-role twin. Providers can change how they wrap a model at any time, so the twin is a lever to test per provider, and the normal Logic Core stays the default.
 - Beta 3 squeezed every module by about a quarter compared with beta 2, with reviewers checking each rule against Realistic Frankenstein along the way. Compare a few scenes with beta 2 and report anything that feels flatter or gets forgotten.
 - Fate is the most compressed piece. Mid-size or quantized models may forget to age entries or let Bullets pile up, so try it on a strong model first.
 - With fewer repair examples, some Claude habits may creep back. The Claude patch and the gate are the first line of defence.
@@ -437,7 +453,8 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and d
 - **Card fidelity:** a shy card stays shy under Adult Context, siblings recognise each other on turn 1, a drill sergeant keeps short orders, and a Hungarian chat stays free of English words.
 - **Impersonate:** the input box gets only your character's words, in their own person and tense.
 - **Thinking style B (MiMo V2.6 Flash or another stubborn model):** every reply opens with `<thinking>`, runs the dashed plan lines, ends on `go` and closes the tag before the story. With Auto-Parse on, the plan lands in the reasoning box; with it off, the 💭 **Thoughts** box catches it, tags or no tags.
-- **Panels:** with Fate and Bonds on, the ledger shows as the orange panel with labelled rows and one bar card per pair; with Fate off, the cards sit in the teal 💚 panel. A model that drops the closing `</details>` should still get a panel.
+- **MiMo V2.6 Pro, style B:** 20 swipes per provider (Xiaomi, DeepInfra, NeuralWatt) at turn 10 or later, first with 🧠 The Logic Core and then with its system-role twin. Count how often the plan appears, whether it lands in SillyTavern's own reasoning box (the goal) or in the purple 💭 Thoughts box (the reply opened with something else, or the provider still sent its own reasoning, which then fills SillyTavern's box with free-form thoughts; note which), and whether the tag closes before the story. An OOC question about this turn's Fate dice shows whether the gate reaches the model at all.
+- **Panels:** with Fate and Bonds on, the orange 🎲 panel holds the labelled rows and the teal 💚 panel under it holds one bar card per pair, names centred; with Fate off, only the teal panel shows. A model that drops the closing `</details>`, writes `bonds:` inside the 🎲 block or leaves the pairs loose at the end should still get both panels.
 - **Text Completions, local 32k:** the System Prompt and story string in the Prompt itemization should match on two turns in a row, with only the dice and the new-name letter in the last block changing. Flipping each `aria-*` switch should add or remove only its own block. The KoboldCpp console should process only the new tokens each turn. With `aria-fate` on and Response (tokens) at 600 or more, the 🎲 line should survive 20 turns. With `aria-logic-core` on, the plan should fold into the reasoning box; note whether any of it reaches the input box after Impersonate.
 - **Blind A/B against your previous preset:** same three cards, 10 turns each on Claude 5 and Gemini, ranked by a reader who doesn't know which is which.
 
@@ -445,7 +462,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and d
 
 Please open an issue on the [GitHub issues page](https://github.com/QuillFlash/ARIA/issues) and include:
 
-- the build: ARIA 1.0 beta 3, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
+- the build: ARIA 1.0 beta 5, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
 - your SillyTavern version
 - your API source or local backend, and the model (plus the quant for local models)
 - your thinking style (A or B), or your `aria-*` switch lines on the Text Completions file

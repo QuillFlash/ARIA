@@ -1,5 +1,56 @@
 [
     {
+        "id": "6dd57924-f628-57aa-9c58-45090ab08f3e",
+        "scriptName": "ARIA - Fold an echoed Logic Core template into a Thoughts box (display only)",
+        "findRegex": "/^(\\s*)<(?:thinking|think)>[ \\t]*(opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go)[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*closes on the line after go\\.(?:[ \\t]*The reply starts on the line after that(?::(?:[^\\n]{0,600}?Nothing above go enters the reply\\.(?:[ \\t]*When this turn asks for [^\\n]{0,300}?Ledger lines\\.)?|[^\\n]{0,600})|\\.))?(?:\\s*Every response starts with <(?:thinking|think)>\\.(?:(\\n[ \\t]*-[ \\t]*(?:OOC|Scene)[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*-[ \\t]*go)[ \\t]*(?:\\n[ \\t]*<\\/(?:thinking|think)>)?(?=[ \\t]*(?:\\n|$)))?)?/i",
+        "replaceString": "$1<details style=\"background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.3); border-left: 4px solid #a855f7; border-radius: 8px; margin: 10px 0; padding: 10px 14px; font-size: 0.92em;\"><summary style=\"cursor: pointer; font-weight: bold; color: #c084fc; user-select: none;\">💭 Thoughts</summary>\n\n$2$3\n</details>",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "3d60d96b-a828-52c2-8a4f-9983afa27926",
+        "scriptName": "ARIA - Hide an echoed Logic Core closing line (display only)",
+        "findRegex": "/(^\\s*|<\\/(?:thinking|think|details)>\\s*)(?:closes on the line after go\\.(?:[ \\t]*The reply starts on the line after that(?::(?:[^\\n]{0,600}?Nothing above go enters the reply\\.(?:[ \\t]*When this turn asks for [^\\n]{0,300}?Ledger lines\\.)?|[^\\n]{0,600})|\\.))?(?:\\s*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?/gi",
+        "replaceString": "$1",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "833af073-aab6-5b27-af44-74047e1229a3",
+        "scriptName": "ARIA - Keep an echoed Logic Core template out of the prompt (all depths, cache-safe)",
+        "findRegex": "/(^\\s*|<\\/(?:thinking|think)>\\s*)(?:(?:<(?:thinking|think)>[ \\t]*opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*)?closes on the line after go\\.(?:[ \\t]*The reply starts on the line after that(?::(?:[^\\n]{0,600}?Nothing above go enters the reply\\.(?:[ \\t]*When this turn asks for [^\\n]{0,300}?Ledger lines\\.)?|[^\\n]{0,600})|\\.))?(?:\\s*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?/gi",
+        "replaceString": "$1",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
         "id": "b75828b7-ad31-5db1-986b-b7b839f6ff55",
         "scriptName": "ARIA - Fold thinking into a Thoughts box (display only)",
         "findRegex": "/(?:<\\s{0,8}(think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>([\\s\\S]{0,20000}?)<\\s{0,8}\\/\\s{0,8}\\1[^>]{0,120}>|###\\s{0,8}(?:Internal Monologue|Reasoning|Thoughts?|Thinking)\\s{0,8}\\n?([\\s\\S]{0,20000}?)###\\s{0,8}(?:Response|Output|Narrative|Final Answer)\\s{0,8})/gi",
@@ -153,6 +204,57 @@
         "maxDepth": null
     },
     {
+        "id": "dcaa9a71-8730-5624-99ad-265ed929c16f",
+        "scriptName": "ARIA UI - Move a bonds field out of the 🎲 ledger into its own 💚 block",
+        "findRegex": "/(<details>\\s{0,8}<summary>\\s{0,8}🎲[^<]{0,60}<\\/summary>[^<]{0,6000}?)[ \\t]*\\|?[ \\t]*(?:\\*\\*)?bonds(?:\\*\\*)?[ \\t]*:(?:\\*\\*)?[ \\t]*([^<|]{1,2000}?)[ \\t]*((?:\\|[^<]{0,6000}?)?)\\s*<\\/details>/i",
+        "replaceString": "$1$3</details>\n<details><summary>💚</summary>$2</details>",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "56c23c3d-96d9-5383-8fc0-84a30f080ce4",
+        "scriptName": "ARIA UI - Wrap a stray bonds line in its own 💚 block",
+        "findRegex": "/(^|\\n)[ \\t]*(?:\\*\\*)?bonds(?:\\*\\*)?[ \\t]*:(?:\\*\\*)?[ \\t]*([^\\n<]{0,2000}?(?:↔|⟷|<->)[^\\n<]{0,2000}?)[ \\t]*(?=\\n|$)/i",
+        "replaceString": "$1<details><summary>💚</summary>$2</details>",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "b2a96593-8d95-5100-af44-8f260d78cc49",
+        "scriptName": "ARIA UI - Wrap bare bond pairs at the end of a reply in a 💚 block",
+        "findRegex": "/(^|\\n)[ \\t]*(?=((?:[^\\s<>\"|↔⟷,;:/、，；][^<>\"|↔⟷\\n,;:/、，；]{0,39}[ \\t]*(?:↔|⟷|<->)[ \\t]*[^\\s<>\"|↔⟷,;:/、，；][^<>\"|↔⟷\\n,;:/、，；]{0,39}?[ \\t]*:?[ \\t]*[-−–+]?[ \\t]?\\d{1,2}[ \\t]*\\/[ \\t]*\\d{1,2}[ \\t]*\\/[ \\t]*\\d{1,2}[ \\t]*[,;、，；]?[ \\t]*){1,24}))\\2\\s*$/",
+        "replaceString": "$1<details><summary>💚</summary>$2</details>",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
         "id": "84e0adf7-66e9-5590-81e6-ea429f841da3",
         "scriptName": "ARIA UI - Fate & Routine panel",
         "findRegex": "/<details>\\s{0,8}<summary>\\s{0,8}🎲[^<]{0,60}<\\/summary>\\s*(?:([A-Za-z][A-Za-z ]{0,15}?)[ \\t]*:[ \\t]*)?([\\s\\S]{0,12000}?)[\\s|]*<\\/details>/g",
@@ -241,7 +343,7 @@
         "id": "f9085cb5-20aa-57ed-b5de-95386cf42124",
         "scriptName": "ARIA UI - Bond bars (negative)",
         "findRegex": "/(?<![ \\t\\n])(?:[ \\t]*[,;、，；\\n][ \\t\\n]*)?[ \\t]*(?:[-*•][ \\t]+)?([^\\s<>\"|↔⟷,;:/、，；][^<>\"|↔⟷\\n,;:/、，；]{0,39}?)[ \\t]*(?:↔|⟷|<->)[ \\t]*([^\\s<>\"|↔⟷,;:/、，；][^<>\"|↔⟷\\n,;:/、，；]{0,39}?)[ \\t]*:?[ \\t]*(?:BOND[ \\t]*:?[ \\t]*)?[-−–][ \\t]?(\\d{1,2})[ \\t]*\\/[ \\t]*(?:SPARKS?[ \\t]*:?[ \\t]*)?(\\d{1,2})[ \\t]*\\/[ \\t]*(?:GRUDGES?[ \\t]*:?[ \\t]*)?(\\d{1,2})(?!\\d)/gi",
-        "replaceString": "<div style=\"background:rgba(24,24,37,0.55);border:1px solid #45475a;border-radius:6px;padding:8px 10px;margin:6px 0;\"><div style=\"font-weight:bold;color:#cdd6f4;margin-bottom:6px;letter-spacing:0.5px;\">$1 <span style=\"color:#74c7ec;margin:0 6px;\">⟷</span> $2</div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#f38ba8;\">BOND -$3</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($3% / 0.05),100%);background:linear-gradient(90deg,#eba0ac,#f38ba8);\"></div></div></div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#f5c2e7;\">SPARKS $4</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($4% / 0.07),100%);background:linear-gradient(90deg,#cba6f7,#f5c2e7);\"></div></div></div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#f38ba8;\">GRUDGE $5</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($5% / 0.05),100%);background:linear-gradient(90deg,#fab387,#f38ba8);\"></div></div></div></div>",
+        "replaceString": "<div style=\"background:rgba(24,24,37,0.55);border:1px solid #45475a;border-radius:6px;padding:8px 10px;margin:6px 0;\"><div style=\"font-weight:bold;color:#cdd6f4;margin-bottom:6px;letter-spacing:0.5px;text-align:center;\">$1 <span style=\"color:#74c7ec;margin:0 6px;\">⟷</span> $2</div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#f38ba8;\">BOND -$3</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($3% / 0.05),100%);background:linear-gradient(90deg,#eba0ac,#f38ba8);\"></div></div></div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#f5c2e7;\">SPARKS $4</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($4% / 0.07),100%);background:linear-gradient(90deg,#cba6f7,#f5c2e7);\"></div></div></div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#f38ba8;\">GRUDGE $5</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($5% / 0.05),100%);background:linear-gradient(90deg,#fab387,#f38ba8);\"></div></div></div></div>",
         "trimStrings": [],
         "placement": [
             2
@@ -258,7 +360,7 @@
         "id": "dcf17bf1-241f-5b65-93ab-20b4af5e0c55",
         "scriptName": "ARIA UI - Bond bars (positive)",
         "findRegex": "/(?<![ \\t\\n])(?:[ \\t]*[,;、，；\\n][ \\t\\n]*)?[ \\t]*(?:[-*•][ \\t]+)?([^\\s<>\"|↔⟷,;:/、，；][^<>\"|↔⟷\\n,;:/、，；]{0,39}?)[ \\t]*(?:↔|⟷|<->)[ \\t]*([^\\s<>\"|↔⟷,;:/、，；][^<>\"|↔⟷\\n,;:/、，；]{0,39}?)[ \\t]*:?[ \\t]*(?:BOND[ \\t]*:?[ \\t]*)?\\+?(\\d{1,2})[ \\t]*\\/[ \\t]*(?:SPARKS?[ \\t]*:?[ \\t]*)?(\\d{1,2})[ \\t]*\\/[ \\t]*(?:GRUDGES?[ \\t]*:?[ \\t]*)?(\\d{1,2})(?!\\d)/gi",
-        "replaceString": "<div style=\"background:rgba(24,24,37,0.55);border:1px solid #45475a;border-radius:6px;padding:8px 10px;margin:6px 0;\"><div style=\"font-weight:bold;color:#cdd6f4;margin-bottom:6px;letter-spacing:0.5px;\">$1 <span style=\"color:#74c7ec;margin:0 6px;\">⟷</span> $2</div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#a6e3a1;\">BOND +$3</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($3% / 0.2),100%);background:linear-gradient(90deg,#94e2d5,#a6e3a1);\"></div></div></div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#f5c2e7;\">SPARKS $4</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($4% / 0.07),100%);background:linear-gradient(90deg,#cba6f7,#f5c2e7);\"></div></div></div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#f38ba8;\">GRUDGE $5</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($5% / 0.05),100%);background:linear-gradient(90deg,#fab387,#f38ba8);\"></div></div></div></div>",
+        "replaceString": "<div style=\"background:rgba(24,24,37,0.55);border:1px solid #45475a;border-radius:6px;padding:8px 10px;margin:6px 0;\"><div style=\"font-weight:bold;color:#cdd6f4;margin-bottom:6px;letter-spacing:0.5px;text-align:center;\">$1 <span style=\"color:#74c7ec;margin:0 6px;\">⟷</span> $2</div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#a6e3a1;\">BOND +$3</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($3% / 0.2),100%);background:linear-gradient(90deg,#94e2d5,#a6e3a1);\"></div></div></div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#f5c2e7;\">SPARKS $4</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($4% / 0.07),100%);background:linear-gradient(90deg,#cba6f7,#f5c2e7);\"></div></div></div><div style=\"display:flex;align-items:center;gap:8px;margin:3px 0;\"><span style=\"width:88px;flex:none;font-size:0.8em;font-weight:bold;text-align:right;color:#f38ba8;\">GRUDGE $5</span><div style=\"flex:1;height:10px;background:rgba(0,0,0,0.45);border-radius:5px;overflow:hidden;\"><div style=\"height:100%;border-radius:5px;width:min(calc($5% / 0.05),100%);background:linear-gradient(90deg,#fab387,#f38ba8);\"></div></div></div></div>",
         "trimStrings": [],
         "placement": [
             2
@@ -276,6 +378,23 @@
         "scriptName": "ARIA Impersonate - strip a leading Time & Place header",
         "findRegex": "/^\\s*\\[(?=[^\\n\\]]*(?:🕰|⏰))[^\\n\\]]*\\][ \\t]*(?:\\n+|$)/",
         "replaceString": "",
+        "trimStrings": [],
+        "placement": [
+            1
+        ],
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": false,
+        "runOnEdit": true,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "f1413989-9c9e-53d5-9668-edcf824e74b8",
+        "scriptName": "ARIA Impersonate - strip an echoed Logic Core template",
+        "findRegex": "/(^\\s*)<(?:thinking|think)>[ \\t]*opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*closes on the line after go\\.(?:[ \\t]*The reply starts on the line after that(?::(?:[^\\n]{0,600}?Nothing above go enters the reply\\.(?:[ \\t]*When this turn asks for [^\\n]{0,300}?Ledger lines\\.)?|[^\\n]{0,600})|\\.)|[ \\t]*(?=\\n|$))(?:\\s*Every response starts with <(?:thinking|think)>\\.)?(?:\\s*<\\/(?:thinking|think)>)?|(<\\/(?:thinking|think)>\\s*)(?:closes on the line after go\\.(?:[ \\t]*The reply starts on the line after that(?::(?:[^\\n]{0,600}?Nothing above go enters the reply\\.(?:[ \\t]*When this turn asks for [^\\n]{0,300}?Ledger lines\\.)?|[^\\n]{0,600})|\\.)|[ \\t]*(?=\\n|$))(?:\\s*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?|(^\\s*)<(?:thinking|think)>[ \\t]*\\n[\\s\\S]{0,8000}?\\n[ \\t]*-[ \\t]*go[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*closes on the line after go\\.[ \\t]*(?=\\S)(?!The reply starts on the line after that)/gi",
+        "replaceString": "$1$2$3",
         "trimStrings": [],
         "placement": [
             1
@@ -341,8 +460,8 @@
     },
     {
         "id": "372a7c17-8fbe-5450-b219-e67a0fbfaa92",
-        "scriptName": "ARIA Impersonate - strip a trailing 🎲/💚 ledger",
-        "findRegex": "/\\s*<details>\\s{0,8}<summary>(?:🎲|💚)<\\/summary>[\\s\\S]{0,4000}?<\\/details>\\s*$/i",
+        "scriptName": "ARIA Impersonate - strip trailing 🎲/💚 ledgers",
+        "findRegex": "/(?:\\s*<details>\\s{0,8}<summary>(?:🎲|💚)<\\/summary>[^<]{0,4000}<\\/details>){1,3}\\s*$/i",
         "replaceString": "",
         "trimStrings": [],
         "placement": [

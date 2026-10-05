@@ -126,6 +126,26 @@ def strip_setvar_bodies(s):
     return ''.join(out)
 
 
+READS = re.compile(r'\{\{getvar::([\w-]+)\}\}|\{\{#?if !?\.([\w-]+)\}\}')
+NONEMPTY_SET = re.compile(r'\{\{setvar::([\w-]+)::(?!\}\})|\{\{\.([\w-]+)\s*=')
+
+
+def order_errors(parts):
+    """parts: [(label, raw_text)] in evaluation order. A variable must get a non-empty value in an earlier part,
+    or earlier inside the same part, before a part reads it; blanking setvars ({{setvar::x::}}) do not count."""
+    errors, have = [], set()
+    for label, text in parts:
+        events = sorted([(m.start(), 'set', m.group(1) or m.group(2)) for m in NONEMPTY_SET.finditer(text)]
+                        + [(m.start(), 'read', m.group(1) or m.group(2)) for m in READS.finditer(text)])
+        for _, kind, name in events:
+            if kind == 'set':
+                have.add(name)
+            elif name not in have:
+                errors.append(f'order: {label} reads {name} before anything earlier sets it')
+                have.add(name)  # report each variable once
+    return errors
+
+
 def tokens(text):
     return round(len(text) / 4)
 
@@ -222,6 +242,31 @@ def analyse_cc(preset):
     raw_all = '\n'.join(p.get('content') or '' for p in preset['prompts'])
     wiring, setters = wiring_errors(named, main_text, raw_all)
     errors += wiring
+    # The same wiring check over every Logic Core shape: Tags ON and OFF, normal and Impersonate, each model patch,
+    # the assistant Logic Core, its system-role twin, or neither. With Tags ON nothing may name <logic_core>: the plan opens on
+    # the fence tag, and a second tag there is what models copied.
+    tags_ids = by_prefix('🏷️')
+    lc_ids = {pid for pid in prompts if name[pid].startswith('🧠 The Logic Core')}
+    base = all_on - patches - tags_ids - lc_ids
+    seen = set(errors)
+    for tags_on in (True, False):
+        for imp in (False, True):
+            for patch in sorted(patches) + [None]:
+                for lc in sorted(lc_ids) + [None]:
+                    enabled = base | ({patch} if patch else set()) | (tags_ids if tags_on else set()) | ({lc} if lc else set())
+                    r, _ = simulate_cc(preset, enabled, seed=1, impersonate=imp)
+                    label = f"Tags {'ON' if tags_on else 'OFF'}, {'Impersonate' if imp else 'normal'}, {name[lc] if lc else 'no Logic Core'}, {name[patch] if patch else 'no patch'}"
+                    nm = {name[pid]: t for pid, t in r.items()}
+                    found, _ = wiring_errors(nm, nm.get(name.get('main', ''), ''), raw_all)
+                    if tags_on:
+                        if re.search(r'</?logic_core', '\n'.join(r.values())):
+                            found.append('Tags ON render names <logic_core>')
+                    for e in found:
+                        if e not in seen:
+                            seen.add(e)
+                            errors.append(f'{e} ({label})')
+    errors += order_errors([(name[r['identifier']], prompts[r['identifier']].get('content') or '') for r in order
+                            if r['identifier'] in prompts])
     blanked = set(re.findall(r'\{\{setvar::([\w-]+)::\}\}', prompts['main']['content']))
     for v in sorted(v for v in setters if v.startswith('aria') and v not in blanked):
         errors.append(f'splice variable not blanked by the Main Prompt: {v}')
@@ -295,6 +340,24 @@ def analyse_tc(preset):
     raw_all = system + '\n' + (preset['sysprompt'].get('post_history') or '')
     wiring, setters = wiring_errors(rendered, rendered['System Prompt'], raw_all, 'the System Prompt')
     errors += wiring
+    # Every Logic Core shape: tags on and off, Logic Core on and off, with each patch alone; with tags on nothing may
+    # name <logic_core>
+    seen = set(errors)
+    for tags in ('on', 'off'):
+      for lc in ('on', 'off'):
+        for patch in patches + [None]:
+            overrides = dict(all_on) | {p: 'off' for p in patches} | {'aria-thinking-tags': tags, 'aria-logic-core': lc}
+            if patch:
+                overrides[patch] = 'on'
+            r, _ = simulate_tc(preset, overrides, seed=1)
+            found, _ = wiring_errors(r, r['System Prompt'], raw_all, 'the System Prompt')
+            if tags == 'on' and re.search(r'</?logic_core', r['System Prompt'] + r['Post-History']):
+                found.append('tags-on render names <logic_core>')
+            for e in found:
+                if e not in seen:
+                    seen.add(e)
+                    errors.append(f"{e} (aria-thinking-tags {tags}, aria-logic-core {lc}, {patch or 'no patch'})")
+    errors += order_errors([('the System Prompt', system), ('the post-history', preset['sysprompt'].get('post_history') or '')])
 
     stale = {v: 'stale value from an earlier turn' for v in setters}
     for overrides in (shipped, all_on):
