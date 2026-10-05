@@ -126,6 +126,26 @@ def strip_setvar_bodies(s):
     return ''.join(out)
 
 
+READS = re.compile(r'\{\{getvar::([\w-]+)\}\}|\{\{#?if !?\.([\w-]+)\}\}')
+NONEMPTY_SET = re.compile(r'\{\{setvar::([\w-]+)::(?!\}\})|\{\{\.([\w-]+)\s*=')
+
+
+def order_errors(parts):
+    """parts: [(label, raw_text)] in evaluation order. A variable must get a non-empty value in an earlier part,
+    or earlier inside the same part, before a part reads it; blanking setvars ({{setvar::x::}}) do not count."""
+    errors, have = [], set()
+    for label, text in parts:
+        events = sorted([(m.start(), 'set', m.group(1) or m.group(2)) for m in NONEMPTY_SET.finditer(text)]
+                        + [(m.start(), 'read', m.group(1) or m.group(2)) for m in READS.finditer(text)])
+        for _, kind, name in events:
+            if kind == 'set':
+                have.add(name)
+            elif name not in have:
+                errors.append(f'order: {label} reads {name} before anything earlier sets it')
+                have.add(name)  # report each variable once
+    return errors
+
+
 def tokens(text):
     return round(len(text) / 4)
 
@@ -222,6 +242,8 @@ def analyse_cc(preset):
     raw_all = '\n'.join(p.get('content') or '' for p in preset['prompts'])
     wiring, setters = wiring_errors(named, main_text, raw_all)
     errors += wiring
+    errors += order_errors([(name[r['identifier']], prompts[r['identifier']].get('content') or '') for r in order
+                            if r['identifier'] in prompts])
     blanked = set(re.findall(r'\{\{setvar::([\w-]+)::\}\}', prompts['main']['content']))
     for v in sorted(v for v in setters if v.startswith('aria') and v not in blanked):
         errors.append(f'splice variable not blanked by the Main Prompt: {v}')
@@ -295,6 +317,7 @@ def analyse_tc(preset):
     raw_all = system + '\n' + (preset['sysprompt'].get('post_history') or '')
     wiring, setters = wiring_errors(rendered, rendered['System Prompt'], raw_all, 'the System Prompt')
     errors += wiring
+    errors += order_errors([('the System Prompt', system), ('the post-history', preset['sysprompt'].get('post_history') or '')])
 
     stale = {v: 'stale value from an earlier turn' for v in setters}
     for overrides in (shipped, all_on):
