@@ -1,5 +1,56 @@
 [
     {
+        "id": "6dd57924-f628-57aa-9c58-45090ab08f3e",
+        "scriptName": "ARIA - Fold an echoed Logic Core template into a Thoughts box (display only)",
+        "findRegex": "/^(\\s*)<(?:thinking|think)>[ \\t]*(opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go)[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*closes on the line after go\\.[^\\n]{0,600}(?:\\n[ \\t]*Every response starts with <(?:thinking|think)>\\.)?/i",
+        "replaceString": "$1<details style=\"background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.3); border-left: 4px solid #a855f7; border-radius: 8px; margin: 10px 0; padding: 10px 14px; font-size: 0.92em;\"><summary style=\"cursor: pointer; font-weight: bold; color: #c084fc; user-select: none;\">💭 Thoughts</summary>\n\n$2\n</details>",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "3d60d96b-a828-52c2-8a4f-9983afa27926",
+        "scriptName": "ARIA - Hide an echoed Logic Core closing line (display only)",
+        "findRegex": "/(^\\s*|<\\/(?:thinking|think)>\\s*)(?:closes on the line after go\\.[^\\n]{0,600}(?:\\n[ \\t]*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?/i",
+        "replaceString": "$1",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": true,
+        "promptOnly": false,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "833af073-aab6-5b27-af44-74047e1229a3",
+        "scriptName": "ARIA - Keep an echoed Logic Core template out of the prompt (all depths, cache-safe)",
+        "findRegex": "/(^\\s*|<\\/(?:thinking|think)>\\s*)(?:(?:<(?:thinking|think)>[ \\t]*opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*)?closes on the line after go\\.[^\\n]{0,600}(?:\\n[ \\t]*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?/i",
+        "replaceString": "$1",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
         "id": "b75828b7-ad31-5db1-986b-b7b839f6ff55",
         "scriptName": "ARIA - Fold thinking into a Thoughts box (display only)",
         "findRegex": "/(?:<\\s{0,8}(think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>([\\s\\S]{0,20000}?)<\\s{0,8}\\/\\s{0,8}\\1[^>]{0,120}>|###\\s{0,8}(?:Internal Monologue|Reasoning|Thoughts?|Thinking)\\s{0,8}\\n?([\\s\\S]{0,20000}?)###\\s{0,8}(?:Response|Output|Narrative|Final Answer)\\s{0,8})/gi",
@@ -327,6 +378,23 @@
         "scriptName": "ARIA Impersonate - strip a leading Time & Place header",
         "findRegex": "/^\\s*\\[(?=[^\\n\\]]*(?:🕰|⏰))[^\\n\\]]*\\][ \\t]*(?:\\n+|$)/",
         "replaceString": "",
+        "trimStrings": [],
+        "placement": [
+            1
+        ],
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": false,
+        "runOnEdit": true,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "f1413989-9c9e-53d5-9668-edcf824e74b8",
+        "scriptName": "ARIA Impersonate - strip an echoed Logic Core template",
+        "findRegex": "/(^\\s*|<\\/(?:thinking|think)>\\s*)(?:(?:<(?:thinking|think)>[ \\t]*opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*)?closes on the line after go\\.[^\\n]{0,600}(?:\\n[ \\t]*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?/i",
+        "replaceString": "$1",
         "trimStrings": [],
         "placement": [
             1
