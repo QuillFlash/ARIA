@@ -4,8 +4,8 @@
             {
                 "id": "6dd57924-f628-57aa-9c58-45090ab08f3e",
                 "scriptName": "ARIA - Fold an echoed Logic Core template into a Thoughts box (display only)",
-                "findRegex": "/^(\\s*)<(?:thinking|think)>[ \\t]*(opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go)[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*closes on the line after go\\.[^\\n]{0,600}(?:\\n[ \\t]*Every response starts with <(?:thinking|think)>\\.)?/i",
-                "replaceString": "$1<details style=\"background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.3); border-left: 4px solid #a855f7; border-radius: 8px; margin: 10px 0; padding: 10px 14px; font-size: 0.92em;\"><summary style=\"cursor: pointer; font-weight: bold; color: #c084fc; user-select: none;\">💭 Thoughts</summary>\n\n$2\n</details>",
+                "findRegex": "/^(\\s*)<(?:thinking|think)>[ \\t]*(opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go)[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*closes on the line after go\\.(?:[ \\t]*The reply starts on the line after that(?::(?:[^\\n]{0,600}?Nothing above go enters the reply\\.(?:[ \\t]*When this turn asks for [^\\n]{0,300}?Ledger lines\\.)?|[^\\n]{0,600})|\\.))?(?:\\s*Every response starts with <(?:thinking|think)>\\.(?:(\\n[ \\t]*-[ \\t]*(?:OOC|Scene)[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*-[ \\t]*go)[ \\t]*(?:\\n[ \\t]*<\\/(?:thinking|think)>)?(?=[ \\t]*(?:\\n|$)))?)?/i",
+                "replaceString": "$1<details style=\"background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.3); border-left: 4px solid #a855f7; border-radius: 8px; margin: 10px 0; padding: 10px 14px; font-size: 0.92em;\"><summary style=\"cursor: pointer; font-weight: bold; color: #c084fc; user-select: none;\">💭 Thoughts</summary>\n\n$2$3\n</details>",
                 "trimStrings": [],
                 "placement": [
                     2
@@ -21,7 +21,7 @@
             {
                 "id": "3d60d96b-a828-52c2-8a4f-9983afa27926",
                 "scriptName": "ARIA - Hide an echoed Logic Core closing line (display only)",
-                "findRegex": "/(^\\s*|<\\/(?:thinking|think)>\\s*)(?:closes on the line after go\\.[^\\n]{0,600}(?:\\n[ \\t]*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?/i",
+                "findRegex": "/(^\\s*|<\\/(?:thinking|think|details)>\\s*)(?:closes on the line after go\\.(?:[ \\t]*The reply starts on the line after that(?::(?:[^\\n]{0,600}?Nothing above go enters the reply\\.(?:[ \\t]*When this turn asks for [^\\n]{0,300}?Ledger lines\\.)?|[^\\n]{0,600})|\\.))?(?:\\s*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?/gi",
                 "replaceString": "$1",
                 "trimStrings": [],
                 "placement": [
@@ -38,7 +38,7 @@
             {
                 "id": "833af073-aab6-5b27-af44-74047e1229a3",
                 "scriptName": "ARIA - Keep an echoed Logic Core template out of the prompt (all depths, cache-safe)",
-                "findRegex": "/(^\\s*|<\\/(?:thinking|think)>\\s*)(?:(?:<(?:thinking|think)>[ \\t]*opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*)?closes on the line after go\\.[^\\n]{0,600}(?:\\n[ \\t]*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?/i",
+                "findRegex": "/(^\\s*|<\\/(?:thinking|think)>\\s*)(?:(?:<(?:thinking|think)>[ \\t]*opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*)?closes on the line after go\\.(?:[ \\t]*The reply starts on the line after that(?::(?:[^\\n]{0,600}?Nothing above go enters the reply\\.(?:[ \\t]*When this turn asks for [^\\n]{0,300}?Ledger lines\\.)?|[^\\n]{0,600})|\\.))?(?:\\s*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?/gi",
                 "replaceString": "$1",
                 "trimStrings": [],
                 "placement": [
@@ -395,8 +395,8 @@
             {
                 "id": "f1413989-9c9e-53d5-9668-edcf824e74b8",
                 "scriptName": "ARIA Impersonate - strip an echoed Logic Core template",
-                "findRegex": "/(^\\s*|<\\/(?:thinking|think)>\\s*)(?:(?:<(?:thinking|think)>[ \\t]*opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*)?closes on the line after go\\.[^\\n]{0,600}(?:\\n[ \\t]*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?/i",
-                "replaceString": "$1",
+                "findRegex": "/(^\\s*)<(?:thinking|think)>[ \\t]*opens the reply, then [\\s\\S]{0,6000}?\\n[ \\t]*-[ \\t]*go[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*closes on the line after go\\.(?:[ \\t]*The reply starts on the line after that(?::(?:[^\\n]{0,600}?Nothing above go enters the reply\\.(?:[ \\t]*When this turn asks for [^\\n]{0,300}?Ledger lines\\.)?|[^\\n]{0,600})|\\.)|[ \\t]*(?=\\n|$))(?:\\s*Every response starts with <(?:thinking|think)>\\.)?(?:\\s*<\\/(?:thinking|think)>)?|(<\\/(?:thinking|think)>\\s*)(?:closes on the line after go\\.(?:[ \\t]*The reply starts on the line after that(?::(?:[^\\n]{0,600}?Nothing above go enters the reply\\.(?:[ \\t]*When this turn asks for [^\\n]{0,300}?Ledger lines\\.)?|[^\\n]{0,600})|\\.)|[ \\t]*(?=\\n|$))(?:\\s*Every response starts with <(?:thinking|think)>\\.)?|Every response starts with <(?:thinking|think)>\\.)(?:\\s*<\\/(?:thinking|think)>)?|(^\\s*)<(?:thinking|think)>[ \\t]*\\n[\\s\\S]{0,8000}?\\n[ \\t]*-[ \\t]*go[ \\t]*\\n[ \\t]*<\\/(?:thinking|think)>[ \\t]*closes on the line after go\\.[ \\t]*(?=\\S)(?!The reply starts on the line after that)/gi",
+                "replaceString": "$1$2$3",
                 "trimStrings": [],
                 "placement": [
                     1

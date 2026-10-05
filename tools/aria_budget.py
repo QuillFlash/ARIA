@@ -259,8 +259,7 @@ def analyse_cc(preset):
                     nm = {name[pid]: t for pid, t in r.items()}
                     found, _ = wiring_errors(nm, nm.get(name.get('main', ''), ''), raw_all)
                     if tags_on:
-                        inchat = '\n'.join(t for pid, t in r.items() if prompts[pid].get('injection_position') == 1)
-                        if re.search(r'</?logic_core', inchat):
+                        if re.search(r'</?logic_core', '\n'.join(r.values())):
                             found.append('Tags ON render names <logic_core>')
                     for e in found:
                         if e not in seen:
@@ -352,8 +351,8 @@ def analyse_tc(preset):
                 overrides[patch] = 'on'
             r, _ = simulate_tc(preset, overrides, seed=1)
             found, _ = wiring_errors(r, r['System Prompt'], raw_all, 'the System Prompt')
-            if tags == 'on' and re.search(r'</?logic_core', r['Post-History']):
-                found.append('tags-on post-history names <logic_core>')
+            if tags == 'on' and re.search(r'</?logic_core', r['System Prompt'] + r['Post-History']):
+                found.append('tags-on render names <logic_core>')
             for e in found:
                 if e not in seen:
                     seen.add(e)
