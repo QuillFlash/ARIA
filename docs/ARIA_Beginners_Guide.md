@@ -33,7 +33,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 2,750 tokens as shipped and about 3,550 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 1,675. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 2,800 tokens as shipped and about 3,600 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 1,700. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -220,7 +220,7 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 | `aria-thinking-tags` | on | With The Logic Core on: every reply opens with the plan inside `<thinking>` tags (on), or the plan runs inside the model's own `<think>` reasoning (off) | ~40 tokens, already counted in the Logic Core's 295 |
 | `aria-adult` | off | 🔞 Adult Context, for adults only | ~120 tokens |
 | `aria-freaky` | off | 😈 Freaky Override, needs `aria-adult` on too | ~45 tokens |
-| `aria-hybrid-pov` | off | 👀 Hybrid POV | ~30 tokens |
+| `aria-hybrid-pov` | off | 👀 Hybrid POV | ~45 tokens |
 | `aria-anthro` | off | 🐺 Anthro Vocals | ~125 tokens |
 | `aria-scent` | on | 👃 Scent Occasions | ~60 tokens |
 | `aria-time-place` | off | ⏰ Time & Place status line | ~55 tokens, plus ~30 in every reply |
@@ -234,7 +234,7 @@ The Claude 5 and Gemini patches live only in the Chat Completions file, since th
 
 ### Fitting into 32k
 
-My lean start uses about 1,675 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
+My lean start uses about 1,700 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
 
 - **32k:** stay lean. Turn on The Logic Core only if your model has 24B parameters or more and a few extra seconds per reply don't bother you.
 - **64k or more:** switch on `aria-fate` and `aria-time-place` together for the full world engine, and add `aria-bonds` if you love relationship drama~
@@ -348,10 +348,10 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 
 | Chat Completions configuration | Tokens |
 |---|---|
-| Core (everything that ships ON except Fate and Time & Place) | ~1,905 |
-| Shipped default | ~2,750 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~3,560 |
-| Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~105 |
+| Core (everything that ships ON except Fate and Time & Place) | ~1,925 |
+| Shipped default | ~2,785 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~3,610 |
+| Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~95 |
 
 For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 85% smaller.
 
@@ -359,9 +359,9 @@ The Text Completions file, measured the same way:
 
 | Text Completions configuration | Tokens |
 |---|---|
-| Lean start, as shipped for 32k | ~1,675 |
-| Plus The Logic Core, Fate and Time & Place | ~2,830 |
-| Everything ON (largest patch and 🔦 Flash Gate included) | ~3,600 |
+| Lean start, as shipped for 32k | ~1,700 |
+| Plus The Logic Core, Fate and Time & Place | ~2,860 |
+| Everything ON (largest patch and 🔦 Flash Gate included) | ~3,650 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), if an entry reads a variable before anything earlier in the list sets it, if any render with 🏷️ Logic Core Tags on still names `<logic_core>`, or if anything would break prompt caching. It checks every combination of the tags, each Logic Core (or none), each model patch and Impersonate. Run it after every edit.
 
