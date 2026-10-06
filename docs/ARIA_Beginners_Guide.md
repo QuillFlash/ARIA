@@ -350,9 +350,9 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 
 | Chat Completions configuration | Tokens |
 |---|---|
-| Core (everything that ships ON except Fate and Time & Place) | ~2,550 |
-| Shipped default | ~3,410 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,240 |
+| Core (everything that ships ON except Fate and Time & Place) | ~2,560 |
+| Shipped default | ~3,415 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,250 |
 | Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~95 |
 
 For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 82% smaller.
@@ -362,8 +362,8 @@ The Text Completions file, measured the same way:
 | Text Completions configuration | Tokens |
 |---|---|
 | Lean start, as shipped for 32k | ~2,315 |
-| Plus The Logic Core, Fate and Time & Place | ~3,485 |
-| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,280 |
+| Plus The Logic Core, Fate and Time & Place | ~3,495 |
+| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,290 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), if an entry reads a variable before anything earlier in the list sets it, if any render with 🏷️ Logic Core Tags on still names `<logic_core>`, or if anything would break prompt caching. It checks every combination of the tags, each Logic Core (or none), each model patch and Impersonate. Run it after every edit.
 
