@@ -33,7 +33,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,500 tokens as shipped and about 4,350 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,400. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,550 tokens as shipped and about 4,400 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,450. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -236,7 +236,7 @@ The Claude 5 and Gemini patches live only in the Chat Completions file, since th
 
 ### Fitting into 32k
 
-My lean start uses about 2,400 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
+My lean start uses about 2,450 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
 
 - **32k:** stay lean. Turn on The Logic Core only if your model has 24B parameters or more and a few extra seconds per reply don't bother you.
 - **64k or more:** switch on `aria-fate` and `aria-time-place` together for the full world engine, and add `aria-bonds` if you love relationship drama~
@@ -313,6 +313,9 @@ Write your own messages in your story's language, or add an OOC note like `((OOC
 **Characters repeat my words back to me.**
 That's parroting, and Kimi K3 and GLM love it: a reply opens on your own line, like your pet name handed back as a question. My 🖋️ Anti-Slop Codex and 🚪 Last-Mile Gate already watch for it, so the part only you can fix is the chat itself. Every reply that opens on your words stays in the history, and the model copies its shape on later turns, so one echo grows into a habit. Edit or delete those openers as soon as they show up, and judge any fix on a clean chat over several turns, since swipes inside a chat that already echoes keep echoing.
 
+**A character gets the wrong gender or pronouns.**
+A lorebook entry only reaches the AI once its keywords show up in the last few messages, so a character the AI brings on stage by itself can walk in before their entry does, and then the model guesses. That's how a "he" in the first scene turns into "she" a reply later. Open that reply's **Prompt** button in the message menu and look for the entry. If it's missing, set the entry to **Constant** (the 🔵 blue circle) or write the character's pronouns into the card itself. If the entry was there, tell me which model slipped, since my Card Fidelity rule and The Logic Core's Scene line already ask for the pronouns the card gives.
+
 **GLM Flash or MiMo Flash keeps turning feelings into paperwork.**
 Switch the 🔦 Flash Gate ON next to your model patch. The patch handles the model's other habits, and the office-word rule lives only in the Flash Gate, which adds it to the very end of the prompt where Flash models listen best.
 
@@ -350,9 +353,9 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 
 | Chat Completions configuration | Tokens |
 |---|---|
-| Core (everything that ships ON except Fate and Time & Place) | ~2,660 |
-| Shipped default | ~3,520 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,350 |
+| Core (everything that ships ON except Fate and Time & Place) | ~2,700 |
+| Shipped default | ~3,555 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,390 |
 | Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~95 |
 
 For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 82% smaller.
@@ -361,9 +364,9 @@ The Text Completions file, measured the same way:
 
 | Text Completions configuration | Tokens |
 |---|---|
-| Lean start, as shipped for 32k | ~2,405 |
-| Plus The Logic Core, Fate and Time & Place | ~3,600 |
-| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,390 |
+| Lean start, as shipped for 32k | ~2,440 |
+| Plus The Logic Core, Fate and Time & Place | ~3,635 |
+| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,430 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), if an entry reads a variable before anything earlier in the list sets it, if any render with 🏷️ Logic Core Tags on still names `<logic_core>`, or if anything would break prompt caching. It checks every combination of the tags, each Logic Core (or none), each model patch and Impersonate. Run it after every edit.
 
@@ -442,6 +445,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and d
 ### Known risks to test
 
 - 🎭 NPC Voice & Emotions brings Realistic Frankenstein's dialogue engine back at about 450 tokens, and Anti-Slop's Contrast, Chop, Register and Trade lines carry the working parts of RF's Kimi-profile killswitches again. Compare Kimi K3, GLM and Claude dialogue with RF 2.2.1.3 on the same card and tell me where it still falls short. On a small local model the extra rules may weigh too much; set `aria-npc-voice` to `off` there if replies turn stiff.
+- Chop asks for orders as full sentences again, the way Realistic Frankenstein did. A drill sergeant or another terse card should still bark short orders, because Card Fidelity puts the card's way of talking first, so tell me if a gruff card turns polite.
 - Beta 5 starts The Logic Core on `<thinking>` whenever the tags are on, so MiMo copies the right tag. The catch: a model could read that note as thinking it already finished and skip its own plan. If plans go missing more often than in beta 4, tell me, and the opening sentence goes back to Realistic Frankenstein's wording.
 - Beta 4 ends the gate with a one-line reminder to open with the plan and gives The Logic Core a system-role twin. Providers can change how they wrap a model at any time, so the twin is a lever to test per provider, and the normal Logic Core stays the default.
 - Beta 3 squeezed every module by about a quarter compared with beta 2, with reviewers checking each rule against Realistic Frankenstein along the way. Compare a few scenes with beta 2 and report anything that feels flatter or gets forgotten.
@@ -456,7 +460,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and d
 - **Plumbing:** with everything ON, send two messages in a row and open each reply's **Prompt** button in the message menu, or install the Prompt Inspector extension from **Extensions** → **Download Extensions & Assets**. The system block should match exactly, and the dice and the name letter should change only in the last message. To confirm caching, look for cache-read tokens on the second request in the Anthropic Console logs (direct Claude) or on the OpenRouter Activity page (Claude through OpenRouter). Switching Fate, Bonds, Adult, Freaky, Scent and Logic Core Tags off should remove their lines completely.
 - **Claude 5 with its patch,** a two-character tavern scene over 30 turns: look for banned words, "it wasn't X, it was Y", choppy dialogue and "I respect that".
 - **Gemini with its patch and Scent OFF:** no smells at all, at most one question per reply, and clumsy human reactions to heavy news.
-- **GLM, Kimi or Qwen with their patch:** nervous characters keep their stammer; confident ones never mutter a filler word to themselves; on a clean chat, no reply over 10 turns opens on, repeats or quotes your last line.
+- **GLM, Kimi or Qwen with their patch:** nervous characters keep their stammer; confident ones never mutter a filler word to themselves; on a clean chat, no reply over 10 turns opens on, repeats or quotes your last line; every character keeps the pronouns the card or lorebook gives them, and an order reads as a full sentence like "Take a seat, you look wrecked" where Kimi used to write "Sit."
 - **MiMo V2.6 Flash with its patch, style B:** card facts and moods hold from turn 15 to turn 25.
 - **MiMo V2.6 with Fate on:** exactly one 🎲 block closes every reply for 20 turns, with every field present and `none` in the empty ones.
 - **Fate over 20 turns:** the thread counter climbs and closes by 8, World stays at five entries or fewer, "meet me at noon on Day 3" fires on time, and harm reaching the scene stays rare.
