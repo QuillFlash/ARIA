@@ -33,7 +33,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,400 tokens as shipped and about 4,250 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,300. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,500 tokens as shipped and about 4,350 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,400. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -108,7 +108,7 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 - 🎬 **Voice & Scene Engine** (ON). Makes scenes move and characters sound like people. They chase their own goals, negotiate and remember promises and insults. It also stops them from talking like therapists, and every reply ends right where it's your turn.
 - 🎭 **NPC Voice & Emotions** (ON). Realistic Frankenstein's dialogue engine, back in full working order! Every character talks like their card's example lines, with their own dialect, slang and quirk, in flowing full sentences instead of choppy one-liners, and speech fills about a third to half of each reply. Their mood, energy and sense of control bend how they sound: calm anger turns icy, helpless anger cracks. Little instincts like hunger, comfort or fear tug at them too, and their own judgment still decides what they do about it.
 - 🖋️ **Anti-Slop Codex** (ON). My style rulebook against tired AI habits: "it wasn't anger, it was grief", choppy one-word sentences, mouths that open, close and open again, characters announcing "here's the deal", shopkeepers who only talk about their shop, and overused words like "palpable" or "a beat".
-- 👃 **Scent Occasions** (ON). Stops the AI from smelling everything! Smells only appear at meals, rituals or when something strong is right there, and at most once per scene. Gemini users, switch this OFF.
+- 👃 **Scent Occasions** (ON). Stops the AI from smelling everything! Smells only appear at meals, rituals or when something strong is right there within reach, at most once per scene and never as the first thing in a reply or a new room. Nobody sniffs out who you are or how you feel, either. Gemini users, switch this OFF.
 - ⏰ **Time & Place** (ON). Every reply starts with a little status line showing the time, day, date, place and weather in °C and °F, so time moves realistically and characters react to the cold or the late hour.
 - 🎲 **Fate & Chekhov Ledger** (ON). My world engine! Every turn I roll three hidden dice to decide whether the world does something on its own: everyday background life, a small hiccup or, rarely, a big event. I also remember setups that should pay off later, deliver news the way your setting would (a radio, a rumour, a phone notification), keep appointments and make your actions ripple outward. I never decide your next move for you. Scene-breaking surprises, like someone getting hurt or everyone being sent outside, only happen on the rarest roll, so the scene you're in carries on. My memory lives in a tiny 🎲 ledger at the end of each reply, which shows up as an orange **Fate & Routine** panel you can click open. Please leave it in the chat, because that's where I remember everything!
 - 📖 **Story Context** (ON). A tiny header telling the AI that what follows is your persona, the character card, the scenario, examples and lorebook.
@@ -224,7 +224,7 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 | `aria-hybrid-pov` | off | 👀 Hybrid POV | ~45 tokens |
 | `aria-npc-voice` | on | 🎭 NPC Voice & Emotions, Realistic Frankenstein's dialogue engine | ~450 tokens |
 | `aria-anthro` | off | 🐺 Anthro Vocals | ~125 tokens |
-| `aria-scent` | on | 👃 Scent Occasions | ~60 tokens |
+| `aria-scent` | on | 👃 Scent Occasions | ~135 tokens |
 | `aria-time-place` | off | ⏰ Time & Place status line | ~55 tokens, plus ~30 in every reply |
 | `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~755 tokens, plus ~90 in every reply |
 | `aria-bonds` | off | 🥰 Bonds Lite | ~275 tokens, plus ~20 to 40 in every reply |
@@ -236,7 +236,7 @@ The Claude 5 and Gemini patches live only in the Chat Completions file, since th
 
 ### Fitting into 32k
 
-My lean start uses about 2,300 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
+My lean start uses about 2,400 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
 
 - **32k:** stay lean. Turn on The Logic Core only if your model has 24B parameters or more and a few extra seconds per reply don't bother you.
 - **64k or more:** switch on `aria-fate` and `aria-time-place` together for the full world engine, and add `aria-bonds` if you love relationship drama~
@@ -350,9 +350,9 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 
 | Chat Completions configuration | Tokens |
 |---|---|
-| Core (everything that ships ON except Fate and Time & Place) | ~2,560 |
-| Shipped default | ~3,415 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,250 |
+| Core (everything that ships ON except Fate and Time & Place) | ~2,660 |
+| Shipped default | ~3,520 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,350 |
 | Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~95 |
 
 For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 82% smaller.
@@ -361,9 +361,9 @@ The Text Completions file, measured the same way:
 
 | Text Completions configuration | Tokens |
 |---|---|
-| Lean start, as shipped for 32k | ~2,315 |
-| Plus The Logic Core, Fate and Time & Place | ~3,495 |
-| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,290 |
+| Lean start, as shipped for 32k | ~2,405 |
+| Plus The Logic Core, Fate and Time & Place | ~3,600 |
+| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,390 |
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), if an entry reads a variable before anything earlier in the list sets it, if any render with 🏷️ Logic Core Tags on still names `<logic_core>`, or if anything would break prompt caching. It checks every combination of the tags, each Logic Core (or none), each model patch and Impersonate. Run it after every edit.
 
