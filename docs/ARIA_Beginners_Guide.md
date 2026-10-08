@@ -1,6 +1,6 @@
 # 🎤 ARIA's Beginner's Guide
 
-*For ARIA 1.0 beta 5, built for SillyTavern 1.19.0 or newer.*
+*For ARIA 1.0 beta 6, built for SillyTavern 1.19.0 or newer.*
 
 <p align="center">
     <img src="../artwork/Aria_bday.png" alt="Aria" width="250">
@@ -33,7 +33,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,550 tokens as shipped and about 4,400 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,450. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,580 tokens as shipped and about 4,335 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,405. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -87,8 +87,8 @@ Then find your model in this table:
 | Gemini | A | 🩹 Gemini | Switch 👃 Scent Occasions OFF |
 | GLM, Kimi, Qwen | A, or B if the thinking loops | 🩹 GLM / Kimi / Qwen | GLM Flash: switch 🔦 Flash Gate ON too |
 | DeepSeek | A | none | |
-| MiMo V2.6 Pro | B first, A works too | none | No plan in the replies? Use the system-role twin of The Logic Core |
-| MiMo V2.6 Flash | B | 🩹 MiMo V2.6 Flash | Switch 🔦 Flash Gate ON too |
+| MiMo V2.6 Pro | B first, A works too | 🩹 MiMo V2.6 | No plan in the replies? Use the system-role twin of The Logic Core |
+| MiMo V2.6 Flash | B | 🩹 MiMo V2.6 | Switch 🔦 Flash Gate ON too |
 | Something else | A, then B if it misbehaves | none | |
 
 **One model patch at most!** Two patches at once would be like two lead singers grabbing the same microphone. 🎤🎤 The 🔦 Flash Gate is the one exception: it's a small add-on for Flash-tier models, so it plays alongside their patch.
@@ -104,16 +104,16 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 ### The core lineup
 
 - 🍃 **Custom Instructions** (ON). Your own rules! Click the pencil icon and write between the `{{.player-instructions =` line and its closing `}}`. Those rules outrank everything else. There's a second slot, `player-posthistory`, which lands at the very end of the prompt through the Last-Mile Gate: stronger, a bit blunter.
-- ⚡ **ARIA Main Prompt** (ON). My heart and soul. It makes the AI your storyteller and game master and keeps every character true to their card, right down to their body, so a sphinx with jackal ears grows no tail her card never gave her. Characters keep their own tastes instead of copying yours, only know what they've seen or heard, keep their secrets until you uncover them, call you by your name until you pick a new one, take romance at a believable pace and talk in whatever language you write in. Writing in Hungarian, Slovak or Japanese? The whole story stays in it!
-- 🎬 **Voice & Scene Engine** (ON). Makes scenes move and characters sound like people. They chase their own goals, negotiate and remember promises and insults. It also stops them from talking like therapists, and every reply ends right where it's your turn.
-- 🎭 **NPC Voice & Emotions** (ON). Realistic Frankenstein's dialogue engine, back in full working order! Every character talks like their card's example lines, with their own dialect, slang and quirk, in flowing full sentences instead of choppy one-liners, and speech fills about a third to half of each reply. Their mood, energy and sense of control bend how they sound: calm anger turns icy, helpless anger cracks. Little instincts like hunger, comfort or fear tug at them too, and their own judgment still decides what they do about it.
-- 🖋️ **Anti-Slop Codex** (ON). My style rulebook against tired AI habits: "it wasn't anger, it was grief", choppy one-word sentences, mouths that open, close and open again, characters announcing "here's the deal", shopkeepers who only talk about their shop, and overused words like "palpable" or "a beat".
+- ⚡ **ARIA Main Prompt** (ON). My heart and soul. It makes the AI your storyteller and game master and keeps every character true to their card, right down to their body, so a sphinx with jackal ears grows no tail her card never gave her. Each character's gender and pronouns come from the card and first message, or else from the lorebook or chat, so a name alone never decides them. Characters keep their own tastes instead of copying yours, only know what they've seen or heard, keep their secrets until you uncover them, call you by your name until you pick a new one, take romance at a believable pace and talk in whatever language you write in. Writing in Hungarian, Slovak or Japanese? The whole story stays in it!
+- 🎬 **Voice & Scene Engine** (ON). Makes scenes move and characters sound like people. They chase their own goals, negotiate and remember promises and insults, and every change in a scene has a cause you can see on the page. The narrator reports what people do and say and leaves verdicts on anyone's manner or habits to the characters. It also stops characters from talking like therapists, and every reply ends right where it's your turn.
+- 🎭 **NPC Voice & Emotions** (ON). Realistic Frankenstein's dialogue engine, back in full working order! Every character talks like their card's example lines, with their own dialect, slang and quirk, in flowing full sentences instead of choppy one-liners, and speech fills about a third to half of each reply. Their mood, energy and sense of control bend their tone, pace, posture and words while they stay themselves. Little instincts like hunger, comfort or fear tug at them too, and their own judgment still decides what they do about it.
+- 🖋️ **Anti-Slop Codex** (ON). My style rulebook against tired AI habits: "it wasn't anger, it was grief", choppy one-word sentences, mouths that open, close and open again, characters announcing "here's the deal", shopkeepers who only talk about their shop, and overused words like "palpable" or "a beat". Since beta 6, every one of my rules starts by telling the AI what to write, because Kimi K3 listens best when I say "do this"! The prose opens on what someone does or says. Each sentence grows out of the one before, and speech sits in the paragraph of the act it belongs to. Replies answer the one or two points of your message that move the scene most, and a detail I used sits out the next four replies, with reworded repeats counted too.
 - 👃 **Scent Occasions** (ON). Stops the AI from smelling everything! Smells only appear at meals, rituals or when something strong is right there within reach, at most once per scene and never as the first thing in a reply or a new room. Nobody sniffs out who you are or how you feel, either. Gemini users, switch this OFF.
 - ⏰ **Time & Place** (ON). Every reply starts with a little status line showing the time, day, date, place and weather in °C and °F, so time moves realistically and characters react to the cold or the late hour.
-- 🎲 **Fate & Chekhov Ledger** (ON). My world engine! Every turn I roll three hidden dice to decide whether the world does something on its own: everyday background life, a small hiccup or, rarely, a big event. I also remember setups that should pay off later, deliver news the way your setting would (a radio, a rumour, a phone notification), keep appointments and make your actions ripple outward. I never decide your next move for you. Scene-breaking surprises, like someone getting hurt or everyone being sent outside, only happen on the rarest roll, so the scene you're in carries on. My memory lives in a tiny 🎲 ledger at the end of each reply, which shows up as an orange **Fate & Routine** panel you can click open. Please leave it in the chat, because that's where I remember everything!
+- 🎲 **Fate & Chekhov Ledger** (ON). My world engine! Every turn I roll three hidden dice to decide whether the world does something on its own: everyday background life, a small hiccup or, rarely, a big event. I read the dice one at a time, so there's never a total for a model to add up: the first sets how big the moment is, and the other two pick where it comes from and what shape it takes. Background life gets two sentences at most and never comes back later. I also remember setups that should pay off later, deliver news the way your setting would (a radio, a rumour, a phone notification), keep appointments and make your actions ripple outward. State a goal in your own words that reaches past the current scene, and I log it as an ambition that moves a step closer each time a story thread that served it wraps up. I never decide your next move for you. Scene-breaking surprises, like someone getting hurt or everyone being sent outside, only happen on the rarest roll, so the scene you're in carries on. My memory lives in a tiny 🎲 ledger at the end of each reply, which shows up as an orange **Fate & Routine** panel you can click open. Please leave it in the chat, because that's where I remember everything!
 - 📖 **Story Context** (ON). A tiny header telling the AI that what follows is your persona, the character card, the scenario, examples and lorebook.
-- 🚪 **Last-Mile Gate** (ON). The final check right before a reply goes out. It runs through the anti-slop list, picks the first letter for any brand-new character's name (no more endless Elaras!) and carries this turn's dice.
-- 🧠 **The Logic Core** (ON). My planning step! Before writing, the AI jots a few quick lines: your OOC requests, where everyone is, what each character knows and wants, how they sound, what happens next, then a last check. It arrives as the AI's own message after the chat, which helps many models settle into the scene.
+- 🚪 **Last-Mile Gate** (ON). The last word right before a reply goes out. It turns each anti-slop rule into one short instruction, since Kimi skipped right past the questions I used to ask there. Its Card line keeps names, ages, counts, ties, history, bodies, pronouns and voice the way the card and its first message set them, with the lorebook filling any gaps, and it keeps characters' thoughts in the form and frequency the card shows. A closing rule tells the AI to follow these lines over its own earlier replies, and the card outranks them all. The gate also picks the first letter for any brand-new character's name (no more endless Elaras!) and carries this turn's dice.
+- 🧠 **The Logic Core** (ON). My planning step! Before writing, the AI jots a few quick lines: your OOC requests, where everyone is, what each character knows and wants, how they sound, the one step that happens next and which fresh details to bring in. Each line builds on the last, and the whole plan stays shorter than one paragraph, with no drafts. With 🏷️ Logic Core Tags on, `go` ends the thinking. My plan used to end on a last check, and MiMo Flash just recited my whole gate there, so I took it out! The plan arrives as the AI's own message after the chat, which helps many models settle into the scene.
 - 🪞 **Impersonation Turn** (ON). Only fires when you press Impersonate. It writes your next message in your own voice, without the status line or the 🎲 line, so the input box gets nothing but your words.
 
 ### Optional extras
@@ -124,8 +124,8 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 - 👀 **Hybrid POV** (OFF). Tells the story in third person, while everything your character feels is written straight to you: "the rain soaks through your sleeves". Super immersive!
 - 🐺 **Anthro Vocals** (OFF). For furry, beastfolk and talking-animal stories. Wolves howl, eagles chirp, and lions and tigers roar and can't purr. The sounds stay as flavour inside normal speech.
 - 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from cold to chosen family, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. The numbers sit in their own little 💚 ledger at the end of each reply, which my regex scripts draw as a teal **Bonds** panel with one card per pair.
-- 🩹 **Model Patches** (OFF). Small fixes for one model family each. Pick the one from the table in section 3, and only one.
-- 🔦 **Flash Gate** (OFF). For the Flash-tier models, GLM Flash and MiMo V2.6 Flash. They keep borrowing office words like "filing" and "notarising" for feelings, even in tender scenes where nobody is doing paperwork, while the full-size models dropped that habit. This adds one firm rule to the end of the 🚪 Last-Mile Gate, where Flash models listen best. Run it alongside your model patch.
+- 🩹 **Model Patches** (OFF). Small fixes for one model family each. Pick the one from the table in section 3, and only one. The 🩹 MiMo V2.6 patch covers Pro and Flash alike. The 🩹 Claude 5 patch holds the only quoted before-and-after examples in the whole preset, two repairs for the Contrast and Chop rules, since Claude learns from them while MiMo copies quoted examples word for word.
+- 🔦 **Flash Gate** (OFF). For the Flash-tier models, GLM Flash and MiMo V2.6 Flash. They keep borrowing office words like "filing" and "notarising" for feelings, even in tender scenes where nobody is doing paperwork, while the full-size models dropped that habit. This swaps the gate's short Trade line for one firmer work-words rule at the end of the 🚪 Last-Mile Gate, where Flash models listen best. Run it alongside your model patch.
 - 🧠 **The Logic Core (system-role twin)** (OFF). The same planning step, sent as a system message that joins the 🚪 Last-Mile Gate at the very end of the prompt. Some models, like MiMo V2.6 Pro on a few providers lately, skip a plan that arrives as the AI's own message, and this version reaches them as an instruction instead. Switch the normal Logic Core OFF when you switch this one ON, and never run both! Claude turns late system messages into your messages, so Claude users keep the normal one. There's no version sent as your message, because a plan in your voice breaks the jailbreak on these models.
 - **Reduce Reasoning** (OFF). A tiny "don't overthink" note for models that think far too long. Switch it on alongside The Logic Core if your model still overthinks.
 - 🌳 **README** and 🌿 **Sampling Advice** (OFF). Notes for you to read. Switching them on sends nothing.
@@ -142,7 +142,7 @@ Click the orange 🎲 **Fate & Routine** panel under a reply and you'll see my n
 | **Deferred** | Happenings pushed back because they ran into the current thread. Pushed back twice, they land big; left alone, they fade after six turns. |
 | **World** | Up to five things going on out there, how close they are and how long they've been brewing. |
 | **Bullets** | Setups a reader would expect to pay off later, like a torn envelope, plus appointments locked to a day and time. |
-| **Ambitions** | Your character's stated goals, counted up to 5/5. |
+| **Ambitions** | Goals you state in your own words that reach past the current scene. Each starts at 0/5 and gains a step only when a story thread that served it wraps up, and fate never cuts it short. At 5/5 it leaves this row and lives on in Residue and World. |
 | **Residue** | Lasting changes that earlier events left in everyday life. |
 | **Last** | This turn's roll in a few words. |
 
@@ -193,7 +193,7 @@ Running a model at home with KoboldCpp, llama.cpp, TabbyAPI or text-generation-w
 
 1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` from this repository.
 2. **Connect.** In **API Connections** (the plug icon), set **API** to **Text Completion**, pick your backend and connect.
-3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. A window asks what to import: keep **Context Template** and **System Prompt** ticked and press **Import**. Both dropdowns should now read **ARIA 1.0 beta 5 (Text Completions)**. If they say "Geechan - Universal Roleplay", you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
+3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. A window asks what to import: keep **Context Template** and **System Prompt** ticked and press **Import**. Both dropdowns should now read **ARIA 1.0 beta 6 (Text Completions)**. If they say "Geechan - Universal Roleplay", you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
 4. **Switch on Instruct Mode.** In the same panel, make sure the **System Prompt** is switched on. Then press the power button next to the **Instruct Template** title to switch on Instruct Mode, and pick the template that matches your model (ChatML, Llama 3, Mistral, Gemma and so on). The model's download page usually names it. Leave the link icon next to it (**Bind to Context**) off, so it keeps my Context Template. I don't bring an instruct template myself, because every model family speaks its own format.
 5. **Check the macro engine** in **User Settings**, just like in section 2: **Experimental Macro Engine** must be ticked.
 
@@ -217,26 +217,26 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 
 | Switch | Starts | What it does | What it costs |
 |---|---|---|---|
-| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~295 tokens per turn as shipped, plus a few seconds of planning |
-| `aria-thinking-tags` | on | With The Logic Core on: every reply opens with the plan inside `<thinking>` tags (on), or the plan runs inside the model's own `<think>` reasoning (off) | ~40 tokens, already counted in the Logic Core's 295 |
-| `aria-adult` | off | 🔞 Adult Context, for adults only | ~120 tokens |
-| `aria-freaky` | off | 😈 Freaky Override, needs `aria-adult` on too | ~45 tokens |
-| `aria-hybrid-pov` | off | 👀 Hybrid POV | ~45 tokens |
-| `aria-npc-voice` | on | 🎭 NPC Voice & Emotions, Realistic Frankenstein's dialogue engine | ~450 tokens |
-| `aria-anthro` | off | 🐺 Anthro Vocals | ~125 tokens |
-| `aria-scent` | on | 👃 Scent Occasions | ~135 tokens |
-| `aria-time-place` | off | ⏰ Time & Place status line | ~55 tokens, plus ~30 in every reply |
-| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~755 tokens, plus ~90 in every reply |
-| `aria-bonds` | off | 🥰 Bonds Lite | ~275 tokens, plus ~20 to 40 in every reply |
-| `aria-patch-glm-qwen` | off | 🩹 GLM / Kimi / Qwen patch | ~60 tokens |
-| `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 Flash patch | ~75 tokens |
-| `aria-flash-gate` | off | 🔦 Flash Gate for GLM Flash and MiMo V2.6 Flash; runs alongside a patch | ~85 tokens |
+| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~325 tokens per turn as shipped, plus a few seconds of planning |
+| `aria-thinking-tags` | on | With The Logic Core on: every reply opens with the plan inside `<thinking>` tags (on), or the plan runs inside the model's own `<think>` reasoning (off) | ~40 tokens, already counted in the Logic Core's 325 |
+| `aria-adult` | off | 🔞 Adult Context, for adults only | ~110 tokens |
+| `aria-freaky` | off | 😈 Freaky Override, needs `aria-adult` on too | ~55 tokens |
+| `aria-hybrid-pov` | off | 👀 Hybrid POV | ~50 tokens |
+| `aria-npc-voice` | on | 🎭 NPC Voice & Emotions, Realistic Frankenstein's dialogue engine | ~335 tokens |
+| `aria-anthro` | off | 🐺 Anthro Vocals | ~120 tokens |
+| `aria-scent` | on | 👃 Scent Occasions | ~115 tokens |
+| `aria-time-place` | off | ⏰ Time & Place status line | ~70 tokens, plus ~30 in every reply |
+| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~820 tokens, plus ~90 in every reply |
+| `aria-bonds` | off | 🥰 Bonds Lite | ~255 tokens, plus ~20 to 40 in every reply |
+| `aria-patch-glm-qwen` | off | 🩹 GLM / Kimi / Qwen patch | ~50 tokens |
+| `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 patch for Pro and Flash. The switch keeps its old name, so switch lines you saved from beta 5 still work | ~95 tokens |
+| `aria-flash-gate` | off | 🔦 Flash Gate for GLM Flash and MiMo V2.6 Flash; runs alongside a patch | ~30 tokens, since it takes the place of the gate's Trade line |
 
 The Claude 5 and Gemini patches live only in the Chat Completions file, since those models aren't run through Text Completion. Use one patch at most, same as always!
 
 ### Fitting into 32k
 
-My lean start uses about 2,450 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
+My lean start uses about 2,405 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
 
 - **32k:** stay lean. Turn on The Logic Core only if your model has 24B parameters or more and a few extra seconds per reply don't bother you.
 - **64k or more:** switch on `aria-fate` and `aria-time-place` together for the full world engine, and add `aria-bonds` if you love relationship drama~
@@ -289,7 +289,7 @@ The macro engine is off. Tick **Experimental Macro Engine** in User Settings and
 In Advanced Formatting, tick **Auto-Parse**, open **Reasoning Formatting** and set **Prefix** and **Suffix** to your tags (section 3, style B). Check that the preset's regex scripts are allowed too, under **Extensions** → **Regex**; they fold a plan into a 💭 **Thoughts** box even when the model forgets its tags. On the Text Completions file, import my regex file from section 6 as well. If the model with native reasoning off skips the plan or writes it loosely, make sure 🏷️ **Logic Core Tags** is ON (style B), since that's the switch that tells it to open every reply with `<thinking>`. On the Text Completions file, that's `aria-thinking-tags`, which ships `on`.
 
 **The plan lands in a purple 💭 Thoughts box instead of SillyTavern's own reasoning box.**
-SillyTavern's **Auto-Parse** only catches a reply whose very first characters match your **Prefix**, so check that the Prefix is exactly `<thinking>` and the Suffix exactly `</thinking>`, with no spaces. Before beta 5, MiMo liked to copy the `<logic_core>` label my planning note started with, and SillyTavern can't parse that one. From beta 5 on, The Logic Core starts on `<thinking>` itself whenever 🏷️ Logic Core Tags is ON, so check that your 🌳 README entry (or the Text Completions template name) says beta 5. If it doesn't, re-import the preset, and on the Text Completions file swap in the new regex file from section 6 too. A time header written above the plan blocks Auto-Parse as well; my regex scripts still fold the plan then, which is exactly what the purple box is there for.
+SillyTavern's **Auto-Parse** only catches a reply whose very first characters match your **Prefix**, so check that the Prefix is exactly `<thinking>` and the Suffix exactly `</thinking>`, with no spaces. Before beta 5, MiMo liked to copy the `<logic_core>` label my planning note started with, and SillyTavern can't parse that one. From beta 5 on, The Logic Core starts on `<thinking>` itself whenever 🏷️ Logic Core Tags is ON, so check that your 🌳 README entry (or the Text Completions template name) says beta 6, the current build. If it doesn't, re-import the preset, and on the Text Completions file swap in the new regex file from section 6 too. A time header written above the plan blocks Auto-Parse as well; my regex scripts still fold the plan then, which is exactly what the purple box is there for.
 Does SillyTavern's own reasoning box show up as well, full of the model's free-form musings, while my checklist sits in the purple box below it? Then your provider still sends the model's native reasoning, and SillyTavern skips Auto-Parse for any reply that already carries some, however neatly it opens with `<thinking>`. Untick **Request Model Reasoning** and set **Reasoning Effort** to **Minimum** again (section 3, style B). If that provider keeps thinking anyway, style A suits it better!
 
 **The plan never shows up, and the reply starts straight with the story.**
@@ -311,16 +311,16 @@ Make sure 🎲 Fate & Chekhov Ledger is ON and that you didn't edit the line out
 Write your own messages in your story's language, or add an OOC note like `((OOC: the story is in Hungarian))`. The Main Prompt follows whatever language you use.
 
 **Characters repeat my words back to me.**
-That's parroting, and Kimi K3 and GLM love it: a reply opens on your own line, like your pet name handed back as a question. My 🖋️ Anti-Slop Codex and 🚪 Last-Mile Gate already watch for it, so the part only you can fix is the chat itself. Every reply that opens on your words stays in the history, and the model copies its shape on later turns, so one echo grows into a habit. Edit or delete those openers as soon as they show up, and judge any fix on a clean chat over several turns, since swipes inside a chat that already echoes keep echoing.
+That's parroting, and Kimi K3 and GLM love it: a reply opens on your own line, like your pet name handed back as a question. My 🖋️ Anti-Slop Codex already tells the AI to answer the meaning of your message in the character's own words, and the 🚪 Last-Mile Gate repeats that as its Echo line, so the part only you can fix is the chat itself. Every reply that opens on your words stays in the history, and the model copies its shape on later turns, so one echo grows into a habit. Edit or delete those openers as soon as they show up, and judge any fix on a clean chat over several turns, since swipes inside a chat that already echoes keep echoing.
 
 **A character gets the wrong gender or pronouns.**
 Start with the character's lorebook entry. Pronouns scattered through a description are a weak signal, and a model that half-knows the name can trust its own guess over them. Open the entry with one plain sentence that says who the character is in a gendered word, like "a doting mother figure for Soukaku" for Yanagi or "the only man in Section 6" for Harumasa. That one sentence stopped Kimi K3 from calling a woman "he" in our tests! An entry also reaches the AI only once its keywords show up in the last few messages, so a character the AI brings on stage by itself can walk in before their entry does. Open that reply's **Prompt** button in the message menu and look for the entry, and if it's missing, set the entry to **Constant** (the 🔵 blue circle). Still wrong with both in place? Tell me which model slipped.
 
 **GLM Flash or MiMo Flash keeps turning feelings into paperwork.**
-Switch the 🔦 Flash Gate ON next to your model patch. The patch handles the model's other habits, and the office-word rule lives only in the Flash Gate, which adds it to the very end of the prompt where Flash models listen best.
+Switch the 🔦 Flash Gate ON next to your model patch. The patch handles the model's other habits, and the Flash Gate swaps the gate's short Trade line for its firmer office-word rule at the very end of the prompt, where Flash models listen best.
 
 **Characters feel flat, or all agree with me.**
-Check that 😈 Freaky Override is OFF, because it makes everyone eager on purpose. On MiMo V2.6 Flash, switch on its model patch.
+Check that 😈 Freaky Override is OFF, because it makes everyone eager on purpose. On MiMo V2.6 Pro or Flash, switch on the 🩹 MiMo V2.6 patch.
 
 **The model refuses or tiptoes around a scene.**
 Turn The Logic Core ON (on the Text Completions file, set `aria-logic-core` to `on`), since it helps a lot of models settle in. For mature scenes, 🔞 Adult Context must be ON. Some models refuse certain content no matter what any preset says, and when that happens a different model is the only real fix.
@@ -353,20 +353,22 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 
 | Chat Completions configuration | Tokens |
 |---|---|
-| Core (everything that ships ON except Fate and Time & Place) | ~2,700 |
-| Shipped default | ~3,555 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,390 |
-| Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~95 |
+| Core (everything that ships ON except Fate and Time & Place) | ~2,650 |
+| Shipped default | ~3,580 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,335 |
+| Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~70 |
 
-For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 82% smaller.
+For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 82% smaller. Beta 5 came to about 4,385 with everything ON, so beta 6 comes out about 50 tokens lighter even with the Realistic Frankenstein rules it brought back.
 
 The Text Completions file, measured the same way:
 
 | Text Completions configuration | Tokens |
 |---|---|
-| Lean start, as shipped for 32k | ~2,440 |
-| Plus The Logic Core, Fate and Time & Place | ~3,635 |
-| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,430 |
+| Lean start, as shipped for 32k | ~2,405 |
+| Plus The Logic Core, Fate and Time & Place | ~3,670 |
+| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,385 |
+
+Beta 5 measured about 4,430 here with everything ON. Want to compare the two builds for yourself? Beta 5 waits in `archive/ARIA 1.0 beta 5/` with its presets and regex file, plus `Model fixes.md`, which lists all 139 model fixes it carried. Its presets carry their own names, so you can import them next to the current ones. Its regex file uses the same script names as mine, so on the Text Completions file swap it in only while you test beta 5 and put the current file back afterwards, the way section 6 describes.
 
 The script also fails if anything goes over 4,500 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), if an entry reads a variable before anything earlier in the list sets it, if any render with 🏷️ Logic Core Tags on still names `<logic_core>`, or if anything would break prompt caching. It checks every combination of the tags, each Logic Core (or none), each model patch and Impersonate. Run it after every edit.
 
@@ -387,7 +389,7 @@ The script also fails if anything goes over 4,500 tokens, if a tag or label is r
 | 11 | 📖 Story Context | system block | on |
 | 12 | Persona, card, personality, scenario, examples, then World Info before and after | system block | on |
 | 13 | Chat History | | on |
-| 14 | 🪞 Impersonation Turn | In-Chat depth 0, user, Impersonate only; it comes first so it can clear the Fate and ledger lines before The Logic Core and the gate read them | on |
+| 14 | 🪞 Impersonation Turn | In-Chat depth 0, user, Impersonate only; it comes first so it can clear the Fate, Bonds, ledger, POV and Echo lines before The Logic Core and the gate read them | on |
 | 15 | 🧠 The Logic Core | In-Chat depth 0, assistant | on |
 | 16 | 🧠 The Logic Core (system-role twin) | In-Chat depth 0, system, merged into the gate's message | off |
 | 17 | 🚪 Last-Mile Gate | In-Chat depth 0, system | on |
@@ -403,7 +405,7 @@ These are checked against SillyTavern's own source code:
 - Nothing in the system block changes between turns. Dice live inside `{{setvar}}`, which prints nothing there, and only print at the end through the gate. No system-block entry has generation triggers, so Impersonate reuses the same cache.
 - World Info sits after the card and examples, so a lorebook change only re-reads what comes after it.
 - Chat history never gets rewritten. The ledger-trimming regex ships disabled for that reason.
-- The panel, row, label and bond-bar scripts are display-only, so the prompt stays exactly as written. The four thinking strips (tagged plans, mismatched tags, untagged plans and a copied Logic Core) run on every depth, so a message reads the same to the model on every turn after it's written.
+- The panel, row, label and bond-bar scripts are display-only, so the prompt stays exactly as written. The four thinking strips (tagged plans, mismatched tags, untagged plans and a copied Logic Core) run on every depth, so a message reads the same to the model on every turn after it's written. Since beta 6 the four scripts that fold or strip tagged and mismatched thinking look 40,000 characters ahead, twice the old window, so even a very long MiMo Flash reasoning block folds on screen and stays out of the prompt.
 
 ### The Text Completions edition
 
@@ -424,33 +426,39 @@ The Main Prompt's first line blanks every helper variable each turn, so a switch
 | `ariaBondsLine` | 🥰 Bonds Lite | 🧠 The Logic Core |
 | `ariaModeLine` | 🔞 Adult Context, overwritten by 😈 Freaky | 🧠 The Logic Core |
 | `ariaScentGate` | 👃 Scent Occasions | 🚪 Last-Mile Gate |
+| `ariaPovGate` | 👀 Hybrid POV | 🚪 Last-Mile Gate |
 | `ariaThinkOpen`, `ariaThinkClose` | 🏷️ Logic Core Tags | 🧠 The Logic Core (`{{#if .ariaThinkOpen}}`) |
 | `ariaLedgerLine`, `ariaLedgerGate` | 🎲 Fate, or 🥰 Bonds Lite when Fate is off (with both on, Bonds rewrites them so the 🎲 block is followed by its own 💚 block) | 🧠 The Logic Core, 🚪 Last-Mile Gate |
+| `ariaEchoGate` | 🖋️ Anti-Slop Codex | 🚪 Last-Mile Gate (its Echo line) |
 | `ariaFlashGate` | 🔦 Flash Gate | 🚪 Last-Mile Gate |
-| `ariaPlanCue` | 🧠 The Logic Core or its system-role twin, with 🏷️ Logic Core Tags on | 🚪 Last-Mile Gate (its opener and its very last line) |
-| `logicCoreLines` | 🧠 The Logic Core itself: 7 plus one per Mode, Fate, Bonds and Ledger line | 🧠 The Logic Core ("N dashed lines") |
+| `ariaPlanCue` | 🧠 The Logic Core or its system-role twin, with 🏷️ Logic Core Tags on | 🚪 Last-Mile Gate (its very last line) |
+| `logicCoreLines` | 🧠 The Logic Core itself: 6 plus one per Mode, Fate, Bonds and Ledger line | 🧠 The Logic Core ("N dashed lines") |
 
-On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and dice variables before the gate and The Logic Core read them.
+On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice, POV and Echo variables before the gate and The Logic Core read them, so the gate never asks for NPC speech on the turn the model writes your message. The Text Completions file has no Impersonation Turn, so its gate tells the model to skip the Echo line and the ledgers on a message written as you.
 
 ### Where each feature lives
 
 - **Personality Independence** is a label in the Main Prompt, applied on The Logic Core's Scene line.
-- **NPC Voice + Dialogue Output, NPC Instincts + VAD Emotions and Female Vocal Acoustics** live together in 🎭 NPC Voice & Emotions, and The Logic Core's Voice line works out each speaker's VAD and live instinct every turn, the way BOLT's dialogue task did. RF's Kimi-profile killswitches (Comparative Emphasis, Staccato Chop, Anti-Briefing Register, Occupational Monomania) are the Contrast, Chop, Register and Trade lines of the Anti-Slop Codex, each checked again by the 🚪 Last-Mile Gate.
-- **Fate and Chekhov's Gun** share one ledger: will versus world, the quiet-turn ladder, consequence Bullets tied to your actions, world news, the danger ceiling, pursuits and collisions, aftermath turns, Residue and Ambitions.
-- **The double slop gates** are one labelled line per pattern in the Anti-Slop Codex, plus one check line each in the Last-Mile Gate. Contrast and Chop each carry one repair example.
-- **The Scene Engine** lives in Voice & Scene Engine with its progression, causality, pacing, initiative and handoff endings.
-- **Card Fidelity and the language rules** are Main Prompt labels (Card Fidelity, Story Language, Epistemic Limits). Speech counts as "heard" however the story's language marks it, so Hungarian „quotes" and dialogue dashes work.
-- **The Logic Core** is sent with the assistant role after the history, or with the system role through its twin, inside the gate's message. With 🏷️ Logic Core Tags on it carries no wrapper tag and starts on `<thinking>`, the tag the reply has to open with. With them off it sits inside `<logic_core>` as before, since the plan then runs inside the model's own reasoning. Every other entry calls it "the plan", which reads right in both shapes and with The Logic Core off, so no other entry branches on the shape. The gate only prints the one-line reminder The Logic Core hands it.
+- **NPC Voice + Dialogue Output, NPC Instincts + VAD Emotions and Female Vocal Acoustics** live together in 🎭 NPC Voice & Emotions, and The Logic Core's Voice line works out each speaker's VAD and live instinct every turn, the way BOLT's dialogue task did. RF's Kimi-profile killswitches (Comparative Emphasis, Staccato Chop, Anti-Briefing Register, Occupational Monomania) are the Contrast, Chop, Register and Trade lines of the Anti-Slop Codex, each repeated as a short instruction in the 🚪 Last-Mile Gate. Beta 6 dropped NPC Voice's example lists, because MiMo copied them into the story.
+- **Fate and Chekhov's Gun** share one ledger: will versus world, the quiet-turn ladder, consequence Bullets tied to your actions, world news, the danger ceiling, pursuits and collisions, aftermath turns, Residue and Ambitions. Since beta 6 the rules follow the dice in order: Tier reads A alone, Source reads B, and Form reads C once, so MiMo Flash stops adding the dice together. Ambient moments stay offscreen at two sentences at most, and their background texture is never brought up again. Ambitions now follow the wording of Realistic Frankenstein's Douyin Edition. A want you state in your own words that reaches past the scene is logged at 0/5 in the `ambitions:` ledger field and gains one step only when a closed thread served it.
+- **The double slop gates** are one labelled line per pattern in the Anti-Slop Codex, plus one short instruction each in the Last-Mile Gate. Every line leads with what to write, since Kimi K3 follows "do this" lines best. The two repair examples for Contrast and Chop moved into the 🩹 Claude 5 patch, the only place left with quoted bad-to-good examples, because MiMo copies quoted examples.
+- **The Scene Engine** lives in Voice & Scene Engine with its progression, causality, pacing, initiative and handoff endings. Each shift is caused on the page. The engine's narration line reports deeds and words and leaves verdicts on manner or habits to the characters.
+- **Card Fidelity and the language rules** are Main Prompt labels (Card Fidelity, Story Language, Epistemic Limits). Speech counts as "heard" however the story's language marks it, so Hungarian „quotes" and dialogue dashes work. Card Fidelity takes gender and pronouns from the card and first message (else lorebook or chat) and never guesses them from a name. The gate's Card line repeats the rule for names, ages, counts, ties, history, bodies, pronouns, voice and the form and frequency of thoughts at the very end of the prompt, and its closing line asks the AI to follow the gate over its own earlier replies.
+- **The Logic Core** is sent with the assistant role after the history, or with the system role through its twin, inside the gate's message. With 🏷️ Logic Core Tags on it carries no wrapper tag and starts on `<thinking>`, the tag the reply has to open with. With them off it sits inside `<logic_core>` as before, since the plan then runs inside the model's own reasoning. Every other entry calls it "the plan", which reads right in both shapes and with The Logic Core off, so no other entry branches on the shape. The gate only prints the one-line reminder The Logic Core hands it. Since beta 6 the plan has six fixed lines plus the Mode, Fate, Bonds and Ledger lines of the modules that run. Each line builds on the last with no drafts, and with the tags on, `go` ends the thinking. The Check line is gone, because MiMo Flash recited the whole gate there; the gate opens on `Write the prose per <anti_slop>:` and works as a set of instructions for the prose, with or without a plan.
 
 ### Known risks to test
 
-- 🎭 NPC Voice & Emotions brings Realistic Frankenstein's dialogue engine back at about 450 tokens, and Anti-Slop's Contrast, Chop, Register and Trade lines carry the working parts of RF's Kimi-profile killswitches again. Compare Kimi K3, GLM and Claude dialogue with RF 2.2.1.3 on the same card and tell me where it still falls short. On a small local model the extra rules may weigh too much; set `aria-npc-voice` to `off` there if replies turn stiff.
+- Beta 6 rewrote every rule to lead with what to write and turned the gate's questions into instructions, after our beta tester found MiMo V2.6 Flash and Pro sloppy on beta 5. It still needs live re-tests on Kimi K3 and on both MiMo models: Flash with the tester's own setup (🏷️ Logic Core Tags, 🔞 Adult Context, 👀 Hybrid POV, the MiMo patch and the 🔦 Flash Gate) and Pro with no plan at all. The live test plan below lists what to look for.
+- Ambitions use a compact form of the Douyin Edition's wording that no live model has run yet. Watch for counters stuck at 0/5 after a thread that served them closed, and for goals you never stated.
+- In Text Completions, ticking **Prefer Char. Instructions** lets a card's own Post-History Instructions replace my post-history block, and the 🚪 Last-Mile Gate goes with it. Since beta 6 that gate carries the only copy of the thought-form rule, so keep the box unticked (section 6).
+- The Chat Completions default now sits at about 3,580 tokens, 25 more than beta 5, so a rule added to any default module later should free the same number of tokens somewhere else.
+- 🎭 NPC Voice & Emotions brings Realistic Frankenstein's dialogue engine back at about 335 tokens, now without the example lists MiMo copied, and Anti-Slop's Contrast, Chop, Register and Trade lines carry the working parts of RF's Kimi-profile killswitches again. Compare Kimi K3, GLM and Claude dialogue with RF 2.2.1.3 on the same card and tell me where it still falls short. On a small local model the extra rules may weigh too much; set `aria-npc-voice` to `off` there if replies turn stiff.
 - Chop asks for orders as full sentences again, the way Realistic Frankenstein did. A drill sergeant or another terse card should still bark short orders, because Card Fidelity puts the card's way of talking first, so tell me if a gruff card turns polite.
-- Beta 5 starts The Logic Core on `<thinking>` whenever the tags are on, so MiMo copies the right tag. The catch: a model could read that note as thinking it already finished and skip its own plan. If plans go missing more often than in beta 4, tell me, and the opening sentence goes back to Realistic Frankenstein's wording.
+- Since beta 5, The Logic Core starts on `<thinking>` whenever the tags are on, so MiMo copies the right tag. The catch: a model could read that note as thinking it already finished and skip its own plan. If plans go missing more often than in beta 4, tell me, and the opening sentence goes back to Realistic Frankenstein's wording.
 - Beta 4 ends the gate with a one-line reminder to open with the plan and gives The Logic Core a system-role twin. Providers can change how they wrap a model at any time, so the twin is a lever to test per provider, and the normal Logic Core stays the default.
-- Beta 3 squeezed every module by about a quarter compared with beta 2, with reviewers checking each rule against Realistic Frankenstein along the way. Compare a few scenes with beta 2 and report anything that feels flatter or gets forgotten.
+- Beta 3 squeezed every module by about a quarter compared with beta 2, with reviewers checking each rule against Realistic Frankenstein along the way. Beta 6 compressed the rules a second time, with the 139 fixes in the archive's `Model fixes.md` as its checklist, though a longer gate and Fate leave the shipped default about 25 tokens above beta 5. Compare a few scenes with beta 5 from `archive/ARIA 1.0 beta 5/` and report anything that feels flatter or gets forgotten.
 - Fate is the most compressed piece. Mid-size or quantized models may forget to age entries or let Bullets pile up, so try it on a strong model first.
-- With fewer repair examples, some Claude habits may creep back. The Claude patch and the gate are the first line of defence.
+- Only the 🩹 Claude 5 patch still quotes repair examples. Claude without its patch, and every other model, gets Contrast and Chop as plain instructions, so tell me if "it wasn't X, it was Y" or choppy fragments creep back.
 - A card whose first message shows no thoughts may make the narration go a little flat.
 - Gemini runs best with Scent Occasions OFF and its patch ON; check that no smells sneak back in.
 - Bonds can rise quickly, so watch long slice-of-life chats for confessions arriving too early.
@@ -461,9 +469,12 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and d
 - **Claude 5 with its patch,** a two-character tavern scene over 30 turns: look for banned words, "it wasn't X, it was Y", choppy dialogue and "I respect that".
 - **Gemini with its patch and Scent OFF:** no smells at all, at most one question per reply, and clumsy human reactions to heavy news.
 - **GLM, Kimi or Qwen with their patch:** nervous characters keep their stammer; confident ones never mutter a filler word to themselves; on a clean chat, no reply over 10 turns opens on, repeats or quotes your last line; every character keeps the pronouns the card or lorebook gives them, and an order reads as a full sentence like "Take a seat, you look wrecked" where Kimi used to write "Sit."
-- **MiMo V2.6 Flash with its patch, style B:** card facts and moods hold from turn 15 to turn 25.
+- **Kimi K3 with its patch, over 10 turns:** every contrast in speech states what a thing is through one concrete detail; the prose opens on what someone does or says; the narrator leaves verdicts on anyone's manner or habits to the characters; a woman with no lorebook entry keeps she and her, whatever her name suggests.
+- **MiMo V2.6 Pro with its patch,** once with The Logic Core and once with no plan at all: speech sits woven into the paragraph of its act, each line beside the action it belongs to, and each reply answers the one or two points of your message that move the scene most.
+- **MiMo V2.6 Flash with its patch and the 🔦 Flash Gate, style B:** card facts and moods hold from turn 15 to turn 25. The plan stays shorter than one reply paragraph, with no drafts and no recited gate. Nobody grows a body part their card never gave them, and counts, ages and other numbers stay the way the chat first set them.
 - **MiMo V2.6 with Fate on:** exactly one 🎲 block closes every reply for 20 turns, with every field present and `none` in the empty ones.
 - **Fate over 20 turns:** the thread counter climbs and closes by 8, World stays at five entries or fewer, "meet me at noon on Day 3" fires on time, and harm reaching the scene stays rare.
+- **Ambitions, with Fate on:** state a goal in your own words, like "I'll open my own bakery by spring". It should log at 0/5 and move up only when a pursuit that served it closes.
 - **Bodies, names and secrets:** a card that describes a body (a sphinx with jackal ears) keeps exactly that body for 30 turns; your name survives a nickname or a jab, and nobody calls themselves by a title; the card's secret holds through the first few replies.
 - **Card fidelity:** a shy card stays shy under Adult Context, siblings recognise each other on turn 1, a drill sergeant keeps short orders, and a Hungarian chat stays free of English words.
 - **Impersonate:** the input box gets only your character's words, in their own person and tense.
@@ -477,7 +488,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger and d
 
 Please open an issue on the [GitHub issues page](https://github.com/QuillFlash/ARIA/issues) and include:
 
-- the build: ARIA 1.0 beta 5, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
+- the build: ARIA 1.0 beta 6, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
 - your SillyTavern version
 - your API source or local backend, and the model (plus the quant for local models)
 - your thinking style (A or B), or your `aria-*` switch lines on the Text Completions file
