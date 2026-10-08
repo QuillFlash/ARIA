@@ -33,7 +33,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,580 tokens as shipped and about 4,335 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,405. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,580 tokens as shipped and about 4,430 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,405. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -123,7 +123,7 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 - 😈 **Freaky Override** (OFF). The anything-goes switch. Characters drop their independence and the slow pacing and lean eagerly into what you want, while still sounding like themselves. It needs 🔞 Adult Context ON as well.
 - 👀 **Hybrid POV** (OFF). Tells the story in third person, while everything your character feels is written straight to you: "the rain soaks through your sleeves". Super immersive!
 - 🐺 **Anthro Vocals** (OFF). For furry, beastfolk and talking-animal stories. Wolves howl, eagles chirp, and lions and tigers roar and can't purr. The sounds stay as flavour inside normal speech.
-- 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from cold to chosen family, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. The numbers sit in their own little 💚 ledger at the end of each reply, which my regex scripts draw as a teal **Bonds** panel with one card per pair.
+- 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from cold to chosen family, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. The numbers sit in their own little 💚 ledger at the end of each reply, which my regex scripts draw as a teal **Bonds** panel with one card per pair. Here's how the numbers move: warm moments only fill Sparks, never the bond itself. The 💚 ledger opens with a little `turn n/5` counter, and on every fifth turn a pair holding 7 or more Sparks trades them for one point of bond and starts again from zero. The bond moves directly only on a big moment (an insult or dismissal, a betrayal, a costly rescue), and 5 Grudge cost it a point. The touch levels are just thresholds that allow a hug or a kiss, never points to add. I spelled all this out because MiMo V2.6 Pro kept raising the bond and the Sparks together on every warm act~
 - 🩹 **Model Patches** (OFF). Small fixes for one model family each. Pick the one from the table in section 3, and only one. The 🩹 MiMo V2.6 patch covers Pro and Flash alike. The 🩹 Claude 5 patch holds the only quoted before-and-after examples in the whole preset, two repairs for the Contrast and Chop rules, since Claude learns from them while MiMo copies quoted examples word for word.
 - 🔦 **Flash Gate** (OFF). For the Flash-tier models, GLM Flash and MiMo V2.6 Flash. They keep borrowing office words like "filing" and "notarising" for feelings, even in tender scenes where nobody is doing paperwork, while the full-size models dropped that habit. This swaps the gate's short Trade line for one firmer work-words rule at the end of the 🚪 Last-Mile Gate, where Flash models listen best. Run it alongside your model patch.
 - 🧠 **The Logic Core (system-role twin)** (OFF). The same planning step, sent as a system message that joins the 🚪 Last-Mile Gate at the very end of the prompt. Some models, like MiMo V2.6 Pro on a few providers lately, skip a plan that arrives as the AI's own message, and this version reaches them as an instruction instead. Switch the normal Logic Core OFF when you switch this one ON, and never run both! Claude turns late system messages into your messages, so Claude users keep the normal one. There's no version sent as your message, because a plan in your voice breaks the jailbreak on these models.
@@ -227,7 +227,7 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 | `aria-scent` | on | 👃 Scent Occasions | ~115 tokens |
 | `aria-time-place` | off | ⏰ Time & Place status line | ~70 tokens, plus ~30 in every reply |
 | `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~820 tokens, plus ~90 in every reply |
-| `aria-bonds` | off | 🥰 Bonds Lite | ~255 tokens, plus ~20 to 40 in every reply |
+| `aria-bonds` | off | 🥰 Bonds Lite | ~315 tokens, plus ~20 to 40 in every reply |
 | `aria-patch-glm-qwen` | off | 🩹 GLM / Kimi / Qwen patch | ~50 tokens |
 | `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 patch for Pro and Flash. The switch keeps its old name, so switch lines you saved from beta 5 still work | ~95 tokens |
 | `aria-flash-gate` | off | 🔦 Flash Gate for GLM Flash and MiMo V2.6 Flash; runs alongside a patch | ~30 tokens, since it takes the place of the gate's Trade line |
@@ -356,10 +356,10 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 |---|---|
 | Core (everything that ships ON except Fate and Time & Place) | ~2,650 |
 | Shipped default | ~3,580 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,335 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,430 |
 | Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~70 |
 
-For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 82% smaller. Beta 5 came to about 4,385 with everything ON, so beta 6 comes out about 50 tokens lighter even with the Realistic Frankenstein rules it brought back.
+For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 82% smaller. Beta 5 came to about 4,385 with everything ON, so beta 6 sits about 45 tokens above it, most of that the clearer Bonds rule, even with the Realistic Frankenstein rules it brought back.
 
 The Text Completions file, measured the same way:
 
@@ -367,7 +367,7 @@ The Text Completions file, measured the same way:
 |---|---|
 | Lean start, as shipped for 32k | ~2,405 |
 | Plus The Logic Core, Fate and Time & Place | ~3,670 |
-| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,385 |
+| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,480 |
 
 Beta 5 measured about 4,430 here with everything ON. Want to compare the two builds for yourself? Beta 5 waits in `archive/ARIA 1.0 beta 5/` with its presets and regex file, plus `Model fixes.md`, which lists all 139 model fixes it carried. Its presets carry their own names, so you can import them next to the current ones. Its regex file uses the same script names as mine, so on the Text Completions file swap it in only while you test beta 5 and put the current file back afterwards, the way section 6 describes.
 
@@ -462,7 +462,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 - Only the 🩹 Claude 5 patch still quotes repair examples. Claude without its patch, and every other model, gets Contrast and Chop as plain instructions, so tell me if "it wasn't X, it was Y" or choppy fragments creep back.
 - A card whose first message shows no thoughts may make the narration go a little flat.
 - Gemini runs best with Scent Occasions OFF and its patch ON; check that no smells sneak back in.
-- Bonds can rise quickly, so watch long slice-of-life chats for confessions arriving too early.
+- Bonds can rise quickly, so watch long slice-of-life chats for confessions arriving too early. Since the Bonds clarification, warm acts should move only Sparks, and the bond should climb by one only when the 💚 counter reads `turn 5/5`; tell me if a model still raises both at once.
 
 ### Live test plan
 
