@@ -53,7 +53,7 @@
     {
         "id": "b75828b7-ad31-5db1-986b-b7b839f6ff55",
         "scriptName": "ARIA - Fold thinking into a Thoughts box (display only)",
-        "findRegex": "/(?:<\\s{0,8}(think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>([\\s\\S]{0,20000}?)<\\s{0,8}\\/\\s{0,8}\\1[^>]{0,120}>|###\\s{0,8}(?:Internal Monologue|Reasoning|Thoughts?|Thinking)\\s{0,8}\\n?([\\s\\S]{0,20000}?)###\\s{0,8}(?:Response|Output|Narrative|Final Answer)\\s{0,8})/gi",
+        "findRegex": "/(?:<\\s{0,8}(think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>([\\s\\S]{0,40000}?)<\\s{0,8}\\/\\s{0,8}\\1[^>]{0,120}>|###\\s{0,8}(?:Internal Monologue|Reasoning|Thoughts?|Thinking)\\s{0,8}\\n?([\\s\\S]{0,40000}?)###\\s{0,8}(?:Response|Output|Narrative|Final Answer)\\s{0,8})/gi",
         "replaceString": "<details style=\"background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.3); border-left: 4px solid #a855f7; border-radius: 8px; margin: 10px 0; padding: 10px 14px; font-size: 0.92em;\"><summary style=\"cursor: pointer; font-weight: bold; color: #c084fc; user-select: none;\">💭 Thoughts</summary>\n\n$2$3\n</details>",
         "trimStrings": [],
         "placement": [
@@ -70,7 +70,7 @@
     {
         "id": "56f7108e-7214-5e25-914e-15fe6f00585b",
         "scriptName": "ARIA - Fold a plan whose opening and closing tags differ (display only)",
-        "findRegex": "/^\\s*<\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>([\\s\\S]{0,20000}?)<\\s{0,8}\\/\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>/i",
+        "findRegex": "/^\\s*<\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>([\\s\\S]{0,40000}?)<\\s{0,8}\\/\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>/i",
         "replaceString": "<details style=\"background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.3); border-left: 4px solid #a855f7; border-radius: 8px; margin: 10px 0; padding: 10px 14px; font-size: 0.92em;\"><summary style=\"cursor: pointer; font-weight: bold; color: #c084fc; user-select: none;\">💭 Thoughts</summary>\n\n$1\n</details>",
         "trimStrings": [],
         "placement": [
@@ -104,7 +104,7 @@
     {
         "id": "31641aab-a9dd-5ab1-b456-25bc7a65f29f",
         "scriptName": "ARIA - Keep thinking out of the prompt (all depths, cache-safe)",
-        "findRegex": "/(?:<\\s{0,8}(think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>[\\s\\S]{0,20000}?<\\s{0,8}\\/\\s{0,8}\\1[^>]{0,120}>|###\\s{0,8}(?:Internal Monologue|Reasoning|Thoughts?|Thinking)\\s{0,8}[\\s\\S]{0,20000}?###\\s{0,8}(?:Response|Output|Narrative|Final Answer)\\s{0,8})/gi",
+        "findRegex": "/(?:<\\s{0,8}(think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>[\\s\\S]{0,40000}?<\\s{0,8}\\/\\s{0,8}\\1[^>]{0,120}>|###\\s{0,8}(?:Internal Monologue|Reasoning|Thoughts?|Thinking)\\s{0,8}[\\s\\S]{0,40000}?###\\s{0,8}(?:Response|Output|Narrative|Final Answer)\\s{0,8})/gi",
         "replaceString": "",
         "trimStrings": [],
         "placement": [
@@ -121,7 +121,7 @@
     {
         "id": "2af3f2db-6ca3-54bb-9bb8-40651725529a",
         "scriptName": "ARIA - Keep mismatched thinking tags out of the prompt (all depths, cache-safe)",
-        "findRegex": "/<\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>[\\s\\S]{0,20000}?<\\s{0,8}\\/\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)[^>]{0,120}>/gi",
+        "findRegex": "/<\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>[\\s\\S]{0,40000}?<\\s{0,8}\\/\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)[^>]{0,120}>/gi",
         "replaceString": "",
         "trimStrings": [],
         "placement": [
