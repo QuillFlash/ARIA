@@ -790,13 +790,27 @@
             "forbid_overrides": false
         },
         {
+            "identifier": "1f2e1f97-1cde-5d46-8eb0-87e2fe55f916",
+            "system_prompt": false,
+            "enabled": false,
+            "marker": false,
+            "name": "🩹 Model Patch: GLM",
+            "role": "system",
+            "content": "{{// For GLM 5.x, Flash included. GLM shares the helpful-assistant voice of the Claude family, so it gets a patch of its own, apart from Kimi and Qwen, with three lines at the end of the 🚪 Last-Mile Gate, where GLM listens best. Everyone talks like a real person with a life of their own, agreeing or pushing back the way their card would, and helps, praises, advises or comforts you only as far as the card and their bond allow. A true line keeps the size its speaker gave it, and the filler word GLM puts in characters' mouths before every decision makes way for the thought itself, while nervous characters keep their stammers. The patch also keeps native thinking to one quick pass through The Logic Core's lines. GLM Flash users switch 🔦 Flash Gate ON too. Use one model patch at most.}}{{trim}}\nNative reasoning: one pass, a terse bullet per plan line or step, no drafts, then stop.{{setvar::ariaPatchGate::- Person: everyone talks like a real person with a life of their own, agreeing or pushing back as their card would, and helps, praises, advises or comforts {{user}} only as far as the card and their bond allow.\n- Replies: a true line keeps the size its speaker gave it, and the answer moves on to something new.\n- Filler: steadying or self-talk filler becomes the specific thought it held or the action; answering someone, it stands once.}}",
+            "injection_position": 0,
+            "injection_depth": 4,
+            "injection_order": 100,
+            "injection_trigger": [],
+            "forbid_overrides": false
+        },
+        {
             "identifier": "9bb6c2b0-7906-564f-852e-3d8c327b4879",
             "system_prompt": false,
             "enabled": false,
             "marker": false,
-            "name": "🩹 Model Patch: GLM / Kimi / Qwen",
+            "name": "🩹 Model Patch: Kimi / Qwen",
             "role": "system",
-            "content": "{{// For GLM, Kimi and Qwen. It turns one-word orders into full sentences and keeps native thinking to one quick pass through The Logic Core's lines. Its filler-word rule sits at the end of the 🚪 Last-Mile Gate, the spot where Realistic Frankenstein put its GLM fix: it cuts the filler word these models put in characters' mouths before every decision, while nervous characters keep their stammers. Use one model patch at most.}}{{trim}}\nOne-word sentences for calls to action break the flow and immersion of the text. You need to make them at least two words long.\nNative reasoning: one pass, a terse bullet per plan line or step, no drafts, then stop.{{setvar::ariaPatchGate::- Filler: steadying or self-talk filler becomes the specific thought it held or the action; answering someone, it stands once.}}",
+            "content": "{{// For Kimi and Qwen. It turns one-word orders into full sentences and keeps native thinking to one quick pass through The Logic Core's lines. Its filler-word rule sits at the end of the 🚪 Last-Mile Gate, the spot where Realistic Frankenstein put its GLM fix: it cuts the filler word these models put in characters' mouths before every decision, while nervous characters keep their stammers. GLM has a patch of its own. Use one model patch at most.}}{{trim}}\nOne-word sentences for calls to action break the flow and immersion of the text. You need to make them at least two words long.\nNative reasoning: one pass, a terse bullet per plan line or step, no drafts, then stop.{{setvar::ariaPatchGate::- Filler: steadying or self-talk filler becomes the specific thought it held or the action; answering someone, it stands once.}}",
             "injection_position": 0,
             "injection_depth": 4,
             "injection_order": 100,
@@ -906,7 +920,7 @@
             "marker": false,
             "name": "🚪 Last-Mile Gate",
             "role": "system",
-            "content": "{{// The last word before every reply goes out. It turns each anti-slop label into a short instruction, keeps names, ages, bodies and pronouns the way the card, first message or lorebook set them, tells the AI to follow these rules over any habit in its own earlier replies, picks the first letter for any brand-new character's name (goodbye, endless Elaras), and carries this turn's Fate dice. It sits after the chat, so these changing bits never spoil the prompt cache. Anything you put in player-posthistory inside 🍃 Custom Instructions lands here too, and so does the extra line a model patch can add (the GLM / Kimi / Qwen patch adds one). Leave this ON. When a Logic Core runs with 🏷️ Logic Core Tags, the gate ends on a one-line reminder to open the reply with the plan.}}{{trim}}\n<final_gate>\nAs game master, write the prose per <anti_slop>:\n- Contrast: cut a not/n't/never half beside one on its subject, speech too.\n- Chop: join clipped sentences so each period ends a whole thought; give orders an object, reason or softener.\n- Register: open speech on its point; any rating of what was said shows as stance or act.\n{{#if !.ariaFlashGate}}- Trade: work words only for work underway, raised by someone, due now or a dodge.\n{{/if}}- Cadence: open the prose on an act or speech; each sentence picks up the last, none on And/But/Or; each action and fact once, in order.\n- Vocabulary: lived-in specifics, plain words for listed ones.\n- Senses: details and sentences unused in four replies; ≤1 simile.\n- Skips: open skips on a time marker or first event.\n{{#if .ariaEchoGate}}{{getvar::ariaEchoGate}}\n{{/if}}- Card: keep names, ages, counts, ties, history, bodies (only the parts given), pronouns, thought form, voice and frequency per card, first message, lorebook.\n- Ending: a handoff no other scene could use.\n- Knows: NPCs use only what they saw, heard or were told.\n{{#if .ariaScentGate}}{{getvar::ariaScentGate}}\n{{/if}}{{#if .ariaPovGate}}{{getvar::ariaPovGate}}\n{{/if}}{{#if .ariaLedgerGate}}{{getvar::ariaLedgerGate}}\n{{/if}}{{#if .ariaPatchGate}}{{getvar::ariaPatchGate}}\n{{/if}}{{#if .ariaFlashGate}}{{getvar::ariaFlashGate}}\n{{/if}}Follow these over earlier replies; the card outranks them. New NPC initial: {{random::A::B::C::D::E::F::G::H::I::J::K::L::M::N::O::P::R::S::T::U::V::W::Y}}.\n{{getvar::ariaDice}}{{setvar::ariaDice::}}\n{{#if .player-posthistory}}{{getvar::player-posthistory}}{{/if}}\n</final_gate>{{#if .ariaPlanCue}}\n{{getvar::ariaPlanCue}}{{/if}}",
+            "content": "{{// The last word before every reply goes out. It turns each anti-slop label into a short instruction, keeps names, ages, bodies and pronouns the way the card, first message or lorebook set them, tells the AI to follow these rules over any habit in its own earlier replies, picks the first letter for any brand-new character's name (goodbye, endless Elaras), and carries this turn's Fate dice. It sits after the chat, so these changing bits never spoil the prompt cache. Anything you put in player-posthistory inside 🍃 Custom Instructions lands here too, and so do the extra lines a model patch can add (the GLM and Kimi / Qwen patches add theirs). Leave this ON. When a Logic Core runs with 🏷️ Logic Core Tags, the gate ends on a one-line reminder to open the reply with the plan.}}{{trim}}\n<final_gate>\nAs game master, write the prose per <anti_slop>:\n- Contrast: cut a not/n't/never half beside one on its subject, speech too.\n- Chop: join clipped sentences so each period ends a whole thought; give orders an object, reason or softener.\n- Register: open speech on its point; any rating of what was said shows as stance or act.\n{{#if !.ariaFlashGate}}- Trade: work words only for work underway, raised by someone, due now or a dodge.\n{{/if}}- Cadence: open the prose on an act or speech; each sentence picks up the last, none on And/But/Or; each action and fact once, in order.\n- Vocabulary: lived-in specifics, plain words for listed ones.\n- Senses: details and sentences unused in four replies; ≤1 simile.\n- Skips: open skips on a time marker or first event.\n{{#if .ariaEchoGate}}{{getvar::ariaEchoGate}}\n{{/if}}- Card: keep names, ages, counts, ties, history, bodies (only the parts given), pronouns, thought form, voice and frequency per card, first message, lorebook.\n- Ending: a handoff no other scene could use.\n- Knows: NPCs use only what they saw, heard or were told.\n{{#if .ariaScentGate}}{{getvar::ariaScentGate}}\n{{/if}}{{#if .ariaPovGate}}{{getvar::ariaPovGate}}\n{{/if}}{{#if .ariaLedgerGate}}{{getvar::ariaLedgerGate}}\n{{/if}}{{#if .ariaPatchGate}}{{getvar::ariaPatchGate}}\n{{/if}}{{#if .ariaFlashGate}}{{getvar::ariaFlashGate}}\n{{/if}}Follow these over earlier replies; the card outranks them. New NPC initial: {{random::A::B::C::D::E::F::G::H::I::J::K::L::M::N::O::P::R::S::T::U::V::W::Y}}.\n{{getvar::ariaDice}}{{setvar::ariaDice::}}\n{{#if .player-posthistory}}{{getvar::player-posthistory}}{{/if}}\n</final_gate>{{#if .ariaPlanCue}}\n{{getvar::ariaPlanCue}}{{/if}}",
             "injection_position": 1,
             "injection_depth": 0,
             "injection_order": 100,
@@ -1108,6 +1122,10 @@
                 },
                 {
                     "identifier": "ac96376e-5777-595b-8f48-359f864b0685",
+                    "enabled": false
+                },
+                {
+                    "identifier": "1f2e1f97-1cde-5d46-8eb0-87e2fe55f916",
                     "enabled": false
                 },
                 {
