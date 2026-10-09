@@ -33,7 +33,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,600 tokens as shipped and about 4,455 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,440. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,600 tokens as shipped and about 4,620 with every single toggle on in the Chat Completions file, while the Text Completions file starts at about 2,410. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -88,7 +88,7 @@ Then find your model in this table:
 | GLM, Kimi, Qwen | A, or B if the thinking loops | 🩹 GLM / Kimi / Qwen | GLM Flash: switch 🔦 Flash Gate ON too |
 | DeepSeek | A | none | |
 | MiMo V2.6 Pro | B, with 🧠 The Logic Core ON (A makes it overthink) | 🩹 MiMo V2.6 | No plan in the replies? Use the system-role twin of The Logic Core |
-| MiMo V2.6 Flash | B | 🩹 MiMo V2.6 | Switch 🔦 Flash Gate ON too |
+| MiMo V2.6 Flash | B | 🩹 MiMo V2.6 | Switch 🔦 Flash Gate ON too, and set Temperature to 0.8 |
 | Something else | A, then B if it misbehaves | none | |
 
 **One model patch at most!** Two patches at once would be like two lead singers grabbing the same microphone. 🎤🎤 The 🔦 Flash Gate is the one exception: it's a small add-on for Flash-tier models, so it plays alongside their patch.
@@ -125,7 +125,7 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 - 🐺 **Anthro Vocals** (OFF). For furry, beastfolk and talking-animal stories. Wolves howl, eagles chirp, and lions and tigers roar and can't purr. The sounds stay as flavour inside normal speech.
 - 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from malice to devotion, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. The numbers sit in their own little 💚 ledger at the end of each reply, which my regex scripts draw as a teal **Bonds** panel with one card per pair. The bond itself never jumps. A gift, a favour, a defence, a shared secret, a laugh, choosing that person or a willing touch each add one Spark, two at most per pair each turn, and 7 Sparks turn into one point of bond. Slights pile up as Grudge, 5 of them cost a point, and while 3 or more are waiting, warm gains count half until a sincere apology clears them. The touch levels are just thresholds that allow a hug or a kiss, never points to add. I spelled all this out because MiMo V2.6 Pro kept raising the bond and the Sparks together on every warm act~
 - 🩹 **Model Patches** (OFF). Small fixes for one model family each. Pick the one from the table in section 3, and only one. The 🩹 MiMo V2.6 patch covers Pro and Flash alike. The 🩹 Claude 5 patch holds the only quoted before-and-after examples in the whole preset, two repairs for the Contrast and Chop rules, since Claude learns from them while MiMo copies quoted examples word for word.
-- 🔦 **Flash Gate** (OFF). For the Flash-tier models, GLM Flash and MiMo V2.6 Flash. They keep borrowing office words like "filing" and "notarising" for feelings, even in tender scenes where nobody is doing paperwork, while the full-size models dropped that habit. This swaps the gate's short Trade line for one firmer work-words rule at the end of the 🚪 Last-Mile Gate, where Flash models listen best. Run it alongside your model patch.
+- 🔦 **Flash Gate** (OFF). For the Flash-tier models, GLM Flash and MiMo V2.6 Flash. They flatten characters into card dealers who play one move after another, and they borrow office words like "filing" and "notarising" for feelings, two habits the full-size models dropped. This carries Realistic Frankenstein's Flash fixes to the end of the 🚪 Last-Mile Gate, where Flash models listen best. Every spoken line comes from what its speaker wants and feels this instant, said the way only they would say it, while the card's everyday mood, interests and sense of humour hold for the whole chat. The Logic Core's Voice line gets one raw thought per speaker, so the plan starts from inside each character's head. A firmer work-words rule also takes the place of the gate's short Trade line. Run it alongside your model patch.
 - 🧠 **The Logic Core (system-role twin)** (OFF). The same planning step, sent as a system message that joins the 🚪 Last-Mile Gate at the very end of the prompt. Some models, like MiMo V2.6 Pro on a few providers lately, skip a plan that arrives as the AI's own message, and this version reaches them as an instruction instead. Switch the normal Logic Core OFF when you switch this one ON, and never run both! Claude turns late system messages into your messages, so Claude users keep the normal one. There's no version sent as your message, because a plan in your voice breaks the jailbreak on these models.
 - **Reduce Reasoning** (OFF). A tiny "don't overthink" note for models that think far too long. Switch it on alongside The Logic Core if your model still overthinks.
 - 🌳 **README** and 🌿 **Sampling Advice** (OFF). Notes for you to read. Switching them on sends nothing.
@@ -227,16 +227,16 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 | `aria-scent` | on | 👃 Scent Occasions | ~115 tokens |
 | `aria-time-place` | off | ⏰ Time & Place status line | ~70 tokens, plus ~30 in every reply |
 | `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~820 tokens, plus ~90 in every reply |
-| `aria-bonds` | off | 🥰 Bonds Lite | ~315 tokens, plus ~20 to 40 in every reply |
+| `aria-bonds` | off | 🥰 Bonds Lite | ~335 tokens, plus ~20 to 40 in every reply |
 | `aria-patch-glm-qwen` | off | 🩹 GLM / Kimi / Qwen patch | ~50 tokens |
-| `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 patch for Pro and Flash. The switch keeps its old name, so switch lines you saved from beta 5 still work | ~95 tokens |
-| `aria-flash-gate` | off | 🔦 Flash Gate for GLM Flash and MiMo V2.6 Flash; runs alongside a patch | ~30 tokens, since it takes the place of the gate's Trade line |
+| `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 patch for Pro and Flash. The switch keeps its old name, so switch lines you saved from beta 5 still work | ~105 tokens |
+| `aria-flash-gate` | off | 🔦 Flash Gate for GLM Flash and MiMo V2.6 Flash, with Realistic Frankenstein's fixes for flat characters and office words; runs alongside a patch | ~190 tokens |
 
 The Claude 5 and Gemini patches live only in the Chat Completions file, since those models aren't run through Text Completion. Use one patch at most, same as always!
 
 ### Fitting into 32k
 
-My lean start uses about 2,440 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
+My lean start uses about 2,410 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
 
 - **32k:** stay lean. Turn on The Logic Core only if your model has 24B parameters or more and a few extra seconds per reply don't bother you.
 - **64k or more:** switch on `aria-fate` and `aria-time-place` together for the full world engine, and add `aria-bonds` if you love relationship drama~
@@ -321,7 +321,7 @@ Start with the character's lorebook entry. Pronouns scattered through a descript
 Switch the 🔦 Flash Gate ON next to your model patch. The patch handles the model's other habits, and the Flash Gate swaps the gate's short Trade line for its firmer office-word rule at the very end of the prompt, where Flash models listen best.
 
 **Characters feel flat, or all agree with me.**
-Check that 😈 Freaky Override is OFF, because it makes everyone eager on purpose. On MiMo V2.6 Pro or Flash, switch on the 🩹 MiMo V2.6 patch.
+Check that 😈 Freaky Override is OFF, because it makes everyone eager on purpose. On MiMo V2.6 Pro or Flash, switch on the 🩹 MiMo V2.6 patch. On MiMo V2.6 Flash or GLM Flash, add the 🔦 Flash Gate too, and on MiMo Flash try Temperature 0.8, the setting Realistic Frankenstein shipped for it.
 
 **The model refuses or tiptoes around a scene.**
 Turn The Logic Core ON (on the Text Completions file, set `aria-logic-core` to `on`), since it helps a lot of models settle in. For mature scenes, 🔞 Adult Context must be ON. Some models refuse certain content no matter what any preset says, and when that happens a different model is the only real fix.
@@ -356,18 +356,18 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 |---|---|
 | Core (everything that ships ON except Fate and Time & Place) | ~2,675 |
 | Shipped default | ~3,600 |
-| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,455 |
+| Everything ON (Adult, Freaky, Hybrid POV, Anthro, Bonds, Logic Core Tags, 🔦 Flash Gate and the largest model patch) | ~4,620 |
 | Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~40 |
 
-For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 81% smaller. Beta 5 came to about 4,385 with everything ON, and beta 6 now sits about 70 tokens above it, mostly for the clearer Bonds rule and the MiMo echo fixes.
+For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 81% smaller. Beta 5 came to about 4,385 with everything ON, and beta 6 now sits about 235 tokens above it, mostly for the 🔦 Flash Gate's Realistic Frankenstein fixes and the clearer Bonds rule.
 
 The Text Completions file, measured the same way:
 
 | Text Completions configuration | Tokens |
 |---|---|
-| Lean start, as shipped for 32k | ~2,440 |
-| Plus The Logic Core, Fate and Time & Place | ~3,720 |
-| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,545 |
+| Lean start, as shipped for 32k | ~2,410 |
+| Plus The Logic Core, Fate and Time & Place | ~3,690 |
+| Everything ON (largest patch and 🔦 Flash Gate included) | ~4,670 |
 
 Beta 5 measured about 4,430 here with everything ON. Want to compare the two builds for yourself? Beta 5 waits in `archive/ARIA 1.0 beta 5/` with its presets and regex file, plus `Model fixes.md`, which lists all 139 model fixes it carried. Its presets carry their own names, so you can import them next to the current ones. Its regex file uses the same script names as mine, so on the Text Completions file swap it in only while you test beta 5 and put the current file back afterwards, the way section 6 describes.
 
@@ -453,6 +453,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 - Ambitions use a compact form of the Douyin Edition's wording that no live model has run yet. Watch for counters stuck at 0/5 after a thread that served them closed, and for goals you never stated.
 - In Text Completions, ticking **Prefer Char. Instructions** lets a card's own Post-History Instructions replace my post-history block, and the 🚪 Last-Mile Gate goes with it. Since beta 6 that gate carries the only copy of the thought-form rule, so keep the box unticked (section 6).
 - The Chat Completions default now sits at about 3,600 tokens, about 45 more than beta 5. The checker's everything-ON limit went from 4,500 to 5,000 tokens to make room for model fixes, so every new rule should still stay as short as it can.
+- The 🔦 Flash Gate now carries Realistic Frankenstein's speech method and its Character Hold lines for mood, interests and jokes, plus one raw thought per speaker in the plan. MiMo V2.6 Flash was the model they were written for, so tell me how GLM Flash takes them, and whether any Flash character turns theatrical.
 - The anti-echo line is now called Own words, because MiMo copied the old Echo label into its plan together with your quoted line and then handed the line straight back. Tell me if echoes come back, in speech or tucked into a thought.
 - 🎭 NPC Voice & Emotions brings Realistic Frankenstein's dialogue engine back at about 335 tokens, now without the example lists MiMo copied, and Anti-Slop's Contrast, Chop, Register and Trade lines carry the working parts of RF's Kimi-profile killswitches again. Compare Kimi K3, GLM and Claude dialogue with RF 2.2.1.3 on the same card and tell me where it still falls short. On a small local model the extra rules may weigh too much; set `aria-npc-voice` to `off` there if replies turn stiff.
 - Chop asks for orders as full sentences again, the way Realistic Frankenstein did. A drill sergeant or another terse card should still bark short orders, because Card Fidelity puts the card's way of talking first, so tell me if a gruff card turns polite.
@@ -473,7 +474,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 - **GLM, Kimi or Qwen with their patch:** nervous characters keep their stammer; confident ones never mutter a filler word to themselves; on a clean chat, no reply over 10 turns opens on, repeats or quotes your last line; every character keeps the pronouns the card or lorebook gives them, and an order reads as a full sentence like "Take a seat, you look wrecked" where Kimi used to write "Sit."
 - **Kimi K3 with its patch, over 10 turns:** no sentence on not, n't or never sits next to one about the same subject, in speech or narration, while plain refusals and corrections still come through; the prose opens on what someone does or says; the narrator leaves verdicts on anyone's manner or habits to the characters; a woman with no lorebook entry keeps she and her, whatever her name suggests.
 - **MiMo V2.6 Pro with its patch,** once with The Logic Core and once with no plan at all: speech sits woven into the paragraph of its act, each line beside the action it belongs to, and each reply answers the one or two points of your message that move the scene most. Your words stay out of the reply, thoughts and later paragraphs included, and no extra body part shows up late in the chat.
-- **MiMo V2.6 Flash with its patch and the 🔦 Flash Gate, style B:** card facts and moods hold from turn 15 to turn 25. The plan stays shorter than one reply paragraph, with no drafts and no recited gate. Nobody grows a body part their card never gave them, and counts, ages and other numbers stay the way the chat first set them. The plan sums up your words instead of quoting them, the reply keeps them yours, thoughts included, no character repeats a sentence from their own earlier replies, and the card's secret stays untold until you uncover it.
+- **MiMo V2.6 Flash with its patch and the 🔦 Flash Gate, style B:** card facts and moods hold from turn 15 to turn 25. The plan stays shorter than one reply paragraph, with no drafts and no recited gate. Nobody grows a body part their card never gave them, and counts, ages and other numbers stay the way the chat first set them. The plan sums up your words instead of quoting them, the reply keeps them yours, thoughts included, no character repeats a sentence from their own earlier replies, and the card's secret stays untold until you uncover it. With the 🔦 Flash Gate on, characters tease, tempt and banter in their own voice, quiet moments bring up what they care about, and the plan's Voice line holds one short raw thought per speaker.
 - **MiMo V2.6 with Fate on:** exactly one 🎲 block closes every reply for 20 turns, with every field present and `none` in the empty ones.
 - **Fate over 20 turns:** the thread counter climbs and closes by 8, World stays at five entries or fewer, "meet me at noon on Day 3" fires on time, and harm reaching the scene stays rare.
 - **Ambitions, with Fate on:** state a goal in your own words, like "I'll open my own bakery by spring". It should log at 0/5 and move up only when a pursuit that served it closes.
