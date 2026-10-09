@@ -216,8 +216,15 @@ def analyse_cc(preset):
     core = shipped - by_prefix('🎲', '⏰')
     skip_all_on = by_prefix('🌳', '🌿') | {pid for pid in prompts if 'twin' in name[pid] or name[pid] == 'Reduce Reasoning'}
     skip_all_on |= {'enhanceDefinitions'} | patches
-    largest_patch = max(patches, key=lambda pid: tokens(render(prompts[pid]['content'], {}, random.Random(0))), default=None)
-    all_on = {row['identifier'] for row in order} - skip_all_on | ({largest_patch} if largest_patch else set())
+    no_patch = {row['identifier'] for row in order} - skip_all_on
+
+    def patch_cost(pid):
+        """A patch's whole cost, its own text plus any line it hands the gate."""
+        rendered, _ = simulate_cc(preset, no_patch | {pid}, seed=1)
+        return sum(tokens(t) for t in rendered.values())
+
+    largest_patch = max(patches, key=patch_cost, default=None)
+    all_on = no_patch | ({largest_patch} if largest_patch else set())
 
     totals = {}
     for label, enabled in (('core', core), ('shipped default', shipped), ('everything ON', all_on)):
@@ -315,11 +322,12 @@ def analyse_tc(preset):
     patches = [s for s in shipped if s.startswith('aria-patch')]
 
     def patch_cost(p):
+        """A patch's whole cost, its own text plus any line it hands the gate in the post-history."""
         on = {s: 'off' for s in shipped} | {p: 'on'}
         off = {s: 'off' for s in shipped}
         r_on, _ = simulate_tc(preset, on, 1)
         r_off, _ = simulate_tc(preset, off, 1)
-        return tokens(r_on['System Prompt']) - tokens(r_off['System Prompt'])
+        return sum(tokens(t) for t in r_on.values()) - sum(tokens(t) for t in r_off.values())
 
     largest = max(patches, key=patch_cost, default=None)
     all_on = {s: 'on' for s in shipped if not s.startswith('aria-patch')} | {p: ('on' if p == largest else 'off') for p in patches}
