@@ -14,7 +14,7 @@ import re
 import sys
 from pathlib import Path
 
-BUDGET = 4500
+BUDGET = 5000
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PRESETS = [
     ROOT / "Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json",
