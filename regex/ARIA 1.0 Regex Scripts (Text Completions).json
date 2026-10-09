@@ -70,7 +70,7 @@
     {
         "id": "56f7108e-7214-5e25-914e-15fe6f00585b",
         "scriptName": "ARIA - Fold a plan whose opening and closing tags differ (display only)",
-        "findRegex": "/^\\s*(?:<\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>|<?[ \\t]*(?:thinking|think|logic_core)[ \\t]*[:>]?[ \\t]*(?=\\n))([\\s\\S]{0,40000}?)(?:<\\s{0,8}\\/\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>|\\n[ \\t]*(?!<\\s{0,8}\\/\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>)<?\\/[ \\t]*(?:thinking|think|logic_core)[ \\t]*>?(?=[ \\t]*(?:\\n|$)))/i",
+        "findRegex": "/^\\s*(?:<\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>|(?:<[ \\t]*)?(?:thinking|think|logic_core)[ \\t]*[:>]?[ \\t]*(?=\\n))([\\s\\S]{0,40000}?)(?:<\\s{0,8}\\/\\s{0,8}(?:thinking|think|logic_core|go)\\s{0,8}>|\\n[ \\t]*(?!<\\s{0,8}\\/\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>)<?\\/[ \\t]*(?:thinking|think|logic_core)[ \\t]*>?(?=[ \\t]*(?:\\n|$)))/i",
         "replaceString": "<details style=\"background: rgba(147, 51, 234, 0.08); border: 1px solid rgba(147, 51, 234, 0.3); border-left: 4px solid #a855f7; border-radius: 8px; margin: 10px 0; padding: 10px 14px; font-size: 0.92em;\"><summary style=\"cursor: pointer; font-weight: bold; color: #c084fc; user-select: none;\">💭 Thoughts</summary>\n\n$1\n</details>",
         "trimStrings": [],
         "placement": [
@@ -121,7 +121,7 @@
     {
         "id": "2af3f2db-6ca3-54bb-9bb8-40651725529a",
         "scriptName": "ARIA - Keep mismatched thinking tags out of the prompt (all depths, cache-safe)",
-        "findRegex": "/<\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>[\\s\\S]{0,40000}?<\\s{0,8}\\/\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)[^>]{0,120}>|^\\s*<?[ \\t]*(?:thinking|think|logic_core)[ \\t]*[:>]?[ \\t]*\\n[\\s\\S]{0,40000}?(?:<\\s{0,8}\\/\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)[^>]{0,120}>|\\n[ \\t]*(?!<\\s{0,8}\\/\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>)<?\\/[ \\t]*(?:thinking|think|logic_core)[ \\t]*>?(?=[ \\t]*(?:\\n|$)))/gi",
+        "findRegex": "/<\\s{0,8}(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)\\b[^>]{0,120}>[\\s\\S]{0,40000}?<\\s{0,8}\\/\\s{0,8}(?:(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)[^>]{0,120}|go\\s{0,8})>|^\\s*(?:<[ \\t]*)?(?:thinking|think|logic_core)[ \\t]*[:>]?[ \\t]*\\n[\\s\\S]{0,40000}?(?:<\\s{0,8}\\/\\s{0,8}(?:(?:think|thinking|thought|thoughts|reasoning|internal_monologue|internal\\s+monologue|logic_core)[^>]{0,120}|go\\s{0,8})>|\\n[ \\t]*(?!<\\s{0,8}\\/\\s{0,8}(?:thinking|think|logic_core)\\s{0,8}>)<?\\/[ \\t]*(?:thinking|think|logic_core)[ \\t]*>?(?=[ \\t]*(?:\\n|$)))/gi",
         "replaceString": "",
         "trimStrings": [],
         "placement": [
@@ -140,6 +140,23 @@
         "scriptName": "ARIA - Keep an untagged Logic Core plan out of the prompt (all depths, cache-safe)",
         "findRegex": "/^(\\s*\\[[^\\n\\]]{0,300}\\][ \\t]*\\n)?\\s*(?:<(?:thinking|think|logic_core)>\\s*|<?[ \\t]*(?:thinking|think|logic_core)[ \\t]*[:>]?[ \\t]*\\n\\s*)?((?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:OOC|Scene|Knows)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])?[ \\t]*(?:\\*\\*)?(?:Scene|Knows|Mode|Voice|Move|Fate|Bonds|Ledger|Fresh|Check)(?:\\*\\*)?[ \\t]*:[\\s\\S]{0,8000}?\\n[ \\t]*(?:(?:[-*•]|\\d{1,2}[.)])[ \\t]*(?:\\*\\*)?go(?:\\*\\*)?|\\*\\*go\\*\\*)[ \\t]*[.!]?(?=[ \\t]*(?:<?\\/[ \\t]*(?:thinking|think|logic_core)[ \\t]*>?)?[ \\t]*(?:\\n|$)))[ \\t]*(?:\\s*<?\\/[ \\t]*(?:thinking|think|logic_core)[ \\t]*>?|[ \\t]*\\n[ \\t]*<?(?:thinking|think|logic_core)[ \\t]*>?(?=[ \\t]*(?:\\n|$)))?[ \\t]*(?=\\n|$)/i",
         "replaceString": "$1",
+        "trimStrings": [],
+        "placement": [
+            2
+        ],
+        "disabled": false,
+        "markdownOnly": false,
+        "promptOnly": true,
+        "runOnEdit": false,
+        "substituteRegex": 0,
+        "minDepth": null,
+        "maxDepth": null
+    },
+    {
+        "id": "88cd95e4-fe70-523a-930e-d0fee7aa55ee",
+        "scriptName": "ARIA - Drop a stray closing thinking tag at the end of a reply (all depths, cache-safe)",
+        "findRegex": "/<\\s{0,8}\\/\\s{0,8}(?:thinking|think|logic_core|go)\\s{0,8}>\\s*$/i",
+        "replaceString": "",
         "trimStrings": [],
         "placement": [
             2
@@ -410,7 +427,7 @@
     {
         "id": "96ed1fec-0048-56d5-8aed-7d5eb5642603",
         "scriptName": "ARIA Impersonate - strip reasoning through its closing tag",
-        "findRegex": "/^[\\s\\S]*(?:^|\\n|[.!?…\"*]|\\bgo)[ \\t]*<?\\/[ \\t]*(?:thinking|think|logic_core)[ \\t]*>?[ \\t]*(?:\\n+|$)/i",
+        "findRegex": "/^[\\s\\S]*(?:^|\\n|[.!?…\"*]|\\bgo)[ \\t]*(?:<?\\/[ \\t]*(?:thinking|think|logic_core)[ \\t]*>?|<\\/go>)[ \\t]*(?:\\n+|$)/i",
         "replaceString": "",
         "trimStrings": [],
         "placement": [
