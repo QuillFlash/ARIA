@@ -214,7 +214,7 @@ def analyse_cc(preset):
     by_prefix = lambda *pre: {pid for pid in prompts if name[pid].startswith(pre)}
     patches = by_prefix('🩹')
     core = shipped - by_prefix('🎲', '⏰')
-    skip_all_on = by_prefix('🌳', '🌿') | {pid for pid in prompts if 'twin' in name[pid] or name[pid] == 'Reduce Reasoning'}
+    skip_all_on = by_prefix('🌳', '🌿') | {pid for pid in prompts if 'twin' in name[pid]}
     skip_all_on |= {'enhanceDefinitions'} | patches
     no_patch = {row['identifier'] for row in order} - skip_all_on
 
