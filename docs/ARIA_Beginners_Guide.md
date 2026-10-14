@@ -1,6 +1,6 @@
 # 🎤 ARIA's Beginner's Guide
 
-*For ARIA 1.0 beta 7, built for SillyTavern 1.19.0 or newer.*
+*For ARIA 1.0 beta 8, built for SillyTavern 1.19.0 or newer.*
 
 <p align="center">
     <img src="../artwork/Aria_bday.png" alt="Aria" width="250">
@@ -89,7 +89,7 @@ Then find your model in this table:
 | Kimi, Qwen | A, or B if the thinking loops | 🩹 Kimi / Qwen | |
 | DeepSeek V4 Pro, V4 Flash | A | 🩹 DeepSeek | Without the patch its thinking runs a minute or two. V4 Flash: switch 🔦 Flash Gate ON too |
 | MiMo V2.6 Pro | B, with 🧠 The Logic Core ON (A makes it overthink) | 🩹 MiMo V2.6 Pro | No plan in the replies? Use the system-role twin of The Logic Core |
-| MiMo V2.6 Flash | B | 🩹 MiMo V2.6 Flash | Switch 🔦 Flash Gate ON too, and set Temperature to 0.8 |
+| MiMo V2.6 Flash | B | 🩹 MiMo V2.6 Flash | Switch 🔦 Flash Gate ON too, and set Temperature to 0.8. On NanoGPT or OpenRouter auto-routing, add 🧷 Character Hold, or pin Xiaomi or Venice as the provider |
 | Something else | A, then B if it misbehaves | none | |
 
 **One model patch at most!** Two patches at once would be like two lead singers grabbing the same microphone. 🎤🎤 The 🔦 Flash Gate is the one exception: it's a small add-on for Flash-tier models, so it plays alongside their patch.
@@ -127,6 +127,7 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 - 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from malice to devotion, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. The numbers sit in their own little 💚 ledger at the end of each reply, which my regex scripts draw as a teal **Bonds** panel with one card per pair. The bond itself never jumps. A gift, a favour, a defence, a shared secret, a laugh, choosing that person or a willing touch each add one Spark, two at most per pair each turn, and 7 Sparks turn into one point of bond. Slights pile up as Grudge, 5 of them cost a point, and while 3 or more are waiting, warm gains count half until a sincere apology clears them. The touch levels are just thresholds that allow a hug or a kiss, never points to add. I spelled all this out because MiMo V2.6 Pro kept raising the bond and the Sparks together on every warm act~
 - 🩹 **Model Patches** (OFF). Small fixes for one model family each. Pick the one from the table in section 3, and only one. MiMo has two patches now: 🩹 MiMo V2.6 Pro, and 🩹 MiMo V2.6 Flash for the smaller model. u/trashhaul caught Flash reciting newcomers' résumés, stacking "not this, not that" before the real word, chopping narration into drumbeats, letting characters repeat one demand for twenty turns, and having them grumble about what kind of talk it is. The Flash patch gives newcomers a name and one reason for being here, lets card details show one at a time through acts, shrinks negation runs to the true word, gives every narration sentence its own subject and verb, and has everyone answer what was actually said instead of grumbling about the topic. Run it with the 🔦 Flash Gate, which now carries the rule against repeated demands. The 🩹 Claude 5 patch holds the only quoted before-and-after examples in the whole preset, three repairs: one for a reply that tops a true line with a bigger version of it ("He crossed a river." "He started a war."), and one each for the Contrast and Chop rules. Claude learns from them, while MiMo copies quoted examples word for word. GLM has a patch of its own, because it shares Claude's helpful-assistant voice. It adds three lines to the very end of the 🚪 Last-Mile Gate: everyone talks like a real person with a life of their own, agreeing or pushing back the way their card would, and helps, praises, advises or comforts you only as far as the card and their bond allow. Characters answer your whole move in one flowing scene, starting with the part they care about most, instead of a paragraph per point. A true line also keeps the size its speaker gave it, and the filler word GLM puts before decisions makes way for the thought itself. The 🩹 Kimi / Qwen patch keeps that filler-word rule too, plus full-sentence orders for Kimi. The 🩹 DeepSeek patch keeps DeepSeek V4's thinking to one short pass with no rule audits. u/BSPiotr caught DeepSeek saying your words back to you ("Footsteps." she said back) and replaying the same well or the same fact for several turns, and DeepSeek V4 Pro gave the sphinx a tail her card never mentioned. The patch hands the gate and the plan three lines: no echoes, no replays, and when a card describes a body, no tail, wings or other non-human part it doesn't name. A card that just says "wolf" or "catgirl" and never describes the body keeps the parts its species brings. The 🩹 Gemini patch carries Realistic Frankenstein's Cosmos fixes for Gemini and trades my rule against choppy sentences for plain everyday ones, since Gemini otherwise strings everything together with "so" and "because". It also keeps each card's nerves and humour at their usual size and answers a question about feelings with the feeling itself. Gemini 4 Argon kept setting the real word against a "not this" beside it, so the patch now cuts that half with the 🩹 MiMo V2.6 Flash patch's Contrast rule and hands a Contrast line to the gate and the plan.
 - 🔦 **Flash Gate** (OFF). For the Flash-tier models, GLM Flash, MiMo V2.6 Flash and DeepSeek V4 Flash. They flatten characters into card dealers who play one move after another, and they borrow office words like "filing" and "notarising" for feelings, two habits the full-size models dropped. This carries Realistic Frankenstein's Flash fixes to the end of the 🚪 Last-Mile Gate, where Flash models listen best. The card's everyday mood and interests hold for the whole chat, and a character presses a demand or an offer once, then acts, trades or lets it go when you refuse. The Logic Core's Voice line gets one raw thought per speaker, so the plan starts from inside each character's head. A firmer work-words rule also takes the place of the gate's short Work line. Run it alongside your model patch.
+- 🧷 **Character Hold** (OFF). For quantised providers, the cheaper nodes NanoGPT and OpenRouter's auto-routing can hand you, which serve a trimmed-down copy of the model. u/Probablynotsocool found MiMo V2.6 Flash keeping a layered card alive for ten or so turns on one of those, then flattening it: one strong beat, like a fight that wakes the character's survival instinct, became the whole character and every other trait faded away. Xiaomi and Venice served the same model without the problem. With this on, the plan gets a Layers line every turn, naming one card trait the scene's mood fits and one the mood would bury, in the card's own words, and both have to show up in the reply. The 🚪 Last-Mile Gate ends on a matching line, so the card is the last thing the model reads. It works with any model and sits beside the model patch and the 🔦 Flash Gate.
 - 🧠 **The Logic Core (system-role twin)** (OFF). The same planning step, sent as a system message that joins the 🚪 Last-Mile Gate at the very end of the prompt. Some models, like MiMo V2.6 Pro on a few providers lately, skip a plan that arrives as the AI's own message, and this version reaches them as an instruction instead. Switch the normal Logic Core OFF when you switch this one ON, and never run both! Claude turns late system messages into your messages, so Claude users keep the normal one. There's no version sent as your message, because a plan in your voice breaks the jailbreak on these models.
 - **Reduce Reasoning** (OFF). A tiny "don't overthink" note for models that think far too long. Switch it on alongside The Logic Core if your model still overthinks.
 - 🌳 **README** and 🌿 **Sampling Advice** (OFF). Notes for you to read. Switching them on sends nothing.
@@ -194,7 +195,7 @@ Running a model at home with KoboldCpp, llama.cpp, TabbyAPI or text-generation-w
 
 1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` from this repository.
 2. **Connect.** In **API Connections** (the plug icon), set **API** to **Text Completion**, pick your backend and connect.
-3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. A window asks what to import: keep **Context Template** and **System Prompt** ticked and press **Import**. Both dropdowns should now read **ARIA 1.0 beta 7 (Text Completions)**. If they say "Geechan - Universal Roleplay", you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
+3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. A window asks what to import: keep **Context Template** and **System Prompt** ticked and press **Import**. Both dropdowns should now read **ARIA 1.0 beta 8 (Text Completions)**. If they say "Geechan - Universal Roleplay", you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
 4. **Switch on Instruct Mode.** In the same panel, make sure the **System Prompt** is switched on. Then press the power button next to the **Instruct Template** title to switch on Instruct Mode, and pick the template that matches your model (ChatML, Llama 3, Mistral, Gemma and so on). The model's download page usually names it. Leave the link icon next to it (**Bind to Context**) off, so it keeps my Context Template. I don't bring an instruct template myself, because every model family speaks its own format.
 5. **Check the macro engine** in **User Settings**, just like in section 2: **Experimental Macro Engine** must be ticked.
 
@@ -235,6 +236,7 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 | `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 Flash patch: newcomers, stacked negation, choppy narration, topic complaints, with three lines in the Last-Mile Gate and the plan; pair it with `aria-flash-gate` | ~340 tokens |
 | `aria-patch-deepseek` | off | 🩹 DeepSeek patch for DeepSeek V4: one short pass of native thinking, no echoing your words, no replayed facts or beats, no tail or other non-human part a described body never had | ~160 tokens |
 | `aria-flash-gate` | off | 🔦 Flash Gate for GLM Flash, MiMo V2.6 Flash and DeepSeek V4 Flash, with Realistic Frankenstein's fixes for flat characters, office words and repeated demands; runs alongside a patch | ~140 tokens |
+| `aria-character-hold` | off | 🧷 Character Hold for quantised providers: a Layers line in the plan and the gate keeps every card trait alive after a strong beat; works with any model and patch | ~85 tokens |
 
 The Claude 5 and Gemini patches live only in the Chat Completions file, since those models aren't run through Text Completion. Use one patch at most, same as always! The old `aria-patch-glm-qwen` switch split into `aria-patch-glm` and `aria-patch-kimi-qwen`, so a saved switch line with the old name does nothing; switch on the one for your model. Before this update, `aria-patch-mimo-flash` switched on the shared MiMo patch. It now means the Flash patch, so Pro users with a saved switch line change it to `aria-patch-mimo-pro`.
 
@@ -294,7 +296,7 @@ In Advanced Formatting, tick **Auto-Parse**, open **Reasoning Formatting** and s
 Does the reply open with a bare `thinking` line, with no angle brackets, then the plan? MiMo V2.6 Pro on NanoGPT sometimes drops the brackets like that, and the closing line may be `</thinking>`, `/thinking`, a bare `thinking` or missing altogether. Auto-Parse can't catch it, but my regex scripts can: they fold that plan into the 💭 **Thoughts** box and keep it out of what the model rereads. They only treat `thinking` as a plan opener when it stands alone on the reply's first line, so a story that starts "Thinking about it, she…" stays untouched. Still seeing it? Grab the current preset (or the regex file from section 6 on the Text Completions file).
 
 **The plan lands in a purple 💭 Thoughts box instead of SillyTavern's own reasoning box.**
-SillyTavern's **Auto-Parse** only catches a reply whose very first characters match your **Prefix**, so check that the Prefix is exactly `<thinking>` and the Suffix exactly `</thinking>`, with no spaces. Before beta 5, MiMo liked to copy the `<logic_core>` label my planning note started with, and SillyTavern can't parse that one. From beta 5 on, The Logic Core starts on `<thinking>` itself whenever 🏷️ Logic Core Tags is ON, so check that your 🌳 README entry (or the Text Completions template name) says beta 7, the current build. If it doesn't, re-import the preset, and on the Text Completions file swap in the new regex file from section 6 too. A time header written above the plan blocks Auto-Parse as well; my regex scripts still fold the plan then, which is exactly what the purple box is there for.
+SillyTavern's **Auto-Parse** only catches a reply whose very first characters match your **Prefix**, so check that the Prefix is exactly `<thinking>` and the Suffix exactly `</thinking>`, with no spaces. Before beta 5, MiMo liked to copy the `<logic_core>` label my planning note started with, and SillyTavern can't parse that one. From beta 5 on, The Logic Core starts on `<thinking>` itself whenever 🏷️ Logic Core Tags is ON, so check that your 🌳 README entry (or the Text Completions template name) says beta 8, the current build. If it doesn't, re-import the preset, and on the Text Completions file swap in the new regex file from section 6 too. A time header written above the plan blocks Auto-Parse as well; my regex scripts still fold the plan then, which is exactly what the purple box is there for.
 Does SillyTavern's own reasoning box show up as well, full of the model's free-form musings, while my checklist sits in the purple box below it? Then your provider still sends the model's native reasoning, and SillyTavern skips Auto-Parse for any reply that already carries some, however neatly it opens with `<thinking>`. Untick **Request Model Reasoning** and set **Reasoning Effort** to **Minimum** again (section 3, style B). If that provider keeps thinking anyway, style A suits it better!
 
 **A reply arrives empty, and the whole story sits in the reasoning box.**
@@ -346,7 +348,7 @@ Switch the 🔦 Flash Gate ON next to your model patch. The patch handles the mo
 On u/trashhaul's card, MiMo V2.6 Pro turned a smart accountant into a walking spreadsheet, with receipts and headcounts everywhere and the newcomer filed under a column called MISCELLANEOUS. The 🚪 Last-Mile Gate's Work line keeps work words for work that's happening, someone raising it, a deadline or a dodge, and away from live work the job comes up at most once in five turns, so her job stays her job and you stay a person. GLM 5.3 kept the same accountant human on its own. If one model still drifts, check the chat for earlier replies full of the job, since the model copies them.
 
 **Characters feel flat, or all agree with me.**
-Check that 😈 Freaky Override is OFF, because it makes everyone eager on purpose. On MiMo V2.6 Pro or Flash, switch on the 🩹 MiMo V2.6 Pro or 🩹 MiMo V2.6 Flash patch. On MiMo V2.6 Flash or GLM Flash, add the 🔦 Flash Gate too, and on MiMo Flash try Temperature 0.8, the setting Realistic Frankenstein shipped for it.
+Check that 😈 Freaky Override is OFF, because it makes everyone eager on purpose. On MiMo V2.6 Pro or Flash, switch on the 🩹 MiMo V2.6 Pro or 🩹 MiMo V2.6 Flash patch. On MiMo V2.6 Flash or GLM Flash, add the 🔦 Flash Gate too, and on MiMo Flash try Temperature 0.8, the setting Realistic Frankenstein shipped for it. Do characters start out rich and go flat after ten or so turns, shrinking to whatever the last big scene called for? Your provider may be serving a quantised copy of the model. Switch 🧷 Character Hold ON, or on OpenRouter pin Xiaomi or Venice for MiMo V2.6 Flash.
 
 **The model refuses or tiptoes around a scene.**
 Turn The Logic Core ON (on the Text Completions file, set `aria-logic-core` to `on`), since it helps a lot of models settle in. For mature scenes, 🔞 Adult Context must be ON. Some models refuse certain content no matter what any preset says, and when that happens a different model is the only real fix.
@@ -381,8 +383,8 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 |---|---|
 | Core (everything that ships ON except Fate and Time & Place) | ~3,230 |
 | Shipped default | ~4,230 |
-| Fully kitted out (the defaults plus Logic Core Tags, Adult, Freaky, Hybrid POV, Anthro, Bonds, 🔦 Flash Gate, Reduce Reasoning and the largest model patch, now 🩹 MiMo V2.6 Flash) | ~5,680 |
-| Extra on an Impersonate turn (🪞 entry plus SillyTavern's impersonation prompt) | ~30 |
+| Fully kitted out (the defaults plus Logic Core Tags, Adult, Freaky, Hybrid POV, Anthro, Bonds, 🔦 Flash Gate, 🧷 Character Hold, Reduce Reasoning and the largest model patch, now 🩹 MiMo V2.6 Flash) | ~5,760 |
+| An Impersonate turn against that (the 🪞 entry and SillyTavern's impersonation prompt come in, 🧷 Character Hold's lines drop out) | ~60 fewer |
 
 For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 77% smaller. Beta 7 is the third rewrite, and as first released it came out a little larger than beta 6: about 100 tokens more as shipped and about 40 more with everything ON. Its new rules against superhero banter, lists of three, drifting temperament and scene-stealing newcomers cost about 400 tokens, and dropping gate lines that repeated rules nobody broke paid back most of that. Getting clearly below beta 6 would mean cutting rules the testers proved useful, so that trade is yours to call.
 
@@ -392,7 +394,7 @@ The Text Completions file, measured the same way:
 |---|---|
 | Lean start, as shipped for 32k | ~2,900 |
 | Plus The Logic Core, Fate and Time & Place | ~4,320 |
-| Everything ON (largest patch and 🔦 Flash Gate included) | ~5,650 |
+| Everything ON (largest patch, 🔦 Flash Gate and 🧷 Character Hold included) | ~5,750 |
 
 Beta 5 measured about 4,430 here with everything ON. Want to compare the two builds for yourself? Beta 5 waits in `archive/ARIA 1.0 beta 5/` with its presets and regex file, plus `Model fixes.md`, which lists all 139 model fixes it carried. Its presets carry their own names, so you can import them next to the current ones. Its regex file uses the same script names as mine, so on the Text Completions file swap it in only while you test beta 5 and put the current file back afterwards, the way section 6 describes.
 
@@ -411,7 +413,7 @@ The script also fails if anything goes over 6,000 tokens, if a tag or label is r
 | 7 | 🐺 Anthro Vocals | system block | off |
 | 8 | 🖋️ Anti-Slop Codex, 👃 Scent Occasions | system block | on |
 | 9 | ⏰ Time & Place, 🎲 Fate & Chekhov Ledger | system block | on |
-| 10 | 🥰 Bonds Lite, 🩹 Model Patches, 🔦 Flash Gate (setter only) | system block | off |
+| 10 | 🥰 Bonds Lite, 🩹 Model Patches, 🔦 Flash Gate, 🧷 Character Hold (setters only) | system block | off |
 | 11 | 📖 Story Context | system block | on |
 | 12 | Persona, card, personality, scenario, examples, then World Info before and after | system block | on |
 | 13 | Chat History | | on |
@@ -457,11 +459,12 @@ The Main Prompt's first line blanks every helper variable each turn, so a switch
 | `ariaLedgerLine`, `ariaLedgerGate` | 🎲 Fate, or 🥰 Bonds Lite when Fate is off (with both on, Bonds rewrites them so the 🎲 block is followed by its own 💚 block) | 🧠 The Logic Core, 🚪 Last-Mile Gate |
 | `ariaEchoGate` | 🖋️ Anti-Slop Codex | 🚪 Last-Mile Gate (its Own words line) |
 | `ariaFlashGate` | 🔦 Flash Gate | 🚪 Last-Mile Gate |
+| `ariaHoldLine`, `ariaHoldGate` | 🧷 Character Hold, blanked by the 🪞 Impersonation Turn | 🧠 The Logic Core (its Layers line, after Voice), 🚪 Last-Mile Gate (its last rule line) |
 | `ariaPatchGate` | 🩹 GLM patch (three lines), 🩹 Kimi / Qwen patch (its Filler line), 🩹 Gemini patch (its Gemini and Contrast lines), 🩹 MiMo V2.6 Pro (its Contrast line), 🩹 MiMo V2.6 Flash (its Negation runs, Flow and Card details lines) or 🩹 DeepSeek (its Echo, Repeats and Bodies lines) | 🚪 Last-Mile Gate, after the ledger line, and 🧠 The Logic Core, between its Voice and Move lines |
 | `ariaPatchLines` | the same patch: how many lines it hands over | 🧠 The Logic Core (its line count) |
 | `ariaChopGate` | 🖋️ Anti-Slop Codex, overwritten by 🩹 Gemini | 🚪 Last-Mile Gate (its Chop line, or the Gemini patch's Speech line) |
 | `ariaPlanCue` | 🧠 The Logic Core or its system-role twin, with 🏷️ Logic Core Tags on | 🚪 Last-Mile Gate (its very last line) |
-| `logicCoreLines` | 🧠 The Logic Core itself: 7 plus one per Mode, Fate, Bonds and Ledger line, plus the patch's own lines | 🧠 The Logic Core ("N dashed lines") |
+| `logicCoreLines` | 🧠 The Logic Core itself: 7 plus one per Mode, Fate, Bonds, Ledger and Layers line, plus the patch's own lines | 🧠 The Logic Core ("N dashed lines") |
 
 On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice, POV and Own words variables before the gate and The Logic Core read them, so the gate never asks for NPC speech on the turn the model writes your message. The Text Completions file has no Impersonation Turn, so its gate tells the model to skip the Own words and POV lines and the ledgers on a message written as you.
 
@@ -479,8 +482,10 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 
 ### Known risks to test
 
+- Beta 8 adds 🧷 Character Hold for quantised providers, after u/Probablynotsocool found MiMo V2.6 Flash flattening layered cards after ten or so turns on NanoGPT and OpenRouter's auto-routed nodes. Everything else is beta 7 as it stands, tester fixes included.
 - Beta 7 is the third rewrite, after u/trashhaul found beta 6 flat on MiMo V2.6 Pro, triplet-heavy and full of quips on GLM 5.3, an edgy action hero on Gemini 3.8 Flash, and generic with a scene-stealing newcomer on DeepSeek V4 Pro. None of the beta 7 rules has met a live model yet, so all four need a re-test; the live test plan lists what to look for.
 - u/BSPiotr's beta 7 run found GLM 5.3 Flash stiff on a fresh chat, with a paragraph for each point and the card's secret told on turn one, while u/trashhaul had a great time with it deeper into a chat. The Codex now asks for paragraphs of three sentences or more, each holding a speaker's line with the acts and reactions around it, one flowing scene instead of a paragraph per point or plan line, and the gate and the plan both keep the card's secrets. Fate's quiet turns no longer drop a separate line about a hawk or a far-off city: the texture folds into a paragraph about someone present, far-off news reaches the page only through someone there, and scenery never closes a reply. Test a fresh chat on GLM 5.3 Flash and DeepSeek V4 Flash, and a long chat on GLM 5.3 Flash, which trashhaul liked as it was.
+- 🧷 Character Hold is new and untested. On a quantised MiMo V2.6 Flash node, play past turn 15 with a layered card and push one strong beat, like a fight. The other traits should still show afterwards. Also watch whether the plan's Layers line names traits in the card's words, and whether the reply starts listing traits instead of showing them.
 - The Humour line outranks the card. A card written as a clown or a comedian should still joke a lot, so tell me if one turns dull.
 - Newcomers keep to the edge of a scene. A quest-giver or a shopkeeper you talk to should still get their moment, so tell me if people get pushed out too early.
 - The plan's last check is back, and short. MiMo Flash once recited a long one, so tell me if it starts copying the gate into its plan.
@@ -534,7 +539,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 
 Please open an issue on the [GitHub issues page](https://github.com/QuillFlash/ARIA/issues) and include:
 
-- the build: ARIA 1.0 beta 7, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
+- the build: ARIA 1.0 beta 8, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
 - your SillyTavern version
 - your API source or local backend, and the model (plus the quant for local models)
 - your thinking style (A or B), or your `aria-*` switch lines on the Text Completions file
