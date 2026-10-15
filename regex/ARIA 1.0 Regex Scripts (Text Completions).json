@@ -461,7 +461,7 @@
     {
         "id": "d7a2ca91-3964-52e8-b335-ccb53daa6b83",
         "scriptName": "ARIA Impersonate - strip an untagged plan",
-        "findRegex": "/^\\s*(?:[-*•]|\\d{1,2}[.)])[ \\t]*(?:\\*\\*)?OOC(?:\\*\\*)?[ \\t]*:[^\\n]*(?:\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])[ \\t]*(?:\\*\\*)?(?:Scene|Knows|Mode|Voice|Move|Fate|Bonds|Ledger|Fresh|Check|Person|Replies|Filler|Gemini|Contrast|Negation runs|Flow|Card details|Echo|Repeats|Bodies|Layers)(?:\\*\\*)?[ \\t]*:[^\\n]*){2,}\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])[ \\t]*(?:\\*\\*)?go(?:\\*\\*)?[ \\t]*[.!]?[ \\t]*(?:\\s*<?\\/[ \\t]*(?:thinking|think|logic_core)[ \\t]*>?(?=[ \\t]*(?:\\n|$))|\\n\\s*<?(?:thinking|think|logic_core)[ \\t]*>?(?=[ \\t]*(?:\\n|$)))?[ \\t]*\\n*/i",
+        "findRegex": "/^\\s*(?:[-*•]|\\d{1,2}[.)])[ \\t]*(?:\\*\\*)?OOC(?:\\*\\*)?[ \\t]*:[^\\n]*(?:\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])[ \\t]*(?:\\*\\*)?(?:Scene|Knows|Mode|Voice|Move|Fate|Bonds|Ledger|Fresh|Check|Person|Replies|Filler|Gemini|Contrast|Negation runs|Flow|Card details|Echo|Repeats|Bodies|Layers|Tally|Pushback|Restate|Joins)(?:\\*\\*)?[ \\t]*:[^\\n]*){2,}\\n[ \\t]*(?:[-*•]|\\d{1,2}[.)])[ \\t]*(?:\\*\\*)?go(?:\\*\\*)?[ \\t]*[.!]?[ \\t]*(?:\\s*<?\\/[ \\t]*(?:thinking|think|logic_core)[ \\t]*>?(?=[ \\t]*(?:\\n|$))|\\n\\s*<?(?:thinking|think|logic_core)[ \\t]*>?(?=[ \\t]*(?:\\n|$)))?[ \\t]*\\n*/i",
         "replaceString": "",
         "trimStrings": [],
         "placement": [
