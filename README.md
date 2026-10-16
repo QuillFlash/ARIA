@@ -9,14 +9,15 @@
 
 - **Online models** (Claude, Gemini, DeepSeek, OpenRouter and similar): download `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` and follow [Install me in five steps](docs/ARIA_Beginners_Guide.md#2-install-me-in-five-steps).
 - **Local models** (KoboldCpp, llama.cpp, TabbyAPI, text-generation-webui): download `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` and follow [Run me on your own computer](docs/ARIA_Beginners_Guide.md#6-run-me-on-your-own-computer).
+- **Short on context or budget?** The **Chibi Edition** is the same preset worded far more briefly: about 1,500 tokens as shipped and 3,000 at most fully kitted out (Marinara with the Agents state backend and the GLM patch runs about 70 over). Take `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Chat Completions).json` for online models, `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Text Completions).json` for local models (it uses the same regex file) or `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition — Agent Gating.json` for Marinara Engine. They install like their full siblings; [Meet Chibi me](docs/ARIA_Beginners_Guide.md#7-meet-chibi-me-the-chibi-edition) has the details.
 - **You need** SillyTavern 1.19.0 or newer with **Experimental Macro Engine** ticked in User Settings. With the Chat Completions file, also allow the preset's regex scripts when SillyTavern asks. With the Text Completions file, import `regex/ARIA 1.0 Regex Scripts (Text Completions).json` under Extensions → Regex. It brings the thinking box and the Impersonate clean-up, and it draws the Fate & Routine and Bonds panels.
-- **Something broke?** Check [Uh-oh! moments](docs/ARIA_Beginners_Guide.md#7-uh-oh-moments). The full [Beginner's Guide](docs/ARIA_Beginners_Guide.md) covers every toggle and switch.
+- **Something broke?** Check [Uh-oh! moments](docs/ARIA_Beginners_Guide.md#8-uh-oh-moments). The full [Beginner's Guide](docs/ARIA_Beginners_Guide.md) covers every toggle and switch.
 
 ## Reporting bugs (beta)
 
 Please open an issue on the [GitHub issues page](https://github.com/QuillFlash/ARIA/issues) and include:
 
-- the build: ARIA 1.0 beta 8, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
+- the build: ARIA 1.0 beta 8, full or Chibi Edition, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
 - your SillyTavern version
 - your API source or local backend, and the model (plus the quant for local models)
 - your thinking style (A or B from the guide), or your `aria-*` switch lines on the Text Completions file
