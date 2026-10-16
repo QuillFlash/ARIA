@@ -18,8 +18,9 @@ Don't panic if words like "preset", "token" or "regex" sound like alien code rig
 4. [Meet the toggles](#4-meet-the-toggles)
 5. [Save money with caching](#5-save-money-with-caching)
 6. [Run me on your own computer](#6-run-me-on-your-own-computer)
-7. [Uh-oh! moments](#7-uh-oh-moments)
-8. [Manager's corner (for the curious)](#8-managers-corner-for-the-curious)
+7. [Meet Chibi me (the Chibi Edition)](#7-meet-chibi-me-the-chibi-edition)
+8. [Uh-oh! moments](#8-uh-oh-moments)
+9. [Manager's corner (for the curious)](#9-managers-corner-for-the-curious)
 
 ---
 
@@ -33,7 +34,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 3,970 tokens as shipped and about 5,420 fully kitted out in the Chat Completions file (every toggle a model needs and one model patch, never contradicting ones), while the Text Completions file starts at about 2,720. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 4,230 tokens as shipped and about 6,110 fully kitted out in the Chat Completions file (every toggle a model needs and one model patch, never contradicting ones), while the Text Completions file starts at about 2,900. My pocket-sized Chibi Edition (section 7) comes to about 1,500 as shipped and 3,000 at most fully kitted out, with one small Marinara exception. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -51,7 +52,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 
 Sunna timed this once and finished in under two minutes, and she was also tuning her guitar at the same time. You've got this! 💪
 
-These steps are for the Chat Completions file. Running a model on your own computer instead? Hop over to [section 6](#6-run-me-on-your-own-computer)! Either way, you need SillyTavern 1.19.0 or newer; its version shows on the welcome screen.
+These steps are for the Chat Completions file. Running a model on your own computer instead? Hop over to [section 6](#6-run-me-on-your-own-computer)! Either way, you need SillyTavern 1.19.0 or newer; its version shows on the welcome screen. Want my smaller Chibi Edition? It installs the same way, and [section 7](#7-meet-chibi-me-the-chibi-edition) has its file names.
 
 1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` from this repository. On GitHub, open the file and press the "Download raw file" button.
 2. **Connect and import.** Open **API Connections** (the plug icon at the top), set **API** to **Chat Completion**, pick your provider and paste your key. Then open **AI Response Configuration** (the sliders icon at the top left), press **Import preset** next to the preset dropdown and choose the file. The prompt list below the sliders should start with 🌳 README and ⚡ ARIA Main Prompt. If you see a plain "Main Prompt" and "NSFW Prompt" instead, you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
@@ -100,7 +101,7 @@ The preset ships with Temperature 0.7 and Top P 0.8, which keep most models on t
 
 ## 4. Meet the toggles
 
-Time to meet my whole band, member by member! Entries marked **ON** come switched on, and the ones marked **OFF** wait until you want them.
+Time to meet my whole band, member by member! Entries marked **ON** come switched on, and the ones marked **OFF** wait until you want them. These notes describe the full edition. The Chibi Edition in [section 7](#7-meet-chibi-me-the-chibi-edition) keeps every one of these toggles under the same name, worded more briefly, with 🎲 Fate & Chekhov Ledger and ⏰ Time & Place switched OFF to start.
 
 ### The core lineup
 
@@ -122,6 +123,7 @@ Time to meet my whole band, member by member! Entries marked **ON** come switche
 - 🏷️ **Logic Core Tags** (OFF). Turn ON for thinking style B (section 3). Every reply then opens with my plan inside `<thinking>` tags, the trick for models whose own thinking runs wild. Keep the tag name `<thinking>`: with the tags on, The Logic Core starts on that tag, and hosts running Qwen, GLM or DeepSeek reasoning models cut a message at a `</think>` tag, which would hide my whole checklist.
 - 🔞 **Adult Context** (OFF). For adults only! It unlocks mature stories: sex, violence and dark themes written frankly. Characters stay themselves all the way through, so a shy character is still shy in bed.
 - 😈 **Freaky Override** (OFF). The anything-goes switch. Characters drop their independence and the slow pacing and lean eagerly into what you want, while still sounding like themselves. It needs 🔞 Adult Context ON as well.
+- 🔓 **Jailbreak** (OFF). Also for adults only! It needs 🔞 Adult Context ON, and it works only with a Logic Core: its two lines ride in my plan, so they print only while 🧠 The Logic Core (or its system-role twin) is on along with 🔞 Adult Context or 😈 Freaky Override. In the Role line, the AI plans as the game master of an adult fiction instead of as an assistant. The bolder choice that fits the card wins, and you and every NPC succeed or fail alike by skill and circumstance. NPCs act on what they want this turn and finish what they start, be it a fight, a lie, a seduction or a refusal, while nervous cards stay nervous. The Frank line has the AI apply every active rule in full, the adult rules included, however short the plan line, and, for each sexual, violent, cruel or dark beat, name its act, anatomy, card trait and tone, which the reply then writes out explicitly in those terms. Sex stays between adults, and that line says so. I distilled both lines from Realistic Frankenstein's BOLT and Micro Chain of Thought prompts and their Jean-Claude Van Damme editions, plus its Realism and Freaky modes, and wrote them in my own style. I left out the parts of those jailbreaks that work by telling the model it has no rules or by asking it to drop its protectiveness. The lines sit late in the plan, right before the Fresh line, and cost about 130 tokens a turn. On an Impersonate turn the plan covers only your move, so they stay out.
 - 👀 **Hybrid POV** (OFF). The narration calls your character "you" in every line, in one tense, while everyone else stays in third person, and what you feel gets the most detail: "the rain soaks through your sleeves". Your character's actions stay yours to write. It makes the story super immersive!
 - 🐺 **Anthro Vocals** (OFF). For furry, beastfolk and talking-animal stories. Wolves howl, eagles chirp, and lions and tigers roar and can't purr. The sounds stay as flavour inside normal speech.
 - 🥰 **Bonds Lite** (OFF). A hidden relationship tracker. Every pair of characters gets a bond score from malice to devotion, so friendships and romances grow at a believable pace. Reaching a level allows a hug or a confession and never forces one. The numbers sit in their own little 💚 ledger at the end of each reply, which my regex scripts draw as a teal **Bonds** panel with one card per pair. The bond itself never jumps. A gift, a favour, a defence, a shared secret, a laugh, choosing that person or a willing touch each add one Spark, two at most per pair each turn, and 7 Sparks turn into one point of bond. Slights pile up as Grudge, 5 of them cost a point, and while 3 or more are waiting, warm gains count half until a sincere apology clears them. The touch levels are just thresholds that allow a hug or a kiss, never points to add. I spelled all this out because MiMo V2.6 Pro kept raising the bond and the Sparks together on every warm act~
@@ -219,32 +221,36 @@ Change `off` to `on` (or the other way round) and the change kicks in on your ne
 
 | Switch | Starts | What it does | What it costs |
 |---|---|---|---|
-| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~325 tokens per turn as shipped, plus a few seconds of planning |
-| `aria-thinking-tags` | on | With The Logic Core on: every reply opens with the plan inside `<thinking>` tags (on), or the plan runs inside the model's own `<think>` reasoning (off) | ~40 tokens, already counted in the Logic Core's 325 |
-| `aria-adult` | off | 🔞 Adult Context, for adults only | ~110 tokens |
+| `aria-logic-core` | off | 🧠 The Logic Core's planning checklist | ~405 tokens per turn as shipped, plus a few seconds of planning |
+| `aria-thinking-tags` | on | With The Logic Core on: every reply opens with the plan inside `<thinking>` tags (on), or the plan runs inside the model's own `<think>` reasoning (off) | ~40 tokens, already counted in the Logic Core's 405 |
+| `aria-adult` | off | 🔞 Adult Context, for adults only | ~115 tokens |
 | `aria-freaky` | off | 😈 Freaky Override, needs `aria-adult` on too | ~55 tokens |
+| `aria-jailbreak` | off | 🔓 Jailbreak, needs `aria-adult` and `aria-logic-core` on too: a Role line and a Frank line in the plan | ~130 tokens |
 | `aria-hybrid-pov` | off | 👀 Hybrid POV | ~85 tokens |
 | `aria-npc-voice` | on | 🎭 NPC Voice & Emotions, Realistic Frankenstein's dialogue engine | ~350 tokens |
 | `aria-anthro` | off | 🐺 Anthro Vocals | ~130 tokens |
 | `aria-scent` | on | 👃 Scent Occasions | ~120 tokens |
-| `aria-time-place` | off | ⏰ Time & Place status line | ~70 tokens, plus ~30 in every reply |
-| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~840 tokens, plus ~90 in every reply |
+| `aria-time-place` | off | ⏰ Time & Place status line | ~80 tokens, plus ~30 in every reply |
+| `aria-fate` | off | 🎲 Fate & Chekhov Ledger | ~880 tokens, plus ~90 in every reply |
 | `aria-bonds` | off | 🥰 Bonds Lite | ~335 tokens, plus ~20 to 40 in every reply |
-| `aria-patch-glm` | off | 🩹 GLM patch for GLM 5.x and GLM Flash, with five lines at the end of the Last-Mile Gate and in the plan: talking like a person, answering your whole move at once, pushback stated as plain fact with no "not this" sentence beside it, even to fix your words, refusals kept, and no repeated or label sentences or "for the record" tags | ~320 tokens |
+| `aria-patch-glm` | off | 🩹 GLM patch for GLM 5.x and GLM Flash, with five lines at the end of the Last-Mile Gate and in the plan: talking like a person, answering your whole move at once, pushback stated as plain fact with no "not this" sentence beside it, even to fix your words, refusals kept, and no repeated or label sentences or "for the record" tags | ~315 tokens |
 | `aria-patch-kimi-qwen` | off | 🩹 Kimi / Qwen patch, with one line at the end of the Last-Mile Gate | ~85 tokens |
 | `aria-patch-mimo-pro` | off | 🩹 MiMo V2.6 Pro patch | ~110 tokens |
 | `aria-patch-mimo-flash` | off | 🩹 MiMo V2.6 Flash patch: newcomers, stacked negation, choppy narration, topic complaints, with three lines in the Last-Mile Gate and the plan; pair it with `aria-flash-gate` | ~340 tokens |
 | `aria-patch-deepseek` | off | 🩹 DeepSeek patch for DeepSeek V4: one short pass of native thinking, no echoing your words, no replayed facts or beats, no tail or other non-human part a described body never had, and a Joins line for V4 Pro's clipped sentences, left out with `aria-flash-gate` on; with `aria-logic-core` and `aria-bonds` or `aria-fate` on, a Tally line in the plan makes it do the Sparks, Grudge, BOND and 🎲 ledger arithmetic each turn | ~240 tokens, about 80 of them for the Joins line; the Tally line adds about 50 with Fate, 90 with Bonds or 125 with both |
 | `aria-flash-gate` | off | 🔦 Flash Gate for GLM Flash, MiMo V2.6 Flash and DeepSeek V4 Flash, with Realistic Frankenstein's fixes for flat characters, office words and repeated demands, plus a Runs line against the clipped sentences GLM Flash and MiMo Flash drift into deeper into a chat; with `aria-patch-deepseek` on, Runs and the patch's Joins line stay out; runs alongside a patch | ~200 tokens, about 60 of them for the Runs line |
-| `aria-character-hold` | off | 🧷 Character Hold for quantised providers: a Layers line in the plan and the gate keeps every card trait alive after a strong beat; works with any model and patch | ~85 tokens |
+| `aria-character-hold` | off | 🧷 Character Hold for quantised providers: a Layers line in the plan and the gate keeps every card trait alive after a strong beat; works with any model and patch | ~55 tokens; the Layers line adds about 40 with `aria-logic-core` on |
+
+These costs come from flipping one switch from the shipped state, so The Logic Core is off; a switch that needs another one, like `aria-freaky` or `aria-jailbreak`, is measured with that one on. With The Logic Core on, a module's plan lines print too: 🎲 Fate and 🥰 Bonds Lite cost about 50 more, 🧷 Character Hold about 40 more, and the model patches a lot more, because their lines print in the plan as well as in the gate (🩹 GLM comes to about 610, 🩹 DeepSeek about 440 and 🩹 MiMo V2.6 Flash about 445).
 
 The Claude 5 and Gemini patches live only in the Chat Completions file, since those models aren't run through Text Completion. Use one patch at most, same as always! The old `aria-patch-glm-qwen` switch split into `aria-patch-glm` and `aria-patch-kimi-qwen`, so a saved switch line with the old name does nothing; switch on the one for your model. Before this update, `aria-patch-mimo-flash` switched on the shared MiMo patch. It now means the Flash patch, so Pro users with a saved switch line change it to `aria-patch-mimo-pro`.
 
 ### Fitting into 32k
 
-My lean start uses about 2,720 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
+My lean start uses about 2,900 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
 
 - **32k:** stay lean. Turn on The Logic Core only if your model has 24B parameters or more and a few extra seconds per reply don't bother you.
+- **Tight on room anyway:** my Chibi Edition (section 7) starts at about 1,590 tokens, with The Logic Core already on.
 - **64k or more:** switch on `aria-fate` and `aria-time-place` together for the full world engine, and add `aria-bonds` if you love relationship drama~
 - **Small models (12B and below):** keep Fate off whatever your context size, because its bookkeeping asks a lot of a small model.
 
@@ -284,7 +290,117 @@ Your backend remembers the prompt it read last time and only reads the new part,
 
 ---
 
-## 7. Uh-oh! moments
+## 7. Meet Chibi me (the Chibi Edition)
+
+Guess who shrank in the wash? It's me, Aria, in my brand-new chibi form! 🎀
+
+(Nangong Yu: Smol Aria is STILL loud, dearie.)
+
+The Chibi Edition is the same band with a smaller backpack, packed for small context windows, small local models and thrifty wallets. Every entry, toggle and switch of the full edition is still here, with the same names and the same wiring, so sections 3 to 6 and 8 all apply to it. What changed is the wording: each rule keeps its checkable core (its numbers, thresholds and exceptions) and loses the extra explaining, in the concise style of Realistic Frankenstein's Douyin Edition. Chibi is brand new, though, and no live model has met it yet. If your model and your wallet can take the full me, that's still the tested pick.
+
+### The three files
+
+Chibi comes in three files that sit next to the full ones, plus the regex file my Text Completions editions share:
+
+| File | For | Install it like |
+|---|---|---|
+| `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Chat Completions).json` | Online models: Claude, Gemini, DeepSeek, OpenRouter and friends | [Section 2](#2-install-me-in-five-steps) |
+| `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Text Completions).json` | Models on your own computer | [Section 6](#6-run-me-on-your-own-computer) |
+| `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition — Agent Gating.json` | Marinara Engine | Below |
+
+- **Chat Completions.** Follow the five steps of section 2 with the Chibi file. The prompt list still starts with 🌳 README and ⚡ ARIA Main Prompt, and the README entry's version line reads Chibi Edition — Version 1.0 beta 8. Allow the regex scripts when SillyTavern asks. They're the very same ones the full file carries.
+- **Text Completions.** Follow section 6 with the Chibi file. Both dropdowns should read **ARIA 1.0 beta 8 Chibi Edition (Text Completions)**, and the five settings, the switch lines, the thinking setup and the speed tips are all the same. One difference: Chibi starts with 🧠 The Logic Core already ON, because without it my lean start would be only about 1,290 tokens. The regex file is shared too: `regex/ARIA 1.0 Regex Scripts (Text Completions).json` serves both Text Completions editions, so one copy covers whichever one you run. Make it the current copy, though. An older copy can leave the last lines of a plan behind when a model echoes it, so delete the old ARIA scripts from the **Global** list before you import the new file, as section 6 describes.
+- **Marinara Engine.** The third file is a Marinara preset, built on u/BSPiotr's Marinara conversion of the full edition. Import it into Marinara Engine like any Marinara preset, then pick your options in its choice blocks (adult mode, point of view, core modules, world engine, model patch, Logic Core, Logic Core options and State backend) instead of flipping toggles. The Marinara file carries no regex scripts, so there are no panels and no 💭 Thoughts box there. Chibi's starting choices leave 🎲 Fate and ⏰ Time & Place unticked. Five of its sections also ship switched off in Marinara's own section list, just as in the full edition's file: 😈 Freaky Override, 🐺 Anthro Vocals, 🩹 Claude 5, 🩹 Gemini and 🩹 MiMo V2.6 Pro. Picking one of those choices doesn't bring that entry's own text until you switch its section on too.
+
+### How big am I?
+
+Measured with `python3 tools/aria_budget.py` (and the Marinara render checker for the third file), which counts rendered text with comments stripped (characters ÷ 4). My cap is 3,000 tokens fully kitted out, and every path but one stays at or under it:
+
+| Configuration | Full edition | Chibi Edition |
+|---|---|---|
+| Chat Completions, shipped default | ~4,230 | ~1,500 |
+| Chat Completions, fully kitted out (everything ON, with the largest patch, 🩹 GLM) | ~6,110 | 2,978 |
+| An Impersonate turn against that | ~190 fewer | ~120 fewer |
+| Text Completions, lean start | ~2,900 | ~1,590 |
+| Text Completions, plus The Logic Core, Fate and Time & Place | ~4,320 | ~2,025 |
+| Text Completions, everything ON (🩹 GLM, 🔦 Flash Gate, 🧷 Character Hold and 🔓 Jailbreak included) | ~6,100 | 2,997 |
+| Marinara, everything ticked with 🩹 GLM, no agents | ~6,120 | 2,984 |
+| Marinara, the same with the Agents state backend | ~6,380 | 3,070 |
+
+Chibi's Chat Completions file ships 🎲 Fate & Chekhov Ledger and ⏰ Time & Place OFF, which is how its shipped default lands near 1,500 (the full file ships both ON). Chibi's Text Completions file starts with The Logic Core ON and the full one starts with it OFF, so those two lean starts aren't a fair match: switch The Logic Core off and Chibi's lean start would be about 1,290.
+
+The Agents state backend in Marinara is my one exception to the cap, on purpose. Its protocol note adds about 86 tokens (the full edition's adds about 260), so with 🩹 GLM everything ticked comes to 3,070, about 70 over. Every other patch stays at or under 3,000 there; the nearest is 🩹 MiMo V2.6 Flash at 2,999.
+
+Here's where the tokens went, entry by entry, with everything ON in the Chat Completions file (the checker's own table):
+
+| Entry | Full edition | Chibi Edition |
+|---|---|---|
+| ⚡ ARIA Main Prompt | 716 | 306 |
+| 🔞 Adult Context | 116 | 75 |
+| 😈 Freaky Override | 54 | 30 |
+| 👀 Hybrid POV | 46 | 22 |
+| 🎬 Voice & Scene Engine | 271 | 110 |
+| 🎭 NPC Voice & Emotions | 349 | 114 |
+| 🐺 Anthro Vocals | 128 | 45 |
+| 🖋️ Anti-Slop Codex | 936 | 282 |
+| 👃 Scent Occasions | 94 | 47 |
+| ⏰ Time & Place | 82 | 47 |
+| 🎲 Fate & Chekhov Ledger | 853 | 323 |
+| 🥰 Bonds Lite | 297 | 124 |
+| 🩹 Model Patch: GLM, its own text (its five lines are counted in the plan and the gate) | 22 | 22 |
+| 📖 Story Context | 3 | 3 |
+| 🧠 The Logic Core, with every module's lines in it | 916 | 596 |
+| 🚪 Last-Mile Gate, with every module's lines in it | 1,150 | 815 |
+| Reduce Reasoning | 78 | 17 |
+
+### How I differ from the full edition
+
+- **Every module is compressed.** Rules are short do-this sentences, one rule per clause, and plan and gate lines are fragments joined by semicolons. The checkable core of each rule survives: its numbers and thresholds, its exceptions (a nervous card keeps its stammers, a refusal stays a plain no) and each patch's own lines. Restatements, explaining and overlaps are what went, plus a few small details, which most modules name in their comment. That comment is the note at the top of an entry's text, and it costs no tokens. The 🩹 Claude 5 patch still holds the preset's only quoted repairs, shortened.
+- **Each rule lives in one place.** The ⚡ Main Prompt leaves bodies, resting temperament, what characters know, secrets, newcomers at the edge and verdict-free narration to the 🚪 Last-Mile Gate, and the 🖋️ Anti-Slop Codex is written as the details of the gate's rules (Balance, Count, Paragraphs and Senses live only in the gate). So keep all three ON, the Main Prompt, the Codex and the gate.
+- **Fate and Time ship OFF.** Switch 🎲 Fate on when your model and context can take it. ⏰ Time & Place is optional next to it, since Chibi's Fate keeps no timed appointments to hang a clock on.
+- **A lighter Fate.** The three dice, the tier ladder with its thresholds, the ledger fields and the tester fixes (for q, threads, whole and unwarned MAJOR events, ripe World entries, folded AMBIENT lines and the natural-20 limit) are all there. What Chibi's Fate leaves out are the full edition's timed appointments, its Ambitions and Quiet-turn rules, most of its World rule and some cell details. So nothing tells it to log a goal you state as an Ambition (the ledger keeps the field) or to fire an appointment on time, quiet turns get no rules of their own, and World news keeps only its core: it reaches the page through someone present.
+- **Ledger ages written n/8, n/6 and n/12.** Chibi puts the age limits into the ledger itself: a thread's age reads n/8, a Deferred item's n/6 and a Bullet's n/12, where the full edition writes plain ages. The same regex scripts dress the ledger up as the same orange panel.
+- **A lighter Bonds.** The BOND scale from -10 to +20, the Sparks, Grudge and conversions (7 Sparks make one point, 5 Grudge cost one, 3 Grudge halve the gains and a sincere repair clears them) and the touch gates (+4 hug, +8 hand-holding, +12 kiss, +15 sex) are all kept, and so is the teal 💚 panel. The long description of each tier (hostile, neutral, warm, trust, devoted) and the `<bonds>` tags are gone.
+- **The 🔓 Jailbreak is in, and OFF.** It needs 🔞 Adult Context and a Logic Core, like the full one. Its two plan lines keep the full one's labels, Role and Frank, in about 55 tokens instead of 130. The Role line has the AI plan as the game master instead of an assistant, with you and every NPC succeeding or failing alike, NPCs following through and nervous cards staying nervous. The Frank line keeps sex between adults and plans each sexual, violent, cruel or dark beat's explicit act, anatomy, card trait and tone. The same parts of Realistic Frankenstein's jailbreaks stay out. Chibi's version leaves out the full one's adult-fiction framing, its bolder-choice rule and its acting-on-wants and every-rule-in-full wording.
+- **Marinara's Agents path runs over 3,000.** That's the one exception above, and it's on purpose.
+
+### Chibi's Text Completions switches
+
+Chibi keeps every `aria-*` switch under the same name. This table flips one switch at a time from Chibi's shipped state, so The Logic Core is already on and each row includes its plan line. The last column is the full edition measured the same way, with The Logic Core on too, so it isn't the table in section 6, which flips from the full file's shipped state with it off.
+
+| Switch | Starts | Chibi | Full edition |
+|---|---|---|---|
+| `aria-logic-core` | on | ~300 | ~405 |
+| `aria-thinking-tags` | on | ~55 | ~40 |
+| `aria-adult` | off | ~85 | ~130 |
+| `aria-freaky` | off | ~30 | ~50 |
+| `aria-jailbreak` | off | ~55 | ~130 |
+| `aria-hybrid-pov` | off | ~45 | ~85 |
+| `aria-npc-voice` | on | ~115 | ~350 |
+| `aria-anthro` | off | ~45 | ~130 |
+| `aria-scent` | on | ~70 | ~120 |
+| `aria-time-place` | off | ~45 | ~80 |
+| `aria-fate` | off | ~390 | ~930 |
+| `aria-bonds` | off | ~200 | ~380 |
+| `aria-patch-glm` | off | ~360 | ~610 |
+| `aria-patch-kimi-qwen` | off | ~80 | ~120 |
+| `aria-patch-mimo-pro` | off | ~110 | ~130 |
+| `aria-patch-mimo-flash` | off | ~290 | ~445 |
+| `aria-patch-deepseek` | off | ~310 | ~440 |
+| `aria-flash-gate` | off | ~125 | ~215 |
+| `aria-character-hold` | off | ~55 | ~90 |
+
+With the 🩹 DeepSeek patch, the Tally line adds about 40 tokens with Fate, 75 with Bonds or 95 with both (the full edition's adds about 50, 90 and 125).
+
+### Which me should I pick?
+
+- **Plenty of context and budget, or you want the version the testers have run?** The full me.
+- **A small context window, a small local model, or you pay by the token?** Chibi me! Start from the defaults, and switch 🎲 Fate on when your model can take the extra weight.
+- **Not sure?** Try the full me first, and swap to Chibi if it feels heavy. Both editions keep the same toggle names, so your habits carry over.
+
+---
+
+## 8. Uh-oh! moments
 
 Even idols trip on stage sometimes! These fixes get you back up:
 
@@ -351,7 +467,7 @@ On u/trashhaul's card, MiMo V2.6 Pro turned a smart accountant into a walking sp
 Check that 😈 Freaky Override is OFF, because it makes everyone eager on purpose. On MiMo V2.6 Pro or Flash, switch on the 🩹 MiMo V2.6 Pro or 🩹 MiMo V2.6 Flash patch. On MiMo V2.6 Flash or GLM Flash, add the 🔦 Flash Gate too, and on MiMo Flash try Temperature 0.8, the setting Realistic Frankenstein shipped for it. Do characters start out rich and go flat after ten or so turns, shrinking to whatever the last big scene called for? Your provider may be serving a quantised copy of the model. Switch 🧷 Character Hold ON, or on OpenRouter pin Xiaomi or Venice for MiMo V2.6 Flash.
 
 **The model refuses or tiptoes around a scene.**
-Turn The Logic Core ON (on the Text Completions file, set `aria-logic-core` to `on`), since it helps a lot of models settle in. For mature scenes, 🔞 Adult Context must be ON. Some models refuse certain content no matter what any preset says, and when that happens a different model is the only real fix.
+Turn The Logic Core ON (on the Text Completions file, set `aria-logic-core` to `on`), since it helps a lot of models settle in. For mature scenes, 🔞 Adult Context must be ON, and if the model still tiptoes, add 🔓 Jailbreak (`aria-jailbreak` on the Text Completions file), which needs Adult Context and The Logic Core ON too. Some models refuse certain content no matter what any preset says, and when that happens a different model is the only real fix.
 
 **My local model takes ages to start every reply.**
 Your backend is rereading the whole prompt each turn. Go through the "Keep it fast" list in section 6, especially the lorebook and switch tips.
@@ -371,7 +487,7 @@ Your SillyTavern is too old for me. Update it to 1.19.0 or newer.
 
 ---
 
-## 8. Manager's corner (for the curious)
+## 9. Manager's corner (for the curious)
 
 Phew, that's everything a beginner needs! This last part is for nerdy Managers who want to peek under the hood, like Lewis, who helped me pack all of this into one file. Sunna fell asleep halfway through when I explained it to her, so no pressure~ 😴
 
@@ -383,10 +499,10 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 |---|---|
 | Core (everything that ships ON except Fate and Time & Place) | ~3,230 |
 | Shipped default | ~4,230 |
-| Fully kitted out (the defaults plus Logic Core Tags, Adult, Freaky, Hybrid POV, Anthro, Bonds, 🔦 Flash Gate, 🧷 Character Hold, Reduce Reasoning and the largest model patch, now 🩹 GLM) | ~5,980 |
-| An Impersonate turn against that (the 🪞 entry and SillyTavern's impersonation prompt come in, 🧷 Character Hold's lines drop out) | ~60 fewer |
+| Fully kitted out (the defaults plus Logic Core Tags, Adult, Freaky, 🔓 Jailbreak, Hybrid POV, Anthro, Bonds, 🔦 Flash Gate, 🧷 Character Hold, Reduce Reasoning and the largest model patch, now 🩹 GLM) | ~6,110 |
+| An Impersonate turn against that (the 🪞 entry and SillyTavern's impersonation prompt come in, while the Fate, Bonds, ledger, dice, POV, Own words, 🧷 Character Hold and 🔓 Jailbreak lines drop out) | ~190 fewer |
 
-For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 77% smaller. Beta 7 is the third rewrite, and as first released it came out a little larger than beta 6: about 100 tokens more as shipped and about 40 more with everything ON. Its new rules against superhero banter, lists of three, drifting temperament and scene-stealing newcomers cost about 400 tokens, and dropping gate lines that repeated rules nobody broke paid back most of that. Getting clearly below beta 6 would mean cutting rules the testers proved useful, so that trade is yours to call.
+For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so everything-ON ARIA is roughly 74% smaller. Beta 7 is the third rewrite, and as first released it came out a little larger than beta 6: about 100 tokens more as shipped and about 40 more with everything ON. Its new rules against superhero banter, lists of three, drifting temperament and scene-stealing newcomers cost about 400 tokens, and dropping gate lines that repeated rules nobody broke paid back most of that. Getting clearly below beta 6 would mean cutting rules the testers proved useful, so that trade is yours to call.
 
 The Text Completions file, measured the same way:
 
@@ -394,11 +510,13 @@ The Text Completions file, measured the same way:
 |---|---|
 | Lean start, as shipped for 32k | ~2,900 |
 | Plus The Logic Core, Fate and Time & Place | ~4,320 |
-| Everything ON (largest patch, 🔦 Flash Gate and 🧷 Character Hold included) | ~5,810 |
+| Everything ON (largest patch, 🔦 Flash Gate, 🧷 Character Hold and 🔓 Jailbreak included) | ~6,100 |
 
-The checker sizes each patch on its own, where 🩹 MiMo V2.6 Flash comes out largest, so that's the patch in this row. With everything ON, 🩹 GLM's five lines land in the plan as well, so a GLM setup comes to about 5,970. Beta 5 measured about 4,430 here with everything ON. Want to compare the two builds for yourself? Beta 5 waits in `archive/ARIA 1.0 beta 5/` with its presets and regex file, plus `Model fixes.md`, which lists all 139 model fixes it carried. Its presets carry their own names, so you can import them next to the current ones. Its regex file uses the same script names as mine, so on the Text Completions file swap it in only while you test beta 5 and put the current file back afterwards, the way section 6 describes.
+The checker ranks the patches over a setup with every other switch on, the way it does for the Chat Completions file, so the largest one in this row is 🩹 GLM, whose five lines print in the plan as well as in the gate. (Before beta 8's checker fix it sized each patch with every other switch off, picked 🩹 MiMo V2.6 Flash and showed this row as about 5,940.) Beta 5 measured about 4,430 here with everything ON. Want to compare the two builds for yourself? Beta 5 waits in `archive/ARIA 1.0 beta 5/` with its presets and regex file, plus `Model fixes.md`, which lists all 139 model fixes it carried. Its presets carry their own names, so you can import them next to the current ones. Its regex file uses the same script names as mine, so on the Text Completions file swap it in only while you test beta 5 and put the current file back afterwards, the way section 6 describes.
 
-The script also fails if anything goes over 6,000 tokens, if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), if an entry reads a variable before anything earlier in the list sets it, if any render with 🏷️ Logic Core Tags on still names `<logic_core>`, or if anything would break prompt caching. It checks every combination of the tags, each Logic Core (or none), each model patch and Impersonate, and it sizes each patch together with any line it adds to the gate. Run it after every edit.
+The Chibi Edition's files are measured the same way against a cap of 3,000 tokens, which the checker gives to any preset with Chibi Edition in its file name. [Section 7](#7-meet-chibi-me-the-chibi-edition) lists their figures.
+
+The script also fails if anything goes over its budget (7,000 tokens, or 3,000 for the Chibi Edition files), if a tag or label is referenced and never defined, if a variable is set and never read (or the reverse), if an entry reads a variable before anything earlier in the list sets it, if any render with 🏷️ Logic Core Tags on still names `<logic_core>`, or if anything would break prompt caching. It checks every combination of the tags, each Logic Core (or none), each model patch and Impersonate, and it sizes each patch together with any line it adds to the gate. The caching check also leaves every variable behind from an earlier turn and confirms the system block comes out the same. It runs that for everything ON and again for each model patch on its own over the shared base, because everything ON holds only the largest patch, so a variable that one patch sets and another patch prints never showed up there. That's how the Gemini 3.8 Flash text kept printing through Gemini All-In-One for a turn after the 3.8 patch was switched off, until the Main Prompt's first line began blanking `gemini38Patch`. The Text Completions files get the same per-patch test. Run it after every edit.
 
 ### Prompt order (Chat Completions)
 
@@ -408,7 +526,7 @@ The script also fails if anything goes over 6,000 tokens, if a tag or label is r
 | 2 | 🍃 Custom Instructions | system block | on |
 | 3 | ⚡ ARIA Main Prompt | system block | on |
 | 4 | 🏷️ Logic Core Tags | system block, setter only | off |
-| 5 | 🔞 Adult Context, 😈 Freaky Override, 👀 Hybrid POV | system block | off |
+| 5 | 🔞 Adult Context, 😈 Freaky Override, 🔓 Jailbreak (setter only), 👀 Hybrid POV | system block | off |
 | 6 | 🎬 Voice & Scene Engine, 🎭 NPC Voice & Emotions | system block | on |
 | 7 | 🐺 Anthro Vocals | system block | off |
 | 8 | 🖋️ Anti-Slop Codex, 👃 Scent Occasions | system block | on |
@@ -417,11 +535,13 @@ The script also fails if anything goes over 6,000 tokens, if a tag or label is r
 | 11 | 📖 Story Context | system block | on |
 | 12 | Persona, card, personality, scenario, examples, then World Info before and after | system block | on |
 | 13 | Chat History | | on |
-| 14 | 🪞 Impersonation Turn | In-Chat depth 0, user, Impersonate only; it comes first so it can clear the Fate, Bonds, ledger, POV and Own words lines before The Logic Core and the gate read them | on |
+| 14 | 🪞 Impersonation Turn | In-Chat depth 0, user, Impersonate only; it comes first so it can clear the Fate, Bonds, ledger, POV, Own words, Character Hold and Jailbreak lines before The Logic Core and the gate read them | on |
 | 15 | 🧠 The Logic Core | In-Chat depth 0, assistant | on |
 | 16 | 🧠 The Logic Core (system-role twin) | In-Chat depth 0, system, merged into the gate's message | off |
 | 17 | 🚪 Last-Mile Gate | In-Chat depth 0, system | on |
 | 18 | Reduce Reasoning | In-Chat depth 0, user | off |
+
+The Chibi Edition's Chat Completions file uses the same order and the same defaults, except that 🎲 Fate & Chekhov Ledger and ⏰ Time & Place ship OFF.
 
 ### Cache-first rules
 
@@ -442,6 +562,7 @@ These are checked against SillyTavern's own source code:
 - SillyTavern adds the post-history block as the last user message after your newest one. It holds The Logic Core (when switched on) and the Last-Mile Gate with the dice, so the System Prompt stays identical every turn.
 - The story string puts the card fields and examples first and World Info last, right before the chat. That only holds with **Example Messages Behavior** on **Never include examples**; otherwise SillyTavern sends a second copy of the examples after the story string.
 - The context template ships with **Trim Incomplete Sentences** off, since the 🎲 and 💚 lines end in an HTML tag that the trimmer doesn't count as the end of a sentence.
+- The Chibi Text Completions file is built the same way, with two differences. `aria-logic-core` ships `on`. And the gate's four notes on what a message written as you skips (for its Own words, POV, Ledger and Layers lines) print only while The Logic Core is off. With it on, the plan's closing sentence names the lines a message written as you skips (Fate, Bonds, Ledger, Layers, Role, Frank, Own words and POV), which keeps everything ON under 3,000.
 
 ### Wiring (Chat Completions)
 
@@ -453,6 +574,8 @@ The Main Prompt's first line blanks every helper variable each turn, so a switch
 | `ariaFateLine` | 🎲 Fate | 🧠 The Logic Core |
 | `ariaBondsLine` | 🥰 Bonds Lite | 🧠 The Logic Core |
 | `ariaModeLine` | 🔞 Adult Context, overwritten by 😈 Freaky | 🧠 The Logic Core |
+| `ariaJb` | 🔓 Jailbreak (its Role and Frank plan lines), only while `ariaModeLine` is set; blanked by the 🪞 Impersonation Turn | 🧠 The Logic Core (after the ledger line, before Fresh) |
+| `ariaJbLines` | 🔓 Jailbreak: how many lines it hands over (2) | 🧠 The Logic Core (its line count, added only while `ariaJb` is set) |
 | `ariaScentGate` | 👃 Scent Occasions | 🚪 Last-Mile Gate |
 | `ariaPovGate` | 👀 Hybrid POV | 🚪 Last-Mile Gate |
 | `ariaThinkOpen`, `ariaThinkClose` | 🏷️ Logic Core Tags | 🧠 The Logic Core (`{{#if .ariaThinkOpen}}`) |
@@ -466,9 +589,9 @@ The Main Prompt's first line blanks every helper variable each turn, so a switch
 | `ariaPatchJoins` | 🩹 DeepSeek (its Joins line); the 🔦 Flash Gate reads it to leave out its own Runs line and then blanks it, so with both on neither line shows | 🔦 Flash Gate, 🧠 The Logic Core (after the patch's lines, and one more in its line count), 🚪 Last-Mile Gate (after the patch's lines) |
 | `ariaChopGate` | 🖋️ Anti-Slop Codex, overwritten by 🩹 Gemini | 🚪 Last-Mile Gate (its Chop line, or the Gemini patch's Speech line) |
 | `ariaPlanCue` | 🧠 The Logic Core or its system-role twin, with 🏷️ Logic Core Tags on | 🚪 Last-Mile Gate (its very last line) |
-| `logicCoreLines` | 🧠 The Logic Core itself: 7 plus one per Mode, Fate, Bonds, Ledger, Layers, Tally and Joins line, plus the patch's own lines | 🧠 The Logic Core ("N dashed lines") |
+| `logicCoreLines` | 🧠 The Logic Core itself: 7 plus one per Mode, Fate, Bonds, Ledger, Layers, Tally and Joins line, plus the Jailbreak's lines (`ariaJbLines`) and the patch's own lines | 🧠 The Logic Core ("N dashed lines") |
 
-On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice, POV and Own words variables before the gate and The Logic Core read them, so the gate never asks for NPC speech on the turn the model writes your message. The Text Completions file has no Impersonation Turn, so its gate tells the model to skip the Own words and POV lines and the ledgers on a message written as you, and its plan says the same of the Tally line.
+On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice, POV, Own words, Character Hold and Jailbreak variables before the gate and The Logic Core read them, so the gate never asks for NPC speech on the turn the model writes your message. The Text Completions file has no Impersonation Turn, so its gate tells the model to skip the Own words, POV and Character Hold lines and the ledgers on a message written as you, and its plan leaves out the Fate, Bonds, Ledger, Layers and Tally lines and the Jailbreak's Role and Frank lines there.
 
 ### Where each feature lives
 
@@ -480,17 +603,19 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 - **Beta 7's foundation fixes** come from u/trashhaul's report and Realistic Frankenstein's own lines: the comedy clause from Staccato Chop (force and comedy go into word choice or an act), Character Hold's reactions to your jokes, the Cosmos speech method for every model, break-the-triad's count, Card Fidelity's resting temperament at the end of the prompt, Occupational Monomania's quiet competence, the Claude dialogue fix's provenance test for words from the speaker's world, and the Fate rule that big events stay rare. The gate's new-name letter is gone, and newcomers keep to the edge of a scene.
 - **The Scene Engine** lives in Voice & Scene Engine with its progression, pacing and endings, where quiet talk counts as progress and the last line is a character's act or line, as plain as the rest and never scenery. The engine's narration line reports deeds and words and leaves verdicts on manner or habits to the characters.
 - **Card Fidelity and the language rules** are Main Prompt labels (Card Fidelity, Story Language, Epistemic Limits). Speech counts as "heard" however the story's language marks it, so Hungarian „quotes" and dialogue dashes work. Card Fidelity takes gender and pronouns from the card and first message (else lorebook or chat) and never guesses them from a name. The gate's Card line repeats the rule for names, ages, ties, history, bodies, pronouns, voice, the form of thoughts and each character's resting temperament at the very end of the prompt, and its closing line asks the AI to follow the gate over its own earlier replies.
-- **The Logic Core** is sent with the assistant role after the history, or with the system role through its twin, inside the gate's message. With 🏷️ Logic Core Tags on it carries no wrapper tag and starts on `<thinking>`, the tag the reply has to open with. With them off it sits inside `<logic_core>` as before, since the plan then runs inside the model's own reasoning. Every other entry calls it "the plan", which reads right in both shapes and with The Logic Core off, so no other entry branches on the shape. The gate only prints the one-line reminder The Logic Core hands it. Since beta 6 the plan has six fixed lines plus the Mode, Fate, Bonds and Ledger lines of the modules that run. Each line builds on the last with no drafts, and with the tags on, `go` ends the thinking. The Check line is gone, because MiMo Flash recited the whole gate there; the gate opens on `As game master, write the prose per <anti_slop>:` and works as a set of instructions for the prose, with or without a plan.
+- **The Logic Core** is sent with the assistant role after the history, or with the system role through its twin, inside the gate's message. With 🏷️ Logic Core Tags on it carries no wrapper tag and starts on `<thinking>`, the tag the reply has to open with. With them off it sits inside `<logic_core>` as before, since the plan then runs inside the model's own reasoning. Every other entry calls it "the plan", which reads right in both shapes and with The Logic Core off, so no other entry branches on the shape. The gate only prints the one-line reminder The Logic Core hands it. The plan has seven fixed lines plus the lines of the modules that run: Mode, Fate, Bonds, Ledger, 🧷 Character Hold's Layers, the 🩹 DeepSeek patch's Tally and Joins, 🔓 Jailbreak's Role and Frank, and the patch's own lines. Each line builds on the last with no drafts, and with the tags on, `go` ends the thinking. Beta 6 dropped the Check line, because MiMo Flash recited the whole gate there, and beta 7 brought it back short; the gate opens on `As game master, write the prose per <anti_slop>:` and works as a set of instructions for the prose, with or without a plan.
 
 ### Known risks to test
 
-- Beta 8 adds 🧷 Character Hold for quantised providers, after u/Probablynotsocool found MiMo V2.6 Flash flattening layered cards after ten or so turns on NanoGPT and OpenRouter's auto-routed nodes. The 🩹 DeepSeek patch also gains a Tally line, after DeepSeek V4.1 Flash left Sparks, Grudge and BOND at their starting numbers turn after turn in Lewis's tests. Lewis also found GLM 5.3 Flash devolving over a long chat into "not this, it's that" pushback, a verdict sentence after each speech, clipped sentences as drum hits and sentences repeated with "really" or "actually" added, and DeepSeek V4 Pro (0813) writing prose in fragments. The 🩹 GLM patch gains Pushback and Restate lines, the 🔦 Flash Gate gains a Runs line, and the 🩹 DeepSeek patch gains a Joins line; with the 🩹 DeepSeek patch and the 🔦 Flash Gate both on, the way DeepSeek Flash users run them, Joins and Runs both stay out. Everything else is beta 7 as it stands, tester fixes included.
+- Beta 8 adds 🧷 Character Hold for quantised providers, after u/Probablynotsocool found MiMo V2.6 Flash flattening layered cards after ten or so turns on NanoGPT and OpenRouter's auto-routed nodes. The 🩹 DeepSeek patch also gains a Tally line, after DeepSeek V4.1 Flash left Sparks, Grudge and BOND at their starting numbers turn after turn in Lewis's tests. Lewis also found GLM 5.3 Flash devolving over a long chat into "not this, it's that" pushback, a verdict sentence after each speech, clipped sentences as drum hits and sentences repeated with "really" or "actually" added, and DeepSeek V4 Pro (0813) writing prose in fragments. The 🩹 GLM patch gains Pushback and Restate lines, the 🔦 Flash Gate gains a Runs line, and the 🩹 DeepSeek patch gains a Joins line; with the 🩹 DeepSeek patch and the 🔦 Flash Gate both on, the way DeepSeek Flash users run them, Joins and Runs both stay out. Everything else is beta 7 as it stands, tester fixes included. Lewis has since confirmed beta 8 working great on GLM 5.3 Flash and MiMo V2.6 Flash, and u/trashhaul confirmed it on both DeepSeeks, V4 Pro (0813) and V4.1 Flash, so every fix above is confirmed live.
 - Beta 7 is the third rewrite, after u/trashhaul found beta 6 flat on MiMo V2.6 Pro, triplet-heavy and full of quips on GLM 5.3, an edgy action hero on Gemini 3.8 Flash, and generic with a scene-stealing newcomer on DeepSeek V4 Pro. None of the beta 7 rules has met a live model yet, so all four need a re-test; the live test plan lists what to look for.
 - u/BSPiotr's beta 7 run found GLM 5.3 Flash stiff on a fresh chat, with a paragraph for each point and the card's secret told on turn one, while u/trashhaul had a great time with it deeper into a chat. The Codex now asks for paragraphs of three sentences or more, each holding a speaker's line with the acts and reactions around it, one flowing scene instead of a paragraph per point or plan line, and the gate and the plan both keep the card's secrets. Fate's quiet turns no longer drop a separate line about a hawk or a far-off city: the texture folds into a paragraph about someone present, far-off news reaches the page only through someone there, and scenery never closes a reply. Test a fresh chat on GLM 5.3 Flash and DeepSeek V4 Flash, and a long chat on GLM 5.3 Flash, which trashhaul liked as it was.
-- Beta 8's GLM Flash drift fix is new and untested. Play thirty turns on GLM 5.3 Flash with the 🩹 GLM patch and the 🔦 Flash Gate. Count, in turns 20 to 30, the replies with a "not this, it's that" pair (one that fixes a word you used counts too), a one-line verdict closing a speech, a sentence repeated with "really" or "actually" added, a "for the record" or "to be clear" anywhere in a line, and two short sentences in a row; each should be rare. Also check that long flowing paragraphs and silly jokes, which u/trashhaul loved, survive, that nervous characters still stammer, and that a character can still turn you down with a plain no or set you straight in one plain sentence. On GLM 5.3 full, make sure nothing got stiffer. The Runs line also reaches MiMo V2.6 Flash, so look for Flash prose there that got stretched into one long sentence after another; DeepSeek Flash with its patch never gets it.
-- The DeepSeek patch's Joins line is new and untested. On DeepSeek V4 Pro (0813) with the 🔦 Flash Gate OFF, count fragment paragraphs and sentences of under five words in a long chat, and check that a second speaker's one-line answer keeps its own paragraph. Joins and the Flash Gate's Runs line both stay out with the 🔦 Flash Gate ON, so on DeepSeek V4.1 Flash check that the prose reads as before. Joins adds a plan line, so also watch whether the thinking creeps longer.
-- The DeepSeek patch's Tally line is new and untested. With 🥰 Bonds Lite and 🎲 Fate ON, play twenty turns on DeepSeek V4.1 Flash with warm acts and a few slights. Sparks and Grudge should move in the 💚 block, 7 Sparks should become BOND +1, 5 Grudge should become BOND -1, gains should halve while Grudge sits at 3 or more, a sincere apology should clear Grudge, and the 🎲 ledger's q and hp should keep counting. Also watch whether the Tally line grows into a long recital and whether the thinking time creeps back up.
-- 🧷 Character Hold is new and untested. On a quantised MiMo V2.6 Flash node, play past turn 15 with a layered card and push one strong beat, like a fight. The other traits should still show afterwards. Also watch whether the plan's Layers line names traits in the card's words, and whether the reply starts listing traits instead of showing them.
+- Beta 8's GLM Flash drift fix is confirmed live: Lewis found GLM 5.3 Flash working great with it. To check it on your own chat, play thirty turns on GLM 5.3 Flash with the 🩹 GLM patch and the 🔦 Flash Gate. Count, in turns 20 to 30, the replies with a "not this, it's that" pair (one that fixes a word you used counts too), a one-line verdict closing a speech, a sentence repeated with "really" or "actually" added, a "for the record" or "to be clear" anywhere in a line, and two short sentences in a row; each should be rare. Also check that long flowing paragraphs and silly jokes, which u/trashhaul loved, survive, that nervous characters still stammer, and that a character can still turn you down with a plain no or set you straight in one plain sentence. GLM 5.3 full isn't confirmed yet, so make sure nothing got stiffer there. The Runs line also reaches MiMo V2.6 Flash, which Lewis found working great on beta 8 too; if you run that model, still look for prose that got stretched into one long sentence after another. DeepSeek Flash with its patch never gets the Runs line.
+- The DeepSeek patch's Joins line is confirmed live: u/trashhaul found beta 8 working on both DeepSeeks, V4 Pro (0813) and V4.1 Flash. To check it yourself, on DeepSeek V4 Pro (0813) with the 🔦 Flash Gate OFF, count fragment paragraphs and sentences of under five words in a long chat, and check that a second speaker's one-line answer keeps its own paragraph. Joins and the Flash Gate's Runs line both stay out with the 🔦 Flash Gate ON, so on DeepSeek V4.1 Flash check that the prose reads as before. Joins adds a plan line, so also watch whether the thinking creeps longer.
+- The DeepSeek patch's Tally line is confirmed live too, since u/trashhaul confirmed beta 8 on both DeepSeeks. To check it yourself, with 🥰 Bonds Lite and 🎲 Fate ON, play twenty turns on DeepSeek V4.1 Flash with warm acts and a few slights. Sparks and Grudge should move in the 💚 block, 7 Sparks should become BOND +1, 5 Grudge should become BOND -1, gains should halve while Grudge sits at 3 or more, a sincere apology should clear Grudge, and the 🎲 ledger's q and hp should keep counting. Also watch whether the Tally line grows into a long recital and whether the thinking time creeps back up.
+- 🧷 Character Hold is confirmed live: Lewis found beta 8 working great on MiMo V2.6 Flash. To check it on a quantised node of your own, play past turn 15 with a layered card and push one strong beat, like a fight. The other traits should still show afterwards. Also watch whether the plan's Layers line names traits in the card's words, and whether the reply starts listing traits instead of showing them.
+- The 🔓 Jailbreak is new and untested. It costs about 130 tokens a turn and adds two lines to a plan that is meant to stay shorter than one reply paragraph, so watch whether the thinking creeps longer, and whether a Flash model starts reciting the lines into its reply. The Role line asks for the bolder choice that fits the card, so tell me if characters turn pushy or drift from their cards; 😈 Freaky Override turns characters toward what you want while the Role line has them act on what they want, so try the two together and apart. It only changes how the plan frames each scene, so a model that refuses certain content no matter what any preset says will keep refusing.
+- The Chibi Edition is new, and no live model has met it yet. Every rule keeps its checkable core, but shorter wording can land differently, so compare a few scenes with the full edition on the same card and tell me what feels flatter or gets forgotten. Chibi's Fate has no timed appointments, no Ambitions or Quiet-turn rules and only the core of the World rule, so don't expect the full engine from it, and its 🔓 Jailbreak costs about 55 tokens and leaves out the full one's bolder-choice and acting-on-wants wording. The Chibi Text Completions file ships The Logic Core ON and, with it on, names the lines a message written as you skips in the plan's closing sentence instead of in the gate's notes, so a real Impersonate on a local model is worth trying. Chibi Marinara's Agents path goes about 70 tokens over 3,000 with the 🩹 GLM patch, on purpose.
 - The Humour line outranks the card. A card written as a clown or a comedian should still joke a lot, so tell me if one turns dull.
 - Newcomers keep to the edge of a scene. A quest-giver or a shopkeeper you talk to should still get their moment, so tell me if people get pushed out too early.
 - The plan's last check is back, and short. MiMo Flash once recited a long one, so tell me if it starts copying the gate into its plan.
@@ -498,7 +623,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 - Beta 6 rewrote every rule to lead with what to write and turned the gate's questions into instructions, after our beta tester found MiMo V2.6 Flash and Pro sloppy on beta 5. It still needs live re-tests on Kimi K3 and on both MiMo models: Flash with the tester's own setup (🏷️ Logic Core Tags, 🔞 Adult Context, 👀 Hybrid POV, the 🩹 MiMo V2.6 Flash patch and the 🔦 Flash Gate) and Pro with no plan at all. The live test plan below lists what to look for.
 - Ambitions use a compact form of the Douyin Edition's wording that no live model has run yet. Watch for counters stuck at 0/5 after a thread that served them closed, and for goals you never stated.
 - In Text Completions, ticking **Prefer Char. Instructions** lets a card's own Post-History Instructions replace my post-history block, and the 🚪 Last-Mile Gate goes with it. Since beta 6 that gate carries the only copy of the thought-form rule, so keep the box unticked (section 6).
-- The Chat Completions default now sits at about 4,230 tokens and fully kitted out (the checker's "everything ON": one model patch, Reduce Reasoning included, the system-role twin left out) at about 5,980 of the checker's 6,000, with the Text Completions file at about 5,810. The cap went from 5,000 to 6,000 when model patches started handing their gate lines to The Logic Core as well. Those lines now sit on their own between Voice and Move, and the plan's "N dashed lines" counts them. New model fixes fit best inside model patches, since everything ON counts only the largest one.
+- The Chat Completions default now sits at about 4,230 tokens and fully kitted out (the checker's "everything ON": one model patch, Reduce Reasoning and 🔓 Jailbreak included, the system-role twin left out) at about 6,110 of the checker's 7,000, with the Text Completions file at about 6,100. The Chibi Edition files have a cap of 3,000 and sit at 2,978 (Chat Completions) and 2,997 (Text Completions). The cap went from 5,000 to 6,000 when model patches started handing their gate lines to The Logic Core as well. Those lines now sit on their own between Voice and Move, and the plan's "N dashed lines" counts them. The cap then went from 6,000 to 7,000 when 🔓 Jailbreak joined, whose two lines add about 130 tokens to everything ON. New model fixes fit best inside model patches, since everything ON counts only the largest one.
 - GLM has its own patch since this update, with five lines at the end of the gate and in the plan about talking like a person, pushing back as plain fact while a refusal stays a plain no, and saying each sentence once. Its Person line limits help, praise, advice and comfort to what the card and the bond allow, so watch for the opposite problem too: a card written kind that turns cold. The patch quotes none of the phrases it targets, since a quoted example primed Kimi in beta 5; Restate names only what a filing phrase marks a line as, on record, honest, clear or said first. If GLM keeps writing "real talk" or "fair point" on a fresh chat, quoting them for GLM alone is the next thing to try.
 - Register now tells characters to take the floor before heavy news with an act, a name, a question or an accusation, and to show any approval or grade of what you said through what they do next. The gate opens on "As game master" too, the way Realistic Frankenstein's plans ended. Watch GLM 5.3, Kimi, Qwen and Claude for the assistant talk going away, and for two new habits it could cause: every line opening on your name, or characters who never just say yes.
 - The speech method that used to live in the 🔦 Flash Gate now runs for every model inside 🎭 NPC Voice & Emotions, and the joke reactions moved into the Codex's Humour line. The Flash Gate keeps the card's mood and interests, the office-word rule and one raw thought per speaker in the plan, so tell me how GLM Flash and MiMo Flash take the move.
@@ -517,7 +642,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 
 ### Live test plan
 
-- **Plumbing:** with everything ON, send two messages in a row and open each reply's **Prompt** button in the message menu, or install the Prompt Inspector extension from **Extensions** → **Download Extensions & Assets**. The system block should match exactly, and the dice should change only in the last message. To confirm caching, look for cache-read tokens on the second request in the Anthropic Console logs (direct Claude) or on the OpenRouter Activity page (Claude through OpenRouter). Switching Fate, Bonds, Adult, Freaky, Scent and Logic Core Tags off should remove their lines completely.
+- **Plumbing:** with everything ON, send two messages in a row and open each reply's **Prompt** button in the message menu, or install the Prompt Inspector extension from **Extensions** → **Download Extensions & Assets**. The system block should match exactly, and the dice should change only in the last message. To confirm caching, look for cache-read tokens on the second request in the Anthropic Console logs (direct Claude) or on the OpenRouter Activity page (Claude through OpenRouter). Switching Fate, Bonds, Adult, Freaky, Jailbreak, Scent and Logic Core Tags off should remove their lines completely.
 - **u/trashhaul's quest-board scene, beta 6 against beta 7,** on GLM 5.3, Gemini 3.8 Flash, DeepSeek V4 Pro and MiMo V2.6 Pro: count the lists of three and the paragraphs that end on a quip. A nervous card should still be nervous at turn 20, answer "How does that make you feel?" with a feeling, react to every joke you make, and keep the spotlight when a stranger walks in.
 - **Claude 5 with its patch,** a two-character tavern scene over 30 turns: look for banned words, "it wasn't X, it was Y", choppy dialogue and "I respect that".
 - **Gemini with its patch and Scent OFF:** no smells at all, at most one question per reply, and clumsy human reactions to heavy news.
@@ -532,6 +657,8 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 - **Ambitions, with Fate on:** state a goal in your own words, like "I'll open my own bakery by spring". It should log at 0/5 and move up only when a pursuit that served it closes.
 - **Bodies, names and secrets:** a card that describes a body (a sphinx with jackal ears) keeps exactly that body for 30 turns; your name survives a nickname or a jab, and nobody calls themselves by a title; the card's secret holds through the first few replies.
 - **Card fidelity:** a shy card stays shy under Adult Context, siblings recognise each other on turn 1, a drill sergeant keeps short orders, and a Hungarian chat stays free of English words.
+- **🔓 Jailbreak, with 🔞 Adult Context and The Logic Core ON:** the plan gains a Role line and a Frank line right before Fresh, and its "N dashed lines" count goes up by two; switch Adult Context (and Freaky Override) or the Logic Core OFF and both lines are gone, and so is their token cost. Over 10 turns on a card with a nervous character, the nervous one stays nervous while NPCs still act on what they want and finish what they start, and each sexual, violent, cruel or dark beat comes out explicit, in the card's own voice and at the card's own pace. On an Impersonate turn neither line shows up.
+- **Chibi Edition against the full edition,** the same card, 10 turns each, on the model you use: a nervous card should still be nervous, lists stay at one or two items, jokes stay small and rare, and newcomers keep to the edge. With 🎲 Fate on, the ledger writes a thread's age as n/8, a Deferred item's as n/6 and a Bullet's as n/12, and a MAJOR event stays rare. With 🥰 Bonds Lite on, BOND moves only at 7 Sparks (5 Grudge cost a point), and with the 🩹 DeepSeek patch the Tally line keeps those numbers moving. On the Chibi Text Completions file with The Logic Core on, press Impersonate and check that the input box holds only your words, with none of the plan's closing sentence.
 - **Gemini 4 Argon with 👀 Hybrid POV,** on a card whose first message names your character in third person: from the first reply on, every narration line calls your character "you", in one tense, everyone else stays in third person, and only you move your character.
 - **Impersonate:** the input box gets only your character's words, in their own person and tense.
 - **Thinking style B (MiMo V2.6 Flash or another stubborn model):** every reply opens with `<thinking>`, runs the dashed plan lines, ends on `go` and closes the tag before the story. With Auto-Parse on, the plan lands in the reasoning box; with it off, the 💭 **Thoughts** box catches it, tags or no tags.
@@ -544,7 +671,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 
 Please open an issue on the [GitHub issues page](https://github.com/QuillFlash/ARIA/issues) and include:
 
-- the build: ARIA 1.0 beta 8, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
+- the build: ARIA 1.0 beta 8, full or Chibi Edition, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
 - your SillyTavern version
 - your API source or local backend, and the model (plus the quant for local models)
 - your thinking style (A or B), or your `aria-*` switch lines on the Text Completions file

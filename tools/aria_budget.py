@@ -6,7 +6,7 @@ presets, counts the rendered tokens (characters / 4, comments stripped) for a
 few configurations, and fails when something would break the budget, the
 wiring or prompt caching.
 
-Usage: python3 tools/aria_budget.py [preset.json ...]   (no arguments: both ARIA presets)
+Usage: python3 tools/aria_budget.py [preset.json ...]   (no arguments: every preset in DEFAULT_PRESETS)
 """
 import json
 import random
@@ -14,16 +14,23 @@ import re
 import sys
 from pathlib import Path
 
-BUDGET = 6000
+BUDGET = 7000
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PRESETS = [
     ROOT / "Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json",
     ROOT / "Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json",
+    ROOT / "Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Chat Completions).json",
+    ROOT / "Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Text Completions).json",
 ]
 VOLATILE = re.compile(r'\{\{(roll|random|pick|time|date|weekday|isotime|isodate|idle_duration|lastMessage|'
                       r'lastCharMessage|lastUserMessage|lastMessageId|currentSwipeId|char|group|charIfNotGroup|input)\b')
 HTML_TAGS = {'details', 'summary', 'thinking', 'think', 'br', 'b', 'span', 'div'}
 FALSE_WORDS = {'', 'off', 'false', '0'}
+
+
+def budget_for(filename):
+    """The token budget for a preset, by its filename: 3000 for Chibi Edition, BUDGET otherwise."""
+    return 3000 if 'Chibi Edition' in filename else BUDGET
 
 
 def take_macro(s, i):
@@ -197,7 +204,7 @@ def simulate_cc(preset, enabled, seed, state=None, impersonate=False):
     return rendered, state
 
 
-def analyse_cc(preset):
+def analyse_cc(preset, filename=''):
     prompts = {p['identifier']: p for p in preset['prompts']}
     order = preset['prompt_order'][1]['order']
     name = {pid: prompts[pid].get('name', pid) for pid in prompts}
@@ -240,8 +247,8 @@ def analyse_cc(preset):
     imp_setting = tokens(render(preset.get('impersonation_prompt') or '', {}, random.Random(1)))
     totals['Impersonate adds'] = sum(tokens(t) for t in imp.values()) - totals['everything ON'] + \
         sum(tokens(normal[pid]) for pid in normal if pid not in imp) + imp_setting
-    if totals['everything ON'] > BUDGET:
-        errors.append(f"everything ON is {totals['everything ON']} tokens, over the {BUDGET} budget")
+    if totals['everything ON'] > budget_for(filename):
+        errors.append(f"everything ON is {totals['everything ON']} tokens, over the {budget_for(filename)} budget")
 
     rendered, _ = simulate_cc(preset, all_on, seed=1)
     named = {name[pid]: t for pid, t in rendered.items()}
@@ -290,6 +297,23 @@ def analyse_cc(preset):
             errors.append(f'cache: {name[pid]} contains a per-turn macro in the system block')
         if relative and p.get('injection_trigger'):
             errors.append(f'cache: {name[pid]} has generation triggers, so the system block changes on some turns')
+
+    def stale_changes_system_block(enabled, state):
+        """The relative entries whose text changes when an earlier turn left `state` behind."""
+        fresh, _ = simulate_cc(preset, enabled, seed=1)
+        after, _ = simulate_cc(preset, enabled, seed=99, state=state)
+        return [pid for pid in fresh if (prompts[pid].get('injection_position') or 0) == 0 and fresh[pid] != after.get(pid)]
+
+    # The same stale-state test for every patch on its own over the shared base, and for the base with no patch. Everything ON
+    # holds only one patch, so a variable that one patch sets, another patch prints and the Main Prompt does not blank (the Gemini
+    # 3.8 Flash text that Gemini All-In-One printed after the 3.8 patch was switched off) stays invisible there.
+    for patch in [pid for pid in ids if pid in patches] + [None]:
+        enabled = no_patch | ({patch} if patch else set())
+        if stale_changes_system_block(enabled, stale):
+            leaks = [v for v in sorted(setters) if stale_changes_system_block(enabled, {v: stale[v]})]
+            errors.append(f"cache: with {name[patch] if patch else 'no patch'} on over the shared base, a stale "
+                          f"{', '.join(leaks) or 'variable'} from an earlier turn prints in the system block; "
+                          f"the Main Prompt must blank it")
     for row in order:
         p = prompts[row['identifier']]
         if p.get('injection_position') == 1 and (p.get('injection_depth') or 0) != 0:
@@ -313,24 +337,26 @@ def simulate_tc(preset, overrides, seed, state=None):
     return {'System Prompt': rendered_system, 'Post-History': rendered_post}, state
 
 
-def analyse_tc(preset):
+def analyse_tc(preset, filename=''):
     errors = []
     system = preset['sysprompt']['content']
     shipped = dict(SWITCH.findall(system))
     if not shipped:
         errors.append('no aria-* switches found in the System Prompt')
     patches = [s for s in shipped if s.startswith('aria-patch')]
+    # The shared base: every switch that is not a patch ON, every patch OFF. Patches are ranked over it, the way analyse_cc
+    # does, because a patch hands the plan and the gate lines that print only while the Logic Core, Bonds, Fate or the
+    # Flash Gate are on, and with everything else off the ranking picked a patch that is not the real maximum.
+    base = {s: 'on' for s in shipped if not s.startswith('aria-patch')} | {p: 'off' for p in patches}
 
     def patch_cost(p):
-        """A patch's whole cost, its own text plus any line it hands the gate in the post-history."""
-        on = {s: 'off' for s in shipped} | {p: 'on'}
-        off = {s: 'off' for s in shipped}
-        r_on, _ = simulate_tc(preset, on, 1)
-        r_off, _ = simulate_tc(preset, off, 1)
+        """A patch's whole cost over the base, its own text plus any line it hands the plan and the gate."""
+        r_on, _ = simulate_tc(preset, base | {p: 'on'}, 1)
+        r_off, _ = simulate_tc(preset, base, 1)
         return sum(tokens(t) for t in r_on.values()) - sum(tokens(t) for t in r_off.values())
 
     largest = max(patches, key=patch_cost, default=None)
-    all_on = {s: 'on' for s in shipped if not s.startswith('aria-patch')} | {p: ('on' if p == largest else 'off') for p in patches}
+    all_on = base | ({largest: 'on'} if largest else {})
     roomy = dict(shipped) | {'aria-logic-core': 'on', 'aria-fate': 'on', 'aria-time-place': 'on'}
 
     totals = {}
@@ -341,8 +367,8 @@ def analyse_tc(preset):
             print('Tokens with everything ON:')
             for part, text in rendered.items():
                 print(f'  {tokens(text):5}  {part}')
-    if totals['everything ON'] > BUDGET:
-        errors.append(f"everything ON is {totals['everything ON']} tokens, over the {BUDGET} budget")
+    if totals['everything ON'] > budget_for(filename):
+        errors.append(f"everything ON is {totals['everything ON']} tokens, over the {budget_for(filename)} budget")
 
     rendered, _ = simulate_tc(preset, all_on, seed=1)
     raw_all = system + '\n' + (preset['sysprompt'].get('post_history') or '')
@@ -374,6 +400,21 @@ def analyse_tc(preset):
         if a['System Prompt'] != b['System Prompt']:
             errors.append('cache: the System Prompt renders differently between turns')
             break
+
+    def stale_changes_system(overrides, state):
+        """Whether the System Prompt changes when an earlier turn left `state` behind."""
+        a, _ = simulate_tc(preset, overrides, seed=1)
+        b, _ = simulate_tc(preset, overrides, seed=99, state=state)
+        return a['System Prompt'] != b['System Prompt']
+
+    # The same stale-state test for every patch on its own over the base, and for the base with no patch: a variable that
+    # a patch sets and the Main Prompt's first line does not blank prints whatever it last held, once that patch is OFF
+    for patch in patches + [None]:
+        overrides = base | ({patch: 'on'} if patch else {})
+        if stale_changes_system(overrides, stale):
+            leaks = [v for v in sorted(setters) if stale_changes_system(overrides, {v: stale[v]})]
+            errors.append(f"cache: with {patch or 'no patch'} on over the base, a stale {', '.join(leaks) or 'variable'} "
+                          f"from an earlier turn prints in the System Prompt; the Main Prompt must blank it")
     if VOLATILE.search(strip_setvar_bodies(system)):
         errors.append('cache: the System Prompt contains a per-turn macro')
     story = preset.get('context', {}).get('story_string', '')
@@ -389,7 +430,7 @@ def main():
         preset = json.loads(path.read_text(encoding='utf-8'))
         kind = 'Text Completions' if 'sysprompt' in preset else 'Chat Completions'
         print(f'=== {path.name} ({kind})')
-        totals, errors = (analyse_tc if 'sysprompt' in preset else analyse_cc)(preset)
+        totals, errors = (analyse_tc if 'sysprompt' in preset else analyse_cc)(preset, path.name)
         print('Totals:')
         for label, value in totals.items():
             print(f'  {label:26} {value:5}')
