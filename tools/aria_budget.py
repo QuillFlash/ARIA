@@ -256,23 +256,24 @@ def analyse_cc(preset, filename=''):
     raw_all = '\n'.join(p.get('content') or '' for p in preset['prompts'])
     wiring, setters = wiring_errors(named, main_text, raw_all)
     errors += wiring
-    # The same wiring check over every Logic Core shape: Tags ON and OFF, normal and Impersonate, each model patch,
-    # the assistant Logic Core, its system-role twin, or neither. With Tags ON nothing may name <logic_core>: the plan opens on
-    # the fence tag, and a second tag there is what models copied.
+    # The same wiring check over every Logic Core shape: each 🏷️ tags entry on its own (the <thinking> one and the Gemini 4
+    # Argon <thought> one) or none, normal and Impersonate, each model patch, the assistant Logic Core, its system-role twin,
+    # or neither. With a tags entry on nothing may name <logic_core>: the plan opens on the fence tag, and a second tag there
+    # is what models copied.
     tags_ids = by_prefix('🏷️')
     lc_ids = {pid for pid in prompts if name[pid].startswith('🧠 The Logic Core')}
     base = all_on - patches - tags_ids - lc_ids
     seen = set(errors)
-    for tags_on in (True, False):
+    for tags in sorted(tags_ids) + [None]:
         for imp in (False, True):
             for patch in sorted(patches) + [None]:
                 for lc in sorted(lc_ids) + [None]:
-                    enabled = base | ({patch} if patch else set()) | (tags_ids if tags_on else set()) | ({lc} if lc else set())
+                    enabled = base | ({patch} if patch else set()) | ({tags} if tags else set()) | ({lc} if lc else set())
                     r, _ = simulate_cc(preset, enabled, seed=1, impersonate=imp)
-                    label = f"Tags {'ON' if tags_on else 'OFF'}, {'Impersonate' if imp else 'normal'}, {name[lc] if lc else 'no Logic Core'}, {name[patch] if patch else 'no patch'}"
+                    label = f"{name[tags] if tags else 'Tags OFF'}, {'Impersonate' if imp else 'normal'}, {name[lc] if lc else 'no Logic Core'}, {name[patch] if patch else 'no patch'}"
                     nm = {name[pid]: t for pid, t in r.items()}
                     found, _ = wiring_errors(nm, nm.get(name.get('main', ''), ''), raw_all)
-                    if tags_on:
+                    if tags:
                         if re.search(r'</?logic_core', '\n'.join(r.values())):
                             found.append('Tags ON render names <logic_core>')
                     for e in found:
