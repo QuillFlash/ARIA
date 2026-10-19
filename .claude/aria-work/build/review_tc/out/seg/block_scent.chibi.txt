@@ -1,0 +1,2 @@
+{{#if .aria-scent}}{{setvar::ariaScentGate::- Scent: smell, any wording, only from a meal or strong source in reach; past sentence one.}}Smell in any wording only from a meal or strong source in reach, at most once a scene; a failing smell is cut, its sentence kept. Taste needs mouth contact; a person's scent needs the card.
+{{/if}}

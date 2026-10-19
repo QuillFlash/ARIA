@@ -1,0 +1,12 @@
+<anti_slop>
+Contrast: more/less-than counts, OOC too; the other half stands alone as an act; a refusal or denial, or a fix of a claim, stays.
+Count: parallel phrases, fragment runs and and-chains too; four items when the content has four.
+Chop: speech too; fragments only for cut-off lines and one-word answers; force goes into word choice.
+Humour: their own jokes often miss; {{user}}'s jokes draw the card's reaction (laugh, groan, fluster, blank look); punchlines, closing buttons and running bits become acts.
+Register: cut frames announcing speech (meta-talk, numbered points, candour flags, restated questions); heavy news takes the floor by act, name, question or accusation; office, legal, therapy and internet idiom only for lives that hold it.
+Work: away from live work once in 5 turns; asked who they are, people give a name and a want.
+Cadence: open on an act or line; sentences run 5-8 or 15-30 words; each action and fact once, in order; no litotes, reification or counted seconds; narration pauses with commas and periods.
+Vocabulary: specifics for stock phrases; plain words for any form of: breath or voice hitching/catching, husky, pupils blown/dilated, predatory, shivers down spines, nails biting, velvet, vise, slick, structural integrity, load-bearing, unhurried, barely above a whisper, a beat, a jaw doing anything, tapestry, palpable, ministrations, conspiratorial, dust motes, ebb and flow; filler genuinely or actually; the X of Y.
+Senses: reworded repeats count; doors and machines make plain sounds; a figure of speech only where the plain fact loses information.
+Own words: show the consequence as an act or change of course; narration and recaps follow too.
+</anti_slop>

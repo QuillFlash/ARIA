@@ -1,0 +1,28 @@
+{
+  "file": "Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition — Agent Gating.json",
+  "how": "Every change was made in build/chibi_mar/build_chibi_mar.py, then the file was regenerated with that script (preset id kept, round trip exact, no trailing newline). Snapshot before the review: build/review_mar/chibi_mar_before_review.json.",
+  "changes": [
+    {
+      "section": "⚡ ARIA Main Prompt (Agents block, state_mode AGENTS only)",
+      "model_facing": true,
+      "old": "Add no agent, tracker, debug or report block; ARIA's own 🎲 and 💚 ledgers still end the reply.",
+      "new": "Add no agent, tracker, debug or report block{{#if world_engine contains \"FATE\" && world_engine contains \"BONDS\"}}; the 🎲 and 💚 ledgers still end the reply{{else if world_engine contains \"FATE\"}}; the 🎲 ledger still ends the reply{{else if world_engine contains \"BONDS\"}}; the 💚 ledger still ends the reply{{/if}}.",
+      "why": "ARIA's protocol says the ledgers close the reply 'when switched on'; Chibi's dropped that, so with Fate and Bonds unticked (Chibi's default world_engine is []) and Agents on, the model was told a 🎲 and a 💚 ledger end the reply although no module defines them. The clause now names only the ticked ledgers. It also drops \"ARIA's own\": the name ARIA appeared nowhere else in the rendered model-facing text. Cost: the Agents text is now at most 86.5 tokens (Main block + one Logic Core note), 76.25 with no ledgers; it was 88.25. Every listed rule stays."
+    },
+    {
+      "section": "🩹 Model Patch: Gemini 3.8 Flash (comment)",
+      "model_facing": false,
+      "old": "Picking this option applies the 🩹 Gemini All-In-One patch as well, which prints this text.",
+      "new": "Picking this option applies the 🩹 Gemini All-In-One patch as well.",
+      "why": "In Marinara this section prints the 3.8 text itself; only CC routes it through the All-In-One patch's gemini38Patch hook. ARIA's Marinara comment says the same without the clause. 0 tokens."
+    },
+    {
+      "section": "🚪 Last-Mile Gate (comment)",
+      "model_facing": false,
+      "old": "Anything you write in Custom Post-History lands right after it, and so do the extra lines a model patch, the Flash Gate or Character Hold adds.",
+      "new": "Anything you write in Custom Post-History lands right after it; the extra lines a model patch, the Flash Gate or Character Hold adds land inside it.",
+      "why": "The patch, Flash and Hold lines are inlined inside <final_gate>, before its closing lines; only Custom Post-History (order 3150) lands after the gate (3100). 0 tokens."
+    }
+  ],
+  "carried_from_cc_review": "review_cc_changes.json (read at 17:02) lists one change, to the 🌳 README entry, which has no Marinara section; the world_engine question and the ⏰ Time & Place comment already say Time is optional next to Fate. Nothing to carry."
+}

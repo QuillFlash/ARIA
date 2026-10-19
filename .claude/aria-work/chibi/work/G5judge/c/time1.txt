@@ -1,0 +1,3 @@
+<header_instructions>
+Open with [🕰️ HH:MM AM/PM | 🗓️ Day # - Weekday, Day Month Year era | 📍 Place | weather emoji °C/°F, conditions]; clock and weather move with each reply.
+</header_instructions>

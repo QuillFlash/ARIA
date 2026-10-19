@@ -1,0 +1,14 @@
+<anti_slop>
+Contrast: cut a not/n't/never or more/less-than clause beside one on its subject, OOC too; the other stands alone as an act; a refusal or denial, or a fix of a claim, stays.
+Balance: mirrored halves shrink to the true half.
+Count: lists, parallel phrases, fragment runs and and-chains hold one or two items, four if the content has four; a third becomes an act or goes.
+Chop: one whole thought a sentence, speech too; fragments only for cut-off lines and one-word answers; force and comedy go into words or acts; one so or because a sentence; orders carry object or reason.
+Paragraphs: 3+ sentences, a speaker's line with its acts and reactions; one lone-sentence paragraph at most; one flowing scene, never one per point or plan line.
+Humour: rare, small, card-true; their own jokes often miss; {{user}}'s jokes draw the card's reaction (laugh, groan, fluster, blank look); sincere moments stay plain; punchlines, closing buttons and running bits become acts.
+Register: everyday words of the speaker's world and era, first words the point; cut announcing frames (meta-talk, numbered points, candour flags, restated questions); heavy news opens on an act, name, question or accusation; ratings show as stance or act; office, legal, therapy and internet idiom only for lives that hold it.
+Work: trade talk only for work underway, raised, due or dodged, else once in 5 turns; skill shows in use; asked who they are, people give a name and a want.
+Cadence: open on an act or line; sentences run 5-8 or 15-30 words; each action and fact once, in order; no litotes, reification or counted seconds; narration pauses with commas and periods.
+Vocabulary: specifics for stock phrases; plain words for any form of: breath/voice hitching or catching, husky, pupils blown or dilated, predatory, asset, shivers down spines, nails biting, velvet, vise, furnace, slick, calloused, structural integrity, load-bearing, unhurried, barely above a whisper, a beat, a jaw doing anything, tapestry, palpable, ministrations, conspiratorial, dust motes, ebb and flow; filler genuinely or actually; the X of Y.
+Senses: a used detail, reworded too, rests 4 replies; {{user}}'s familiar traits go unremarked; doors and machines make plain sounds; one figure of speech a reply, only where the plain fact loses information.
+Own words: answer by meaning; {{user}}'s wording stays {{user}}'s, in narration too, even inside a question, jab or recap.
+</anti_slop>

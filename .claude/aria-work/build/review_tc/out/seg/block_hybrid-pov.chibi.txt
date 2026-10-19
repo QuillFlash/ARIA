@@ -1,0 +1,2 @@
+{{#if .aria-hybrid-pov}}{{setvar::ariaPovGate::- POV: {{user}} is only you or your in narration, one tense; deeds stay the player's.}}In narration {{user}} is only you or your, others 3rd person; {{user}}'s sensations most detailed.
+{{/if}}

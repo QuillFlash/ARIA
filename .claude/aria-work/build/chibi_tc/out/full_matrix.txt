@@ -1,0 +1,2 @@
+22 module comparisons against Chibi CC, 18432 matrix renders; 0 renders with errors; 0 module differences
+exit 0

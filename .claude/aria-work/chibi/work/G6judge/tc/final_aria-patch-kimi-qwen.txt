@@ -1,0 +1,3 @@
+{{#if .aria-patch-kimi-qwen}}Calls to action run at least two words.
+Native reasoning: one pass, a terse bullet per plan line or step, no drafts, then stop.{{setvar::ariaPatchLines::1}}{{setvar::ariaPatchGate::- Filler: steadying or self-talk filler becomes its thought or an act; one stays as an answer.}}
+{{/if}}

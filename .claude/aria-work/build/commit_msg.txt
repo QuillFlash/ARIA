@@ -1,0 +1,49 @@
+ARIA 1.0 beta 8: 🔓 Jailbreak, 7,000 cap, Chibi Edition and four fixes
+
+🔓 Jailbreak (needs Adult Context), OFF by default since ARIA ships
+SFW. One toggle sets ariaJb (the Role and Frank plan lines) and
+ariaJbLines while an adult mode sets ariaModeLine; both Logic Cores and
+the TC plan print it after the Ledger line and before Fresh, and the
+Impersonation Turn blanks it. The lines are distilled from Realistic
+Frankenstein's BOLT and Micro CoTs, their Jean-Claude Van Damme
+editions and its Realism and Freaky modes: a game master of an adult
+fiction rather than an assistant, even-handed outcomes, characters who
+finish what they start, and an explicit plan for each sexual, violent,
+cruel or dark beat, with sex kept between adults. The parts that work
+by telling the model it has no rules, by a professional-writer pretext
+or by asking it to drop its protectiveness stayed out. Marinara carries
+it as the logic_options JAILBREAK option, and the Impersonate regex
+strips the two new labels.
+
+The token cap rises from 6,000 to 7,000 on every fully kitted-out
+path, Marinara with Agents included: CC 6,111, TC 6,101 (GLM), Marinara
+6,376 at most.
+
+Chibi Edition: a lighter ARIA in three new files (CC, TC and Agent
+Gating), every module kept and compressed in the Douyin Edition's
+concise style, without quoted examples. Same identifiers, variables,
+plan labels and regex scripts as the full edition. Fate and Time ship
+OFF; Chibi TC ships with The Logic Core on. CC 1,503 shipped and 2,978
+fully kitted out; TC 1,589 lean and 2,997; Marinara 2,984 at most, and
+3,070 with Agents, which the owner allowed. Each module group was
+drafted by Sonnet and judged by Opus, and each file reviewed by Opus.
+
+Four older fixes:
+- gemini38Patch is now blanked by the Main Prompt, so switching the
+  Gemini 3.8 Flash patch off no longer leaves its text printing through
+  Gemini All-In-One for a turn. The checker's stale-state test now runs
+  for every patch on its own, which catches that kind of leak.
+- The checker ranks TC patches with every non-patch switch on, so
+  "everything ON" uses the real largest patch (GLM, 6,101, not 5,938).
+- The four plan-cleanup regexes, in CC and in the TC regex file, now
+  also remove the "For a message written as ... line." sentence and the
+  "Every response starts with" line from an echoed TC plan.
+- Stale token costs in switch and entry comments are refreshed.
+
+The guide gains section 7, "Meet Chibi me" (Uh-oh moments is now 8 and
+Manager's corner 9), the Jailbreak entry, the new switch and wiring
+rows, the 7,000 cap and re-measured figures, and marks beta 8's fixes
+as confirmed live on GLM 5.3 Flash, MiMo V2.6 Flash and both DeepSeeks.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01WnxSSHAJSE2JorDBEHgH7o

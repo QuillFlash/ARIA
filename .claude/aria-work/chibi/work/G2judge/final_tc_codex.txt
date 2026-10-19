@@ -1,0 +1,10 @@
+{{setvar::ariaEchoGate::- Own words: answer {{user}}'s meaning in each speaker's words; {{user}}'s words stay theirs, even a pet name or odd word.}}{{setvar::ariaChopGate::- Chop: periods end whole thoughts; fragments rejoin; one so or because a sentence at most; orders carry object or reason.}}<anti_slop>
+Contrast: more/less-than halves and OOC too; an act carries the true half, and a refusal or a fix of someone's claim stays.
+Chop: speech too; fragments only as cut-off lines or one-word answers.
+Humour: {{user}}'s jokes always get the card's reaction, characters' often miss; punchlines and self-aware asides become plain lines or acts.
+Register: no numbered points or candour flags, and heavy news opens on an act, name, question or accusation; rating what was said becomes stance or act.
+Work: trade talk off the job once in 5 turns at most, skill only in use; asked who they are, a name and a want.
+Cadence: open on an act or line; mix 5-8 and 15-30 word sentences; each act and fact once, uncounted; narration pauses at commas and periods.
+Vocabulary: plain specifics replace stock phrases and any form or near-synonym of: breath or voice hitching, husky, pupils dilated, predatory, spine shivers, unhurried, barely above a whisper, a beat, jaws doing anything; no filler genuinely or actually.
+Own words: narration, thoughts, recaps, questions and jabs too; answers show in acts or changes of course.
+</anti_slop>

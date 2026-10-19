@@ -1,0 +1,226 @@
+{
+ "aria|plain_tags0_echo_template": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|plain_tags0_untagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|plain_tags1_echo_template": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|plain_tags1_echo_template_then_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|plain_tags1_tagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|plain_tags1_closing_echo": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|plain_tags1_untagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|full_tags0_echo_template": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|full_tags0_untagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|full_tags1_echo_template": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|full_tags1_echo_template_then_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|full_tags1_tagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|full_tags1_closing_echo": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "aria|full_tags1_untagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|plain_tags0_echo_template": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|plain_tags0_untagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|plain_tags1_echo_template": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|plain_tags1_echo_template_then_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|plain_tags1_tagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|plain_tags1_closing_echo": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|plain_tags1_untagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|full_tags0_echo_template": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|full_tags0_untagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|full_tags1_echo_template": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|full_tags1_echo_template_then_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|full_tags1_tagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|full_tags1_closing_echo": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ },
+ "chibi|full_tags1_untagged_plan": {
+  "prompt_ok": true,
+  "imp_ok": true,
+  "display_tail_ok": true,
+  "prompt": "",
+  "imp": "",
+  "disp": ""
+ }
+}

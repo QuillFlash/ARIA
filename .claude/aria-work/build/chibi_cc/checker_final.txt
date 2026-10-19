@@ -1,0 +1,72 @@
+=== Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json (Chat Completions)
+Per-entry tokens with everything ON:
+      0  🍃 Custom Instructions
+    716  ⚡ ARIA Main Prompt
+      0  🏷️ Logic Core Tags (native reasoning OFF)
+    116  🔞 Adult Context
+     54  😈 Freaky Override (needs Adult Context)
+      0  🔓 Jailbreak (needs Adult Context)
+     46  👀 Hybrid POV
+    271  🎬 Voice & Scene Engine
+    349  🎭 NPC Voice & Emotions
+    128  🐺 Anthro Vocals
+    936  🖋️ Anti-Slop Codex
+     94  👃 Scent Occasions (OFF for Gemini)
+     82  ⏰ Time & Place
+    853  🎲 Fate & Chekhov Ledger
+    297  🥰 Bonds Lite
+     22  🩹 Model Patch: GLM
+      0  🔦 Flash Gate (GLM, MiMo, DeepSeek Flash)
+      0  🧷 Character Hold (quantised providers)
+      3  📖 Story Context
+    916  🧠 The Logic Core
+   1150  🚪 Last-Mile Gate
+     78  Reduce Reasoning
+Totals:
+  core                        3231
+  shipped default             4232
+  everything ON               6111
+  Impersonate adds            -193
+OK: budget, wiring and cache checks all pass.
+
+=== Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json (Text Completions)
+Tokens with everything ON:
+   3971  System Prompt
+   2130  Post-History
+Totals:
+  shipped (lean, 32k)         2905
+  + Logic Core, Fate, Time    4323
+  everything ON               6101
+OK: budget, wiring and cache checks all pass.
+
+=== Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Chat Completions).json (Chat Completions)
+Per-entry tokens with everything ON:
+      0  🍃 Custom Instructions
+    306  ⚡ ARIA Main Prompt
+      0  🏷️ Logic Core Tags (native reasoning OFF)
+     75  🔞 Adult Context
+     30  😈 Freaky Override (needs Adult Context)
+      0  🔓 Jailbreak (needs Adult Context)
+     22  👀 Hybrid POV
+    110  🎬 Voice & Scene Engine
+    114  🎭 NPC Voice & Emotions
+     45  🐺 Anthro Vocals
+    282  🖋️ Anti-Slop Codex
+     47  👃 Scent Occasions (OFF for Gemini)
+     47  ⏰ Time & Place
+    323  🎲 Fate & Chekhov Ledger
+    124  🥰 Bonds Lite
+     22  🩹 Model Patch: GLM
+      0  🔦 Flash Gate (GLM, MiMo, DeepSeek Flash)
+      0  🧷 Character Hold (quantised providers)
+      3  📖 Story Context
+    596  🧠 The Logic Core
+    815  🚪 Last-Mile Gate
+     17  Reduce Reasoning
+Totals:
+  core                        1503
+  shipped default             1503
+  everything ON               2978
+  Impersonate adds            -120
+OK: budget, wiring and cache checks all pass.
+

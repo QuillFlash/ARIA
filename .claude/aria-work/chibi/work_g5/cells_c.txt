@@ -1,0 +1,8 @@
+TRUE | WEIGHTED:
+AMBIENT: one sentence of texture, mid-paragraph | a [hot] Bullet warms, +1 age.
+MINOR: small cost or pleasure, or news moves a World entry a band toward LOCAL | a consequence brushes {{user}}.
+MAJOR: a REGIONAL/LOCAL World entry aged 8+ lands whole as Residue however busy {{user}} is; none: an outside, arbitrary happening, unwarned | the heaviest, then oldest [hot] Bullet aged 6+ fires.
+TRUE: AMBIENT one sentence of texture, mid-paragraph; MINOR a small cost or pleasure, or news moves a World entry a band toward LOCAL; MAJOR a REGIONAL/LOCAL World entry aged 8+ lands as Residue however busy {{user}} is, none: an outside, arbitrary happening, unwarned.
+WEIGHTED: a [hot] Bullet returns at the tier's size: AMBIENT warms it, +1 age; MINOR brushes {{user}}; MAJOR fires the heaviest, then oldest aged 6+.
+TRUE (AMBIENT | MINOR | MAJOR): one sentence of texture, mid-paragraph | a small cost or pleasure, or news moves a World entry a band toward LOCAL | a REGIONAL/LOCAL World entry aged 8+ lands as Residue however busy {{user}} is, none: an outside, arbitrary happening, unwarned.
+WEIGHTED (AMBIENT | MINOR | MAJOR): a [hot] Bullet warms, +1 age | a consequence brushes {{user}} | the heaviest, then oldest [hot] Bullet aged 6+ fires.

@@ -1,0 +1,34 @@
+{
+ "file": "Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Text Completions).json",
+ "method": "raw-text replacement of json.dumps(old)[1:-1], each asserted once",
+ "changes": [
+  {
+   "id": "TC1",
+   "where": "sysprompt.post_history (Logic Core closing sentence, TC-only glue)",
+   "old": "For a message written as {{user}}, plan only {{user}}'s move, with no Fate, Bonds, Ledger, Layers, Role, Frank, Own words or POV line.",
+   "new": "For a message written as {{user}}, plan only {{user}}'s move; skip any Fate, Bonds, Ledger, Layers, Role, Frank, Own words or POV line.",
+   "why": "With the Logic Core on, this sentence stands in for the four gate notes (Own words, POV, Ledger, Layers), but 'plan only ... with no X line' limits only the plan, and Own words and POV are never plan lines, so on an Impersonate turn the gate's Own words, POV and Ledger lines had no skip. 'skip any ... line' covers plan and gate lines alike; +1 character; still ends ' line.' for the Fix 3 regexes."
+  },
+  {
+   "id": "TC2",
+   "where": "sysprompt.content (aria-fate switch comment)",
+   "old": "{{// 🎲 Fate & Chekhov Ledger: the world engine (about 323 tokens in Chibi). Adds a small 🎲 line to every reply. Best with 64k context and a model above 12B.}}",
+   "new": "{{// 🎲 Fate & Chekhov Ledger: the world engine (about 390 tokens in Chibi, its plan and gate lines included). Adds a small 🎲 line to every reply. Best with 64k context and a model above 12B.}}",
+   "why": "Cost measured the guide's way (flip from the shipped state, where the Logic Core is on): +389; 323 is the module text alone."
+  },
+  {
+   "id": "TC3",
+   "where": "sysprompt.content (aria-bonds switch comment)",
+   "old": "{{// 🥰 Bonds Lite: hidden relationship tracker (about 124 tokens in Chibi). Adds a small 💚 line to every reply.}}",
+   "new": "{{// 🥰 Bonds Lite: hidden relationship tracker (about 200 tokens in Chibi, its plan and gate lines included). Adds a small 💚 line to every reply.}}",
+   "why": "Cost measured the guide's way (flip from the shipped state, where the Logic Core is on): +199; 124 is the module text alone."
+  },
+  {
+   "id": "TC4",
+   "where": "sysprompt.post_history (leading comment)",
+   "old": "plans the reply in about 250 tokens, 280 with aria-thinking-tags on (the full edition's takes about 360 and 380)",
+   "new": "plans the reply in about 250 tokens, 285 with aria-thinking-tags on (the full edition's takes about 365 and 385)",
+   "why": "Re-measured Logic Core part: Chibi 252 / 285.5 (tags off / on), ARIA TC 365 / 385."
+  }
+ ]
+}
