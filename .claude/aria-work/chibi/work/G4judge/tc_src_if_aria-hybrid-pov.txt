@@ -1,3 +1,0 @@
-<POV>
-{{setvar::ariaPovGate::- POV: in narration {{user}} is only ever you or your, in the chat's one tense; {{user}}'s deeds stay the player's.}}In narration, {{user}} is only ever you or your and everyone else stays in 3rd person; {{user}}'s felt texture, pressure, temperature, wetness, pain and fatigue get the most detail.
-</POV>

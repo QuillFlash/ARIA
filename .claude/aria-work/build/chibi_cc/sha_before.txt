@@ -1,7 +1,0 @@
-3b4cfae656981755f003d0233d536d9d6fdc6bd106487b65f287ea9439cbe392  Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json
-65fc7d1b6224c1a2404432655ca21304dc0409f1d545a09c3613e87519561482  Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json
-81e2765d1d1f68c438788765146ca24c27da4df2e74621febc31de57e1a26ac6  Aria's Realistic Intelligence Assistance 1.0 — Agent Gating.json
-efb0cba2a0b9691b1d337ace128961c1f2ad1b3d0efacc3e99377ef248c826f9  regex/ARIA 1.0 Regex Scripts (Text Completions).json
-625f58f58eb54542f7c5096b138f96da28a02965802b121f66f96e18597b6ca2  tools/aria_budget.py
-a88a30bfb44f9510ce82db52fca23442ea96a8f099bc1018824415ce59bbe30a  docs/ARIA_Beginners_Guide.md
-62a337739d77b64db535aa4a46eb40303a83bf575ae86cabc9ee2f2cb022440a  README.md

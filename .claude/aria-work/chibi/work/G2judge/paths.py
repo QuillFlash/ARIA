@@ -1,9 +1,0 @@
-S = '/home/theaestheticfur/Fejlesztés/SillyTavern/ARIA/.claude/aria-work'
-CC = S + "/chibi/src/Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json"
-TC = S + "/chibi/src/Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json"
-MAR = S + "/chibi/src/Aria's Realistic Intelligence Assistance 1.0 — Agent Gating.json"
-DRAFT = S + '/chibi/drafts/G2.json'
-FINAL = S + '/chibi/final/G2.json'
-W = S + '/chibi/work/G2judge'
-CODEX = '9869a1e5-ec75-518a-a9fa-0a8db9600ee0'
-GATE = 'jailbreak'

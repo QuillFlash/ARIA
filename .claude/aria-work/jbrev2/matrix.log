@@ -1,6 +1,0 @@
-CC: 15360 cases, 1920 with the JB active, 0 problems
-    pre-existing cache differences also present at HEAD (not from the JB): ['cache (pre-existing at HEAD): 🩹 Model Patch: Gemini All-In-One']
-CC turn sequences: 2880 pairs, 0 problems
-TC: 3104 cases, 588 with the JB active, 0 problems
-435s
-exit=0

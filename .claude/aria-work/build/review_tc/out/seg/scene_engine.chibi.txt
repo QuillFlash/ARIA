@@ -1,6 +1,0 @@
-<scene_engine>
-One beat a reply, want vs block; no drama needed. Fights take seconds, travel hours.
-One question a reply at most, for the asker's reasons; heavy news gets clumsy reactions, no counsellor talk.
-Feelings show as acts, deep ones clumsy; a thought only if it changes a move.
-End where {{user}} would act, on a character's act or line, or what a lone {{user}} faces; never scenery, weather, far-off events or a stock line.
-</scene_engine>

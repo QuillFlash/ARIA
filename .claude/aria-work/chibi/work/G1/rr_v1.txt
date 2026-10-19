@@ -1,3 +1,0 @@
-<reasoning_constraints>
-Strictly, while reasoning: make one simple plan, skip the crafting, drafting, refining and rechecking phases, then start writing outside the thinking block at once.
-</reasoning_constraints>

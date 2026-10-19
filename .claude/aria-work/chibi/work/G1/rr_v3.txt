@@ -1,1 +1,0 @@
-<reasoning_constraints>Think in one simple plan: skip crafting, drafting, refining and rechecking, then write outside the thinking block at once.</reasoning_constraints>

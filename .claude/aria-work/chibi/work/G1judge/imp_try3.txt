@@ -1,4 +1,0 @@
-OOC: write {{user}}'s next message alone, from first word or action to where another character would answer; no header, character lines, 🎲 or 💚 block, whatever the plan says. Any plan covers only {{user}}'s move from persona and earlier messages, knowing only what {{user}} perceived or was told.
-<POV>
-First person present unless {{user}}'s earlier messages differ; this replaces any earlier POV.
-</POV>
