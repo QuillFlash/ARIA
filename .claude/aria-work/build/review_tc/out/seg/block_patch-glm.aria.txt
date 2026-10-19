@@ -1,6 +1,0 @@
-{{#if .aria-patch-glm}}Native reasoning: one pass, a terse bullet per plan line or step, no drafts, then stop.{{setvar::ariaPatchLines::5}}{{setvar::ariaPatchGate::- Person: everyone talks like a real person with a life of their own, agreeing or pushing back as their card would, and helps, praises, advises or comforts {{user}} only as far as the card and their bond allow.
-- Replies: answer {{user}}'s whole move in one flowing scene, the part the character cares about most first; a true line keeps the size its speaker gave it, and the answer moves on to something new.
-- Filler: steadying or self-talk filler becomes the specific thought it held or the action; answering someone, it stands once.
-- Pushback: a character who disagrees, corrects or reassures states their own view as plain fact, and a refusal stays a plain no; cut any sentence or clause on not, n't or never beside one on its subject, even a denial or fix of a claim, and any clause saying what {{user}}'s view or their own last line is not.
-- Restate: a sentence or clause that repeats the one before it, an intensifier added or not, is cut, and so is a closing sentence that only labels or sums up the speech, or a phrase anywhere marking it as on record, honest, clear or said first; each is said once, a nervous card's stammers aside, and the next act carries the weight.}}
-{{/if}}

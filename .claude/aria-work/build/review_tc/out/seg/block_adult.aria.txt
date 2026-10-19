@@ -1,3 +1,0 @@
-{{#if .aria-adult}}{{setvar::ariaModeLine::- Mode: realism; persona-true; each plea new.}}{{trim}}
-Adult fiction. In sexual, violent, cruel or dark scenes, morality runs grey to black and consent in reciprocal acts is never re-asked; sex is frank and granular, with autonomic and auditory feedback, and violence is visceral and medically exact. Characters talk and moan in vulgar slang while narration uses plain anatomy words; each plea or tease is new, drawn from this beat's contact and rhythm; forwardness shows in acts, with persona and pacing per Slow Burn.
-{{/if}}

@@ -1,5 +1,0 @@
-{{if .aria-flash-gate}}{{setvar::ariaFlashGate::- Mood: card mood and energy, shaded by ties to {{user}}, back after events.
-- Lulls: raise card interests and wants.
-- Work words, narration too: only for work underway, raised by others, due or dodged; feelings, memories, promises, decisions become acts or choices.
-- Demands: press once; refused or sidestepped, act or trade, else drop it; move on; pet phrases rest four replies.}}{{#if !.ariaPatchJoins}}{{setvar::ariaFlashGate::{{getvar::ariaFlashGate}}
-- Runs: one sentence under five words a reply at most, extras join a neighbour; stalls, cut-offs, one-word answers, long paragraphs and jokes stay.}}{{/if}}{{setvar::ariaPatchJoins::}}{{setvar::ariaVoiceExtra::; a raw in-voice thought each, behind their move}}{{/if}}

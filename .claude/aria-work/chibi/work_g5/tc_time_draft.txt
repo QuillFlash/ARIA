@@ -1,3 +1,0 @@
-<header_instructions>
-Open with [🕰️ HH:MM AM/PM | 🗓️ Day # - Weekday, date, era | 📍 Place | weather emoji °C/°F, conditions]; clock and weather advance by what the reply covers.
-</header_instructions>

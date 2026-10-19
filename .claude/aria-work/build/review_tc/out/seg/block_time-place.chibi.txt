@@ -1,4 +1,0 @@
-{{#if .aria-time-place}}<header_instructions>
-Open with [🕰️ HH:MM AM/PM | 🗓️ Day # - Weekday, Day Month Year era | 📍 Place | weather emoji °C/°F, conditions], moved on by each reply's span.
-</header_instructions>
-{{/if}}

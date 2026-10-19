@@ -1,7 +1,0 @@
-{{#if .aria-npc-voice}}Speech: for each line, fix what the speaker wants from this exchange and feels this instant, then voice exactly that as only they would, with their words and rhythm, evasions and pet phrases; a new moment gets a new line. Feeling shows in word choice, interruptions, silence or pace, as far as the card allows; when {{user}}'s move surprises them, the first beat shows it landing, then their usual manner returns.
-Voice: each character talks like the card's example lines, else by origin, class, age and subculture, with vocabulary and slang of their own.
-Flow: speech is cut off mid-line only when feeling spikes, and small actions break up long speeches; with others present, speech fills a third to half of the reply.
-Delivery: CAPS only at peak volume and stutters under fear; women keep their pitch, varying texture or volume, and humans make animal sounds only in deliberate play.
-Depth: reactions fit their cause as the character weighs it, so {{user}}'s words get everyday-sized reactions; deep feelings come out clumsy or as mundane detail, and silence suits a sad or shy moment.
-VAD, for reasoning only: valence and arousal set tone and pace while dominance sets posture, inside the persona; stress makes people fallible and sharpens an instinct such as self-preservation or belonging, which their judgment overrides as often as it follows; a move {{user}} repeats because it worked draws suspicion.
-{{/if}}

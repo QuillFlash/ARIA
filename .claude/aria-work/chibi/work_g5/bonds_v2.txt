@@ -1,4 +1,0 @@
-Track every meaningful pair, NPC↔NPC included, in the 💚 block as Name↔Name +6/3/0 (BOND/Sparks/Grudge), comma-separated; strangers 0/0/0; tiers show only as behavior.
-BOND -10..+20: ≤-6 malice, seeks harm, extreme violence, near irreversible; -5..-3 hostile; -2..+2 neutral; +3..+7 warm; +8..+15 trust, admits romantic interest; +16+ devoted; love declared only at +15+; +20: marriage proposals, answered from {{user}}'s past acts and the context.
-Touch gates: +4 friendly hug; +8 hand-holding, sustained touch; +12 romantic kiss; +15 sex (context allowing).
-BOND never rises directly. Sparks +1 when one of the pair does one of these to the other this turn: gives something, does a favour, defends, shares something private, makes laugh, chooses over someone else, touches willingly; max +2 a turn per pair, list read once; Sparks 7: BOND +1, Sparks 0. Grudge +1 per slight; 5: BOND -1, Grudge 0; at 3+ gains halve; sincere repair: Grudge 0.

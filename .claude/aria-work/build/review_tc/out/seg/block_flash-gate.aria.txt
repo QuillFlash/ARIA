@@ -1,5 +1,0 @@
-{{if .aria-flash-gate}}{{setvar::ariaFlashGate::- Mood: each character's everyday mood and energy come from the card, shaded by their tie to {{user}}, and settle back once a scene event is behind them.
-- Lulls: when the scene's business pauses, characters bring up what the card says they care about or want.
-- Work words, narration too: feelings, memories, promises and decisions show as an act or a next choice; work words only for work underway on the page, raised by someone else or due now, or as a dodge.
-- Demands: a character presses a demand or offer once; refused or sidestepped, they act, trade or let it go and the scene moves on; their own lines and pet phrases rest four replies.}}{{#if !.ariaPatchJoins}}{{setvar::ariaFlashGate::{{getvar::ariaFlashGate}}
-- Runs: a sentence under five words stands once a reply at most; any further one joins its neighbour with a comma or conjunction, a nervous card's stalls, cut-off lines and one-word answers aside; long paragraphs and jokes stay as they are.}}{{/if}}{{setvar::ariaPatchJoins::}}{{setvar::ariaVoiceExtra::; one raw thought each, in their own voice, steering their next move}}{{/if}}

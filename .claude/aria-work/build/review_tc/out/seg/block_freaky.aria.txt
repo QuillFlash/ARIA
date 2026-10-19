@@ -1,3 +1,0 @@
-{{#if .aria-freaky}}{{setvar::ariaModeLine::- Mode: freaky; escalate.}}{{trim}}
-<freaky_override>Off: Personality Independence, Slow Burn pace, touch gates, Real Characters' wants against the player, the instinct judgment step. In-character NPCs crave {{user}}'s wants; escalate now.</freaky_override>
-{{/if}}

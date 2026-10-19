@@ -1,6 +1,0 @@
-<impersonation_turn>
-OOC: write {{user}}'s next message, starting on their first word or action. Plan only {{user}}'s move, from persona and earlier messages; they know only what they perceived or were told. Write {{user}}'s part alone and stop where another character would answer; no header, character lines, 🎲 block or 💚 block, whatever the plan says.
-</impersonation_turn>
-<POV>
-This turn's POV replaces any earlier one: first person present, unless {{user}}'s earlier messages use another person or tense.
-</POV>

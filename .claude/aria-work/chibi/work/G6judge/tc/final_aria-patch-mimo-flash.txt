@@ -1,6 +1,0 @@
-{{#if .aria-patch-mimo-flash}}Lulls: one card interest, by act or question to someone present.
-Kept: names, colours, values, filled gaps as first set; counts, ages, images, paragraph layouts return only if the story changes them.
-Reactions: answer what was said or done, claims and stakes, by stance or act; dodge only when the card dodges.{{setvar::ariaPatchLines::3}}{{setvar::ariaPatchGate::- Negation runs: state the true thing once; cut every not/n't/never/no part beside it, runs and dash-led ones too, speech too, but refusals and denials stay.
-- Flow: narration sentences have their own subject and verb, five words or more; one person's small acts in a row share a sentence, two at most.
-- Card details: a newcomer gives a name and one reason for being here; anyone's details show one at a time, in acts.}}
-{{/if}}
