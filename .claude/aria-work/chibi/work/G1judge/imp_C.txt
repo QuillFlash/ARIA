@@ -1,0 +1,4 @@
+OOC: write only {{user}}'s next message, from first word or act until another character's turn; no header, character lines, 🎲 or 💚 block, even if planned. Any reasoning plans only {{user}}'s move from persona and earlier messages, within what {{user}} perceived or was told.
+<POV>
+First person present unless {{user}}'s earlier messages differ; this replaces any earlier POV.
+</POV>

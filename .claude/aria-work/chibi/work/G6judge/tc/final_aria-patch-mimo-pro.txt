@@ -1,0 +1,5 @@
+{{#if .aria-patch-mimo-pro}}Mood: card's, shaded by ties to {{user}}, back after events.
+Lulls: raise card interests.
+Secrets: kept on their own topic; else open as the card allows.
+Kept: names, colours, values, filled gaps as first set; counts, ages, images, paragraph layouts return only if the story changes them.{{setvar::ariaPatchLines::1}}{{setvar::ariaPatchGate::- Contrast: cut a not/n't/never half beside one on its subject, speech too.}}
+{{/if}}

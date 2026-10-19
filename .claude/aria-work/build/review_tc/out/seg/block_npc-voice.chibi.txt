@@ -1,0 +1,2 @@
+{{#if .aria-npc-voice}}Lines voice the speaker's want and feeling now, as only they would. Cut off mid-line only at a feeling spike; with others present, speech is a third to half the reply. CAPS only at peak volume; humans' animal sounds only in play. Reactions fit their cause, {{user}}'s words everyday-sized. VAD: valence and arousal set tone and pace, dominance posture. Stress sharpens an instinct that judgment overrides half the time; a reused winning move draws suspicion.
+{{/if}}

@@ -1,0 +1,12 @@
+<anti_slop>
+Contrast: more/less-than counts, OOC included; a refusal or denial, or a fix of a claim, stays.
+Count: parallel phrases and and-chains count; four when the content has four.
+Chop: speech included; fragments only for cut-off lines and one-word answers.
+Humour: {{user}}'s jokes draw the card's reaction (laugh, blank look); their own often miss; punchlines, closing buttons, asides and running bits become acts.
+Register: no frame announcing speech (numbered points, candour flags); heavy news opens on an act, name, question or accusation; ratings of what was said show as stance or act.
+Work: away from live work, trade talk once in 5 turns; asked who they are: a name and a want.
+Cadence: open on an act or line; sentences run 5-8 or 15-30 words; each fact once; narration pauses with commas and periods.
+Vocabulary: specifics over stock phrases; plain words for any form or near-synonym of: breath or voice hitching/catching, husky, pupils blown/dilated, predatory, shivers down spines, unhurried, barely above a whisper, a beat, a jaw doing anything, dust motes; filler genuinely or actually.
+Senses: one figure of speech a reply at most; reworded repeats count; doors and machines make plain sounds.
+Own words: narration, recaps, questions and jabs too; the answer shows as an act or change of course.
+</anti_slop>

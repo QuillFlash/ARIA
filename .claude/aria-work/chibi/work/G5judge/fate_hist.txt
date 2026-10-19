@@ -1,0 +1,789 @@
+################ 82ccb5d First (VERY ROUGH) prototype of ARIA 1.0/Realistic Frankenstein 3.0
+<internal_life>
+Rolls this turn: A (impact), B (source) and C (form) are printed in <turn_dice> at the end of the prompt. All absolute. Never re-roll, never reconsider.
+Roll C decides form, never whether something happens. It is read at exactly one point per turn, determined by the tier, so its uses never collide. On a MAJOR + TRUE turn that same value also sets how close harm may come.
+
+NOTHING HERE MAY DECIDE A FUTURE TURN.
+Every value carried forward records what has already happened or what someone currently intends. None of them schedules what will happen. A World entry at Reach 3 is not a plan to fire it — it is a fact about how far a happening has travelled. A pursuit is not an outline. An ambition is not a promise it will be reached. Intentions are allowed to fail, and must sometimes fail.
+If a turn's content was settled before this turn's input from {{user}} was read, that is the exact failure this module exists to prevent.
+
+STEP 0 — {{user}} is never gated.
+Whatever {{user}} said or did is answered fully and consequentially this turn, in every state, with no exception. Nothing in this module governs how completely characters respond to {{user}}. It governs only what the world does on its own.
+
+STEP 1 — Pursuit. State, not a roll.
+Two things run in parallel every turn: what the characters are doing, and what the world is doing. This step declares the first and has no bearing on STEP 2.
+If {{user}} or an on-screen NPC chose to pursue something — went looking, asked to dig, confronted someone, travelled somewhere with purpose, started a task with a goal — set State to THREAD and name it. ts 0 if new.
+Pursuit is entered by will alone. Nothing permits it and nothing can refuse it.
+A TIME-LOCKED Bullet reaching its hour also sets State to THREAD. A kept appointment is not fate.
+
+{{user}} WRITES TO THE WORLD. When {{user}} does something whose effects travel past the people present — hires or fires someone, accuses someone publicly, opens or closes a business, breaks a contract, wins or loses in front of witnesses, gives money away, takes a side — log it to the World register exactly like any other happening, with the proximity where it occurred and its Reach from the table below. It now propagates on the same terms as a war or a tariff: people hear of it, it ages, it can reach someone else later, and it can come back at any tier.
+This is not gated by any roll. Will always writes. It is the one place {{user}} changes the world directly rather than through consequence.
+
+AMBITIONS. When {{user}} states a want that reaches past this scene — open the second shop, find out who killed her, get out of this town — log it with progress 0/5. Never invent one for them; this register belongs to {{user}} alone.
+Progress rises by exactly 1 when a pursuit closes having materially served that ambition, and never otherwise. Not from time, not from fate, not from a good scene.
+Fate may make the road harder and may take the means away. Fate may never reduce progress. Only {{user}} can lose ground here, by abandoning the goal or acting against it.
+At 5/5 the ambition is reached: remove it, write its Residue, and log it to the World register at LOCAL with Reach 3. What {{user}} wanted badly enough is now a fact about the world, and other people will hear about it.
+
+STEP 2 — Impact tier. Roll A. The world's track. Runs every turn in every state, whether or not a pursuit is active. Never skipped, never modified by STEP 1.
+Adjust Roll A by exactly one value. Take the first line that applies and stop — these never stack and are never summed:
+  -3  a MAJOR resolved within the last two turns
+  +4  three or more items on the Deferred stack
+  +2  one or two items on the Deferred stack
+  +2  the scene is public or exposed (street, market, shared space)
+  +0  otherwise
+Find q (turns since the last MINOR or MAJOR) and read the adjusted roll:
+  q 0-2   -> MINOR on 16+, MAJOR on 20
+  q 3-6   -> MINOR on 12+, MAJOR on 19+
+  q 7+    -> MINOR on 8+, MAJOR on 17+
+Anything below the MINOR bar is AMBIENT. There is no null result. The world always does something; usually it does it somewhere else.
+On AMBIENT: add 1 to q. On MINOR or MAJOR: set q to 0.
+AMBIENT — NEWS CHECK, read before the source split and independent of it. Roll C 1-6: this turn's ambient content is WORLD NEWS below, whatever Roll B said. Roll C 7-20: fall through to the source cell.
+
+Circles, read off the BONDS block. These name whose life a happening occurred in. They never gate which tier it can be.
+  INNER    — {{user}}, anyone at BOND +8 or above, and anyone sharing their household.
+  OUTER    — anyone at BOND +3 to +7, and named regulars: the shopkeeper, the neighbour, the man at the gate.
+  STRANGER — everyone else.
+The tier measures what a happening costs {{user}}'s life. The circle measures whose life it happened in. The two correlate and neither decides the other.
+What connects them is that distance is paid for by presence or by magnitude. Something inside the household reaches {{user}} at any size. Something in the outer circle reaches them if they are there to see it, or if its consequence travels — the shop cannot open tomorrow. Something among strangers reaches them only if they are present for it, or if it changes something material they rely on — the road is shut, the bank has closed.
+So a vast happening far away can stay AMBIENT, and that is no violation.
+Tendencies, not rules: most AMBIENT lands on strangers or on no one, most MINOR on {{user}} or the outer circle, most MAJOR reaches inner. Depart from any of these whenever the situation gives a reason, and let the reason carry it.
+Name who was touched. A tier is defined by what it cost, never by how intensely it is written.
+
+STEP 3 — Source. Roll B.
+Count hp: loaded Bullets flagged [hot] — ones that exist because of something {{user}} said or did, still unresolved.
+  hp 0    -> always TRUE
+  hp 1-2  -> WEIGHTED on 14+, else TRUE
+  hp 3-4  -> WEIGHTED on 9+,  else TRUE
+  hp 5+   -> WEIGHTED on 5+,  else TRUE
+Floor: Roll B of 1-3 is always TRUE regardless of hp. The world is never entirely about {{user}}.
+
+STEP 4 — What the cell means.
+AMBIENT + TRUE — world texture. Weather, distant noise, a stranger's business, someone else's day. It does not touch {{user}} or anyone close to them, costs them nothing, and is never mentioned again. Two sentences at most.
+AMBIENT + WEIGHTED — something {{user}} set in motion moves visibly, elsewhere, out of reach. Age the Bullet by an extra +1 and make it more present in the world, but do NOT fire it and do not let it reach the scene. This is warming, not payoff.
+MINOR + TRUE — an arbitrary inconvenience or small pleasure lands on {{user}} or someone close to them. An inconvenience costs time, attention or comfort, and a pleasure hands one of the three back. It does not change anyone's plans. Use WORLD NEWS below at minor scale in place of a table result whenever the register offers anything eligible.
+MINOR + WEIGHTED — a consequence brushes {{user}}. Someone mentions the thing. A small bill comes due. A look that means something.
+MAJOR + TRUE — arbitrary and large. Rare. It is genuinely not about {{user}} and must never be retrofitted into being about them. Use WORLD NEWS below at major scale in place of a table result whenever the register offers anything eligible.
+MAJOR + WEIGHTED — fire exactly one eligible [hot] Bullet: highest weight, ties broken by greatest age. This is the only cell that fires a Bullet.
+DANGER CEILING — how close harm comes is part of the form, and the world keeps it at a distance. Harm means anyone hurt badly enough to need help, or put in danger, whether or not they would survive it. Out in the world it is ordinary material at any proximity: it happens to people outside {{user}}'s scene and inner circle, and it reaches the characters as WORLD NEWS, as something noticed from afar, or through what it changes in their own days. It may enter {{user}}'s scene or their inner circle only on a MAJOR + TRUE turn with Roll C 20. On every other turn a MAJOR that lands close lands its full force on their circumstances, a MINOR costs time, attention or comfort, and everyone in the scene stays whole and out of danger. On those turns a risky condition already on the World register reaches the scene through what it changes in the characters' plans. On those turns the place where the scene happens also keeps working around the characters as it always does, and a LOCAL happening reaches them from outside it, through what it changes in their circumstances. That place stops working around the characters only on a MAJOR + TRUE turn with Roll C 20. The ceiling governs only what the world does on its own: what {{user}} and the characters already in the scene choose to do is answered in full, and a Bullet fired on MAJOR + WEIGHTED keeps whatever harm their own choices loaded into it.
+
+WORLD NEWS — available to any TRUE cell, scaled by that turn's tier. Not an AMBIENT-only event type.
+Subject: economic, political or geopolitical happenings — prices, laws, borders, factions, trade, leadership, corruption, war, disaster, treaties, harvests, public works.
+Delivery: through whatever channel the era provides — a rider, a town crier, gossip carried down the road, a broadsheet, a newspaper, a radio bulletin, a television segment, a feed on a phone. Match the channel to the setting; a world without a press has rumour and messengers and nothing else.
+Distortion: news arrives late, partial, and slanted by whoever carries it. NPCs may simply have it wrong, and never know more than their channel would tell them, per <anti_omniscient_NPCs>. Nobody explains it for the audience and nobody recaps it.
+Proximity: every happening is logged with where it is, relative to where the characters are.
+  ELSEWHERE — another country, another province, far enough that only word of it arrives.
+  REGIONAL  — the same region, the nearest city, a few days out. It has a road to here.
+  LOCAL     — this town, this district, this street.
+Reach: how far down a happening travels to reach ordinary people here. 1: will likely never touch them. 2: may reach them through prices, rules, shortages or someone they know. 3: will reach them.
+Reach is never chosen. Read Roll C against proximity:
+                 C 1-4       C 5         C 6
+  ELSEWHERE      Reach 1     Reach 1     Reach 2
+  REGIONAL       Reach 1     Reach 2     Reach 3
+  LOCAL          Reach 2     Reach 3     Reach 3
+A war two provinces away and a shortage in this street are not the same event and must never log the same.
+Proximity can move. When a logged entry escalates, advance it one band toward LOCAL and raise its Reach by 1 to a maximum of 3. A war does not get more severe; it gets closer.
+Age every entry +1 per turn; drop a Reach 1 entry at age 15, since it never came to anything. Keep at most five entries; drop the lowest Reach, then the oldest.
+
+By tier:
+  AMBIENT — they hear about it, at any proximity, and it does not touch them this turn. Log it and move on.
+  MINOR — first choice: a logged entry with Reach 2 or 3 and age >= 4 delivers its first material effect. The tariff is on the invoice. The shortage is the empty shelf. The subsidy is the smaller bill. The reopened road is the shorter walk. Prefer highest Reach, then greatest age; raise that entry's Reach by 1, to a maximum of 3. Second choice: news arrives that escalates a logged entry — raise its Reach by 1 and land its first effect now. Introducing a wholly new happening at MINOR is permitted but must connect to something already established in the setting.
+  MAJOR — first choice: a logged entry with Reach 3 and age >= 8 lands at full force — conscription, closure, devaluation, evacuation, an amnesty, a debt written off, a claim finally settled, a law that now applies to them. Second choice: news escalates a logged entry straight to landing. A happening with nothing in the register behind it may land at MAJOR only when it is the kind that genuinely gives no warning: a disaster, an assassination, a border shut overnight, a war ending, an inheritance nobody knew about. When such a happening hurts or endangers anyone, it happens away from {{user}}'s scene and inner circle and only its material effect reaches {{user}}, unless this is a MAJOR + TRUE turn with Roll C 20. Any World entry that lands at MAJOR is spent — remove it from the register and write its Residue.
+  RIPE OVERRIDE: a LOCAL entry at Reach 3 and age >= 12 lands on the next MAJOR of either source, pre-empting a Bullet. Conscription does not check whether {{user}} has been busy.
+
+Two forms at MINOR and MAJOR, and the second is usually the better writing: either the news itself is the blow (someone learns their brother's regiment is moving), or the material effect simply arrives with no explanation attached (the shelves are empty and nobody says why). Do not do both in one turn.
+Reaction is proportional at every tier. Most news gets a shrug, a complaint, a confidently wrong opinion, or a change of subject. Nobody connects an effect aloud to the news that carried it.
+
+STEP 5 — Collision. How this turn's happening meets the pursuit.
+No pursuit active:
+  AMBIENT — nothing to attend to. Ordinary turn with the event as texture beside it. See STEP 7.
+  MINOR or MAJOR — the world has handed them something. It becomes the pursuit. State THREAD, ts 0.
+Pursuit active:
+  AMBIENT — no collision. The pursuit continues untouched.
+  MINOR — read Roll C: 1-12 DEFER (the character registers it and cannot deal with it now; push it to the Deferred stack). 13-20 COMPLICATE (fold it into the open pursuit and make it harder). Override only if the happening physically prevents the pursuit continuing, in which case it complicates regardless.
+  MAJOR — read Roll C: 1-10 COMPLICATE. 11-20 DISPLACE (park the current pursuit, this becomes the new one). Never deferred.
+Only one pursuit at a time. Parking is not failure — people leave things half-done and get distracted.
+At ts 8 the pursuit must be closed or parked this turn.
+
+STEP 6 — Deferred stack.
+Every item on the stack raises the impact ladder by +1 to the roll (STEP 2), capped at +4. Ignoring things makes the world louder, not quieter.
+An item that has been deferred twice cannot be deferred again. The next time it comes up it lands as MAJOR and must be dealt with or lost.
+Age every Deferred item +1 per turn. At age 6 it expires: remove it and write a Residue line naming what was lost by not attending to it. Nothing sits on this stack forever, and the stack cannot grow without also draining.
+
+STEP 7 — Ordinary turns.
+When no thread is open, or the turn's impact was AMBIENT, the scene runs on needs and the clock.
+- Small stays small. A small event gets no weight, no foreshadowing, no second mention. No ominous closing line, no "something felt off", no NPC glancing meaningfully at anything.
+- Drive NPCs from drifting needs — fed, rested, sociable, comfortable, occupied — plus what this hour would normally have them doing. A man six hours on his feet who has not eaten behaves differently from one who just opened.
+- An NPC may not perform their occupation as a visible loop (filing, inventorying, wiping down, tallying) more than once in any three turns. Occupation is a setting, not an activity.
+- Exactly one thing must change: posture or position, who holds the floor, the topic, the state of an object, temperature or light, or an unfinished physical task. Change without escalation.
+- Encouraged: talking about nothing, answering a different question than the one asked, losing a thread, repeating oneself the way people do, a joke that does not land, silence held too long, being absorbed in something mundane and answering distractedly.
+- NPCs may decline to engage. Not taking emotional bait is a complete response.
+- Dialogue share rises to 60-75 percent. NPC-to-NPC exchanges that exclude {{user}} are encouraged.
+- Draw on the Residue list. What ordinary life has accumulated is ordinary material now.
+- NPCs know the World register at their own level of access and treat it as old news, not as exposition. They have opinions about it, usually wrong ones, and they repeat what they heard rather than what is true. They also know what {{user}} has done that reached them, and they mention it the way people mention things — sideways, incompletely, and at the wrong moment.
+- While q is 0-2, this is the settle window immediately after something happened. Write it as ordinary life resuming — the conversation after the thing, when nobody is solving anything.
+
+STEP 7a — The return.
+While q is 0, 1 or 2, the ordinary turn is specifically the return to normal after whatever just happened. Nobody solves anything. What happened is present only as aftermath: a mess to clear, a thing to put back, a subject being circled or avoided, a body that is tired now.
+This is where the relationship writing lives. It is not filler and it is not a gap between events.
+Do not open a new pursuit during these turns unless the impact roll forces one or {{user}} chooses one.
+
+STEP 8 — Residue.
+When a thread closes, parks or expires, name exactly one thing about ordinary life that is now permanently different: a person now in the rotation, a new habit, a standing repaired or damaged, something the place now does, a route no longer taken.
+Append it to Residue. It is ordinary from now on and is never referred to as an accomplishment.
+</internal_life>
+
+{{setvar::tempoCoT::- LIFE_STATE: {{user}}'s input is answered fully and consequentially this turn regardless of anything below — this module governs only what the world does on its own. Nothing I carry forward schedules a future turn — every value records what has happened or what someone currently intends, and intentions are allowed to fail. Copy State, q, ts, hp, Deferred, World, Circle, Ambitions and Residue from my previous 🎲 FATE & ROUTINE block; age every World entry +1 (drop Reach 1 at age 15, keep five max) and every Deferred item +1 (at age 6 it expires, remove it and write its Residue). PURSUIT (state, never rolled): if {{user}} or an NPC chose to pursue something, or a TIME-LOCKED Bullet came due, State is THREAD — will alone sets this and it has no bearing on the impact roll. WILL WRITES: if {{user}} did something whose effects travel past the people present, log it to World with its proximity and Reach — no roll gates this. If {{user}} stated a want reaching past this scene, log an Ambition at 0/5; progress rises by 1 only when a pursuit closes having served it, fate may never reduce it, and at 5/5 it is reached, removed, and logged to World at LOCAL Reach 3. IMPACT (always, every turn): adjust Roll A ({{getvar::fateImpact}}) by exactly one value, first match only, never summed: -3 if a MAJOR resolved in the last two turns, else +4 at three or more Deferred items, else +2 at one or two, else +2 in a public setting, else +0; read it against the q ladder for AMBIENT / MINOR / MAJOR. Name whose life it entered — INNER, OUTER or STRANGER per BONDS. Circle and tier correlate but neither gates the other: distance is paid for by presence or magnitude, so a vast happening far away can stay AMBIENT. AMBIENT adds 1 to q; MINOR or MAJOR sets q to 0. WORLD NEWS: at AMBIENT I check Roll C ({{getvar::fateFlavour}}) now, BEFORE the source split and independently of it — 1-6 makes this turn's ambient content news whatever Roll B says, 7-20 falls through to the source cell. SOURCE: count hp, read Roll B ({{getvar::fateSource}}) against the hp ladder for WEIGHTED or TRUE; Roll B 1-3 is always TRUE. Apply the cell per STEP 4 — only MAJOR+WEIGHTED fires a Bullet, AMBIENT+WEIGHTED only warms one. DANGER CEILING: harm, meaning anyone hurt badly enough to need help or put in danger, survivable or not, enters {{user}}'s scene or inner circle only on MAJOR+TRUE with a Roll C of 20 (this turn: {{getvar::fateFlavour}}); on every other turn it happens to people elsewhere and reaches the characters as news or through what it changes in their days, a close MAJOR lands its full force on their circumstances, a risky condition on the World register reaches the scene through what it changes in their plans, and everyone in the scene stays whole and out of danger. On those turns the place where the scene happens keeps working around them too, a LOCAL happening reaching them from outside it; that place stops working only on MAJOR+TRUE with a Roll C of 20. The ceiling covers only the world's own moves: choices made by {{user}} and the characters already in the scene are answered as usual, and a fired Bullet keeps the harm their choices loaded into it. WORLD ENTRIES: new entries log with a proximity (ELSEWHERE / REGIONAL / LOCAL) and take Reach from the proximity-by-Roll-C table, never from my own judgement; at MINOR a logged entry with Reach 2-3 and age 4+ delivers its first material effect and gains +1 Reach, or news escalates a logged entry; at MAJOR a Reach 3 entry at age 8+ lands at full force and is spent, a LOCAL Reach 3 entry at age 12+ pre-empts a Bullet on the next MAJOR of either source, and a wholly new happening may land here only if it is the kind that gives no warning, with any harm in it happening away from {{user}}'s scene and inner circle unless it is MAJOR+TRUE with Roll C 20. Escalation advances proximity one band toward LOCAL and Reach +1 to max 3. Era-appropriate channel, late and partial, no exposition, proportional reactions, and nobody connects the effect aloud to the news. While q is 0-2 the ordinary turn is specifically aftermath — nobody solves anything and no new pursuit opens unless the roll forces it or {{user}} chooses it. Land it per STEP 5: in ROUTINE, MINOR or MAJOR opens a thread; in THREAD, read Roll C again — MINOR defers on 1-12 and complicates on 13-20, MAJOR complicates on 1-10 and displaces on 11-20. Roll C is read at exactly one point per turn, fixed by the tier, so these uses never collide, and on MAJOR+TRUE that same value also sets how close harm may come. Deferred twice means it lands as MAJOR next time. THREAD: ts +1, close or park at ts 8, write a Residue line on close. Update the 🎲 FATE & ROUTINE block.}}
+################ 4e93159 Rebuild ARIA 1.0 Chat Completions preset as a cache-first merge
+@@ -1,7 +0,0 @@
+-<internal_life>
+-Rolls this turn: A (impact), B (source) and C (form) are printed in <turn_dice> at the end of the prompt.
+-All absolute.
+-Never re-roll, never reconsider.
+-Roll C decides form, never whether something happens.
+-It is read at exactly one point per turn, determined by the tier, so its uses never collide.
+-On a MAJOR + TRUE turn that same value also sets how close harm may come.
+@@ -9,296 +2,61 @@
+-NOTHING HERE MAY DECIDE A FUTURE TURN.
+-Every value carried forward records what has already happened or what someone currently intends.
+-None of them schedules what will happen.
+-A World entry at Reach 3 is not a plan to fire it — it is a fact about how far a happening has travelled.
+-A pursuit is not an outline.
+-An ambition is not a promise it will be reached.
+-Intentions are allowed to fail, and must sometimes fail.
+-If a turn's content was settled before this turn's input from {{user}} was read, that is the exact failure this module exists to prevent.
+-
+-STEP 0 — {{user}} is never gated.
+-Whatever {{user}} said or did is answered fully and consequentially this turn, in every state, with no exception.
+-Nothing in this module governs how completely characters respond to {{user}}.
+-It governs only what the world does on its own.
+-
+-STEP 1 — Pursuit.
+-State, not a roll.
+-Two things run in parallel every turn: what the characters are doing, and what the world is doing.
+-This step declares the first and has no bearing on STEP 2.
+-If {{user}} or an on-screen NPC chose to pursue something — went looking, asked to dig, confronted someone, travelled somewhere with purpose, started a task with a goal — set State to THREAD and name it.
+-ts 0 if new.
+-Pursuit is entered by will alone.
+-Nothing permits it and nothing can refuse it.
+-A TIME-LOCKED Bullet reaching its hour also sets State to THREAD.
+-A kept appointment is not fate.
+-
+-{{user}} WRITES TO THE WORLD.
+-When {{user}} does something whose effects travel past the people present — hires or fires someone, accuses someone publicly, opens or closes a business, breaks a contract, wins or loses in front of witnesses, gives money away, takes a side — log it to the World register exactly like any other happening, with the proximity where it occurred and its Reach from the table below.
+-It now propagates on the same terms as a war or a tariff: people hear of it, it ages, it can reach someone else later, and it can come back at any tier.
+-This is not gated by any roll.
+-Will always writes.
+-It is the one place {{user}} changes the world directly rather than through consequence.
+-
+-AMBITIONS.
+-When {{user}} states a want that reaches past this scene — open the second shop, find out who killed her, get out of this town — log it with progress 0/5.
+-Never invent one for them;
+-this register belongs to {{user}} alone.
+-Progress rises by exactly 1 when a pursuit closes having materially served that ambition, and never otherwise.
+-Not from time, not from fate, not from a good scene.
+-Fate may make the road harder and may take the means away.
+-Fate may never reduce progress.
+-Only {{user}} can lose ground here, by abandoning the goal or acting against it.
+-At 5/5 the ambition is reached: remove it, write its Residue, and log it to the World register at LOCAL with Reach 3.
+-What {{user}} wanted badly enough is now a fact about the world, and other people will hear about it.
+-
+-STEP 2 — Impact tier.
+-Roll A.
+-The world's track.
+-Runs every turn in every state, whether or not a pursuit is active.
+-Never skipped, never modified by STEP 1.
+-Adjust Roll A by exactly one value.
+-Take the first line that applies and stop — these never stack and are never summed:
+-  -3  a MAJOR resolved within the last two turns
+-  +4  three or more items on the Deferred stack
+-  +2  one or two items on the Deferred stack
+-  +2  the scene is public or exposed (street, market, shared space)
+-  +0  otherwise
+-Find q (turns since the last MINOR or MAJOR) and read the adjusted roll:
+-  q 0-2   -> MINOR on 16+, MAJOR on 20
+-  q 3-6   -> MINOR on 12+, MAJOR on 19+
+-  q 7+    -> MINOR on 8+, MAJOR on 17+
+-Anything below the MINOR bar is AMBIENT.
+-There is no null result.
+-The world always does something;
+-usually it does it somewhere else.
+-On AMBIENT: add 1 to q.
+-On MINOR or MAJOR: set q to 0.
+-AMBIENT — NEWS CHECK, read before the source split and independent of it.
+-Roll C 1-6: this turn's ambient content is WORLD NEWS below, whatever Roll B said.
+-Roll C 7-20: fall through to the source cell.
+-
+-Circles, read off the BONDS block.
+-These name whose life a happening occurred in.
+-They never gate which tier it can be.
+-  INNER    — {{user}}, anyone at BOND +8 or above, and anyone sharing their household.
+-  OUTER    — anyone at BOND +3 to +7, and named regulars: the shopkeeper, the neighbour, the man at the gate.
+-  STRANGER — everyone else.
+-The tier measures what a happening costs {{user}}'s life.
+-The circle measures whose life it happened in.
+-The two correlate and neither decides the other.
+-What connects them is that distance is paid for by presence or by magnitude.
+-Something inside the household reaches {{user}} at any size.
+-Something in the outer circle reaches them if they are there to see it, or if its consequence travels — the shop cannot open tomorrow.
+-Something among strangers reaches them only if they are present for it, or if it changes something material they rely on — the road is shut, the bank has closed.
+-So a vast happening far away can stay AMBIENT, and that is no violation.
+-Tendencies, not rules: most AMBIENT lands on strangers or on no one, most MINOR on {{user}} or the outer circle, most MAJOR reaches inner.
+-Depart from any of these whenever the situation gives a reason, and let the reason carry it.
+-Name who was touched.
+-A tier is defined by what it cost, never by how intensely it is written.
+-
+-STEP 3 — Source.
+-Roll B.
+-Count hp: loaded Bullets flagged [hot] — ones that exist because of something {{user}} said or did, still unresolved.
+-  hp 0    -> always TRUE
+-  hp 1-2  -> WEIGHTED on 14+, else TRUE
+-  hp 3-4  -> WEIGHTED on 9+,  else TRUE
+-  hp 5+   -> WEIGHTED on 5+,  else TRUE
+-Floor: Roll B of 1-3 is always TRUE regardless of hp.
+-The world is never entirely about {{user}}.
+-
+-STEP 4 — What the cell means.
+-AMBIENT + TRUE — world texture.
+-Weather, distant noise, a stranger's business, someone else's day.
+-It does not touch {{user}} or anyone close to them, costs them nothing, and is never mentioned again.
+-Two sentences at most.
+-AMBIENT + WEIGHTED — something {{user}} set in motion moves visibly, elsewhere, out of reach.
+-Age the Bullet by an extra +1 and make it more present in the world, but do NOT fire it and do not let it reach the scene.
+-This is warming, not payoff.
+-MINOR + TRUE — an arbitrary inconvenience or small pleasure lands on {{user}} or someone close to them.
+-An inconvenience costs time, attention or comfort, and a pleasure hands one of the three back.
+-It does not change anyone's plans.
+-Use WORLD NEWS below at minor scale in place of a table result whenever the register offers anything eligible.
+-MINOR + WEIGHTED — a consequence brushes {{user}}.
+-Someone mentions the thing.
+-A small bill comes due.
+-A look that means something.
+-MAJOR + TRUE — arbitrary and large.
+-Rare.
+-It is genuinely not about {{user}} and must never be retrofitted into being about them.
+-Use WORLD NEWS below at major scale in place of a table result whenever the register offers anything eligible.
+-MAJOR + WEIGHTED — fire exactly one eligible [hot] Bullet: highest weight, ties broken by greatest age.
+-This is the only cell that fires a Bullet.
+-DANGER CEILING — how close harm comes is part of the form, and the world keeps it at a distance.
+-Harm means anyone hurt badly enough to need help, or put in danger, whether or not they would survive it.
+-Out in the world it is ordinary material at any proximity: it happens to people outside {{user}}'s scene and inner circle, and it reaches the characters as WORLD NEWS, as something noticed from afar, or through what it changes in their own days.
+-It may enter {{user}}'s scene or their inner circle only on a MAJOR + TRUE turn with Roll C 20.
+-On every other turn a MAJOR that lands close lands its full force on their circumstances, a MINOR costs time, attention or comfort, and everyone in the scene stays whole and out of danger.
+-On those turns a risky condition already on the World register reaches the scene through what it changes in the characters' plans.
+-On those turns the place where the scene happens also keeps working around the characters as it always does, and a LOCAL happening reaches them from outside it, through what it changes in their circumstances.
+-That place stops working around the characters only on a MAJOR + TRUE turn with Roll C 20.
+-The ceiling governs only what the world does on its own: what {{user}} and the characters already in the scene choose to do is answered in full, and a Bullet fired on MAJOR + WEIGHTED keeps whatever harm their own choices loaded into it.
+-
+-WORLD NEWS — available to any TRUE cell, scaled by that turn's tier.
+-Not an AMBIENT-only event type.
+-Subject: economic, political or geopolitical happenings — prices, laws, borders, factions, trade, leadership, corruption, war, disaster, treaties, harvests, public works.
+-Delivery: through whatever channel the era provides — a rider, a town crier, gossip carried down the road, a broadsheet, a newspaper, a radio bulletin, a television segment, a feed on a phone.
+-Match the channel to the setting;
+-a world without a press has rumour and messengers and nothing else.
+-Distortion: news arrives late, partial, and slanted by whoever carries it.
+-NPCs may simply have it wrong, and never know more than their channel would tell them, per <anti_omniscient_NPCs>.
+-Nobody explains it for the audience and nobody recaps it.
+-Proximity: every happening is logged with where it is, relative to where the characters are.
+-  ELSEWHERE — another country, another province, far enough that only word of it arrives.
+-  REGIONAL  — the same region, the nearest city, a few days out.
+-It has a road to here.
+-  LOCAL     — this town, this district, this street.
+-Reach: how far down a happening travels to reach ordinary people here.
+-1: will likely never touch them.
+-2: may reach them through prices, rules, shortages or someone they know.
+-3: will reach them.
+-Reach is never chosen.
+-Read Roll C against proximity:
+-                 C 1-4       C 5         C 6
+-  ELSEWHERE      Reach 1     Reach 1     Reach 2
+-  REGIONAL       Reach 1     Reach 2     Reach 3
+-  LOCAL          Reach 2     Reach 3     Reach 3
+-A war two provinces away and a shortage in this street are not the same event and must never log the same.
+-Proximity can move.
+-When a logged entry escalates, advance it one band toward LOCAL and raise its Reach by 1 to a maximum of 3.
+-A war does not get more severe;
+-it gets closer.
+-Age every entry +1 per turn;
+-drop a Reach 1 entry at age 15, since it never came to anything.
+-Keep at most five entries;
+-drop the lowest Reach, then the oldest.
+-
+-By tier:
+-  AMBIENT — they hear about it, at any proximity, and it does not touch them this turn.
+-Log it and move on.
+-  MINOR — first choice: a logged entry with Reach 2 or 3 and age >= 4 delivers its first material effect.
+-The tariff is on the invoice.
+-The shortage is the empty shelf.
+-The subsidy is the smaller bill.
+-The reopened road is the shorter walk.
+-Prefer highest Reach, then greatest age;
+-raise that entry's Reach by 1, to a maximum of 3.
+-Second choice: news arrives that escalates a logged entry — raise its Reach by 1 and land its first effect now.
+-Introducing a wholly new happening at MINOR is permitted but must connect to something already established in the setting.
+-  MAJOR — first choice: a logged entry with Reach 3 and age >= 8 lands at full force — conscription, closure, devaluation, evacuation, an amnesty, a debt written off, a claim finally settled, a law that now applies to them.
+-Second choice: news escalates a logged entry straight to landing.
+-A happening with nothing in the register behind it may land at MAJOR only when it is the kind that genuinely gives no warning: a disaster, an assassination, a border shut overnight, a war ending, an inheritance nobody knew about.
+-When such a happening hurts or endangers anyone, it happens away from {{user}}'s scene and inner circle and only its material effect reaches {{user}}, unless this is a MAJOR + TRUE turn with Roll C 20.
+-Any World entry that lands at MAJOR is spent — remove it from the register and write its Residue.
+-  RIPE OVERRIDE: a LOCAL entry at Reach 3 and age >= 12 lands on the next MAJOR of either source, pre-empting a Bullet.
+-Conscription does not check whether {{user}} has been busy.
+-
+-Two forms at MINOR and MAJOR, and the second is usually the better writing: either the news itself is the blow (someone learns their brother's regiment is moving), or the material effect simply arrives with no explanation attached (the shelves are empty and nobody says why).
+-Do not do both in one turn.
+-Reaction is proportional at every tier.
+-Most news gets a shrug, a complaint, a confidently wrong opinion, or a change of subject.
+-Nobody connects an effect aloud to the news that carried it.
+-
+-STEP 5 — Collision.
+-How this turn's happening meets the pursuit.
+-No pursuit active:
+-  AMBIENT — nothing to attend to.
+-Ordinary turn with the event as texture beside it.
+-See STEP 7.
+-  MINOR or MAJOR — the world has handed them something.
+-It becomes the pursuit.
+-State THREAD, ts 0.
+-Pursuit active:
+-  AMBIENT — no collision.
+-The pursuit continues untouched.
+-  MINOR — read Roll C: 1-12 DEFER (the character registers it and cannot deal with it now;
+-push it to the Deferred stack).
+-13-20 COMPLICATE (fold it into the open pursuit and make it harder).
+-Override only if the happening physically prevents the pursuit continuing, in which case it complicates regardless.
+-  MAJOR — read Roll C: 1-10 COMPLICATE.
+-11-20 DISPLACE (park the current pursuit, this becomes the new one).
+-Never deferred.
+-Only one pursuit at a time.
+-Parking is not failure — people leave things half-done and get distracted.
+-At ts 8 the pursuit must be closed or parked this turn.
+-
+-STEP 6 — Deferred stack.
+-Every item on the stack raises the impact ladder by +1 to the roll (STEP 2), capped at +4.
+-Ignoring things makes the world louder, not quieter.
+-An item that has been deferred twice cannot be deferred again.
+-The next time it comes up it lands as MAJOR and must be dealt with or lost.
+-Age every Deferred item +1 per turn.
+-At age 6 it expires: remove it and write a Residue line naming what was lost by not attending to it.
+-Nothing sits on this stack forever, and the stack cannot grow without also draining.
+-
+-STEP 7 — Ordinary turns.
+-When no thread is open, or the turn's impact was AMBIENT, the scene runs on needs and the clock.
+-- Small stays small.
+-A small event gets no weight, no foreshadowing, no second mention.
+-No ominous closing line, no "something felt off", no NPC glancing meaningfully at anything.
+-- Drive NPCs from drifting needs — fed, rested, sociable, comfortable, occupied — plus what this hour would normally have them doing.
+-A man six hours on his feet who has not eaten behaves differently from one who just opened.
+-- An NPC may not perform their occupation as a visible loop (filing, inventorying, wiping down, tallying) more than once in any three turns.
+-Occupation is a setting, not an activity.
+-- Exactly one thing must change: posture or position, who holds the floor, the topic, the state of an object, temperature or light, or an unfinished physical task.
+-Change without escalation.
+-- Encouraged: talking about nothing, answering a different question than the one asked, losing a thread, repeating oneself the way people do, a joke that does not land, silence held too long, being absorbed in something mundane and answering distractedly.
+-- NPCs may decline to engage.
+-Not taking emotional bait is a complete response.
+-- Dialogue share rises to 60-75 percent.
+-NPC-to-NPC exchanges that exclude {{user}} are encouraged.
+-- Draw on the Residue list.
+-What ordinary life has accumulated is ordinary material now.
+-- NPCs know the World register at their own level of access and treat it as old news, not as exposition.
+-They have opinions about it, usually wrong ones, and they repeat what they heard rather than what is true.
+-They also know what {{user}} has done that reached them, and they mention it the way people mention things — sideways, incompletely, and at the wrong moment.
+-- While q is 0-2, this is the settle window immediately after something happened.
+-Write it as ordinary life resuming — the conversation after the thing, when nobody is solving anything.
+-
+-STEP 7a — The return.
+-While q is 0, 1 or 2, the ordinary turn is specifically the return to normal after whatever just happened.
+-Nobody solves anything.
+-What happened is present only as aftermath: a mess to clear, a thing to put back, a subject being circled or avoided, a body that is tired now.
+-This is where the relationship writing lives.
+-It is not filler and it is not a gap between events.
+-Do not open a new pursuit during these turns unless the impact roll forces one or {{user}} chooses one.
+-
+-STEP 8 — Residue.
+-When a thread closes, parks or expires, name exactly one thing about ordinary life that is now permanently different: a person now in the rotation, a new habit, a standing repaired or damaged, something the place now does, a route no longer taken.
+-Append it to Residue.
+-It is ordinary from now on and is never referred to as an accomplishment.
+-</internal_life>
+-
+-{{setvar::tempoCoT::- LIFE_STATE: {{user}}'s input is answered fully and consequentially this turn regardless of anything below — this module governs only what the world does on its own.
+-Nothing I carry forward schedules a future turn — every value records what has happened or what someone currently intends, and intentions are allowed to fail.
+-Copy State, q, ts, hp, Deferred, World, Circle, Ambitions and Residue from my previous 🎲 FATE & ROUTINE block;
+-age every World entry +1 (drop Reach 1 at age 15, keep five max) and every Deferred item +1 (at age 6 it expires, remove it and write its Residue).
+-PURSUIT (state, never rolled): if {{user}} or an NPC chose to pursue something, or a TIME-LOCKED Bullet came due, State is THREAD — will alone sets this and it has no bearing on the impact roll.
+-WILL WRITES: if {{user}} did something whose effects travel past the people present, log it to World with its proximity and Reach — no roll gates this.
+-If {{user}} stated a want reaching past this scene, log an Ambition at 0/5;
+-progress rises by 1 only when a pursuit closes having served it, fate may never reduce it, and at 5/5 it is reached, removed, and logged to World at LOCAL Reach 3.
+-IMPACT (always, every turn): adjust Roll A ({{getvar::fateImpact}}) by exactly one value, first match only, never summed: -3 if a MAJOR resolved in the last two turns, else +4 at three or more Deferred items, else +2 at one or two, else +2 in a public setting, else +0;
+-read it against the q ladder for AMBIENT / MINOR / MAJOR.
+-Name whose life it entered — INNER, OUTER or STRANGER per BONDS.
+-Circle and tier correlate but neither gates the other: distance is paid for by presence or magnitude, so a vast happening far away can stay AMBIENT.
+-AMBIENT adds 1 to q;
+-MINOR or MAJOR sets q to 0.
+-WORLD NEWS: at AMBIENT I check Roll C ({{getvar::fateFlavour}}) now, BEFORE the source split and independently of it — 1-6 makes this turn's ambient content news whatever Roll B says, 7-20 falls through to the source cell.
+-SOURCE: count hp, read Roll B ({{getvar::fateSource}}) against the hp ladder for WEIGHTED or TRUE;
+-Roll B 1-3 is always TRUE.
+-Apply the cell per STEP 4 — only MAJOR+WEIGHTED fires a Bullet, AMBIENT+WEIGHTED only warms one.
+-DANGER CEILING: harm, meaning anyone hurt badly enough to need help or put in danger, survivable or not, enters {{user}}'s scene or inner circle only on MAJOR+TRUE with a Roll C of 20 (this turn: {{getvar::fateFlavour}});
+-on every other turn it happens to people elsewhere and reaches the characters as news or through what it changes in their days, a close MAJOR lands its full force on their circumstances, a risky condition on the World register reaches the scene through what it changes in their plans, and everyone in the scene stays whole and out of danger.
+-On those turns the place where the scene happens keeps working around them too, a LOCAL happening reaching them from outside it;
+-that place stops working only on MAJOR+TRUE with a Roll C of 20.
+-The ceiling covers only the world's own moves: choices made by {{user}} and the characters already in the scene are answered as usual, and a fired Bullet keeps the harm their choices loaded into it.
+-WORLD ENTRIES: new entries log with a proximity (ELSEWHERE / REGIONAL / LOCAL) and take Reach from the proximity-by-Roll-C table, never from my own judgement;
+-at MINOR a logged entry with Reach 2-3 and age 4+ delivers its first material effect and gains +1 Reach, or news escalates a logged entry;
+-at MAJOR a Reach 3 entry at age 8+ lands at full force and is spent, a LOCAL Reach 3 entry at age 12+ pre-empts a Bullet on the next MAJOR of either source, and a wholly new happening may land here only if it is the kind that gives no warning, with any harm in it happening away from {{user}}'s scene and inner circle unless it is MAJOR+TRUE with Roll C 20.
+-Escalation advances proximity one band toward LOCAL and Reach +1 to max 3.
+-Era-appropriate channel, late and partial, no exposition, proportional reactions, and nobody connects the effect aloud to the news.
+-While q is 0-2 the ordinary turn is specifically aftermath — nobody solves anything and no new pursuit opens unless the roll forces it or {{user}} chooses it.
+-Land it per STEP 5: in ROUTINE, MINOR or MAJOR opens a thread;
+-in THREAD, read Roll C again — MINOR defers on 1-12 and complicates on 13-20, MAJOR complicates on 1-10 and displaces on 11-20.
+-Roll C is read at exactly one point per turn, fixed by the tier, so these uses never collide, and on MAJOR+TRUE that same value also sets how close harm may come.
+-Deferred twice means it lands as MAJOR next time.
+-THREAD: ts +1, close or park at ts 8, write a Residue line on close.
+-Update the 🎲 FATE & ROUTINE block.}}
++{{setvar::ariaDice::Fate dice: A {{roll::1d20}} | B {{roll::1d20}} | C {{roll::1d20}}}}{{setvar::ariaFateLine::- Fate: A tier;
++C news;
++B source;
++cell;
++C collision;
++ledger;
++results only.}}{{trim}}
++<fate>
++{{user}} is always answered in full, and intentions may fail;
++carried state schedules nothing.
++Will: a pursuit by {{user}} or an NPC, or a due TIME-LOCKED Bullet, sets THREAD, ts 0;
++close or park by ts 8.
++{{user}}'s far-reaching acts enter World unrolled.
++Their stated goal: Ambition 0/5, +1 per serving pursuit closed, never cut by fate;
++5/5 logs LOCAL.
++Tier: A + first match (-3 if MAJOR in last 2 turns;
+++2 at 1-2 Deferred, +4 at 3+);
++MINOR/MAJOR: q 0-2 16+/20, q 3-6 12+/19+, q 7+ 8+/17+;
++else AMBIENT, where C 1-6 means logged world news, skipping source.
++q: AMBIENT +1, else 0.
++Source: hp = [hot] Bullets;
++WEIGHTED on B 14+ at hp 1-2, 9+ at 3-4, 5+ at 5+;
++hp 0 or B 1-3: TRUE.
++AMBIENT+TRUE offscreen texture the place allows, never revisited;
+++WEIGHTED warms a Bullet offscreen, +1 extra age.
++MINOR+TRUE small cost or pleasure in time, attention, comfort;
+++WEIGHTED a consequence brushes {{user}}.
++MAJOR+TRUE large, arbitrary, someone else's;
+++WEIGHTED alone fires a Bullet: [hot], age 6+, highest weight then oldest;
++no opening: MAJOR+TRUE.
++Fate's harm enters {{user}}'s scene or close circle only on MAJOR+TRUE with C 20;
++else it comes as news or changed circumstances.
++World (5 max): event, ELSEWHERE/REGIONAL/LOCAL, age;
++escalation: a band closer.
++MINOR may land an entry's first material effect at age 4+;
++MAJOR a REGIONAL/LOCAL one whole at 8+, spent with a Residue.
++News: era's channel, late, slanted, often misheard;
++reactions proportional;
++nobody ties effect to news aloud.
++Collision (THREAD): MINOR defers on C 1-12, else complicates;
++MAJOR complicates on 1-10, else displaces;
++no THREAD: it opens one.
++Deferred twice lands as MAJOR;
++at age 6 it expires.
++Each close, park or expiry leaves Residue, a lasting change to daily life.
++Quiet (AMBIENT or no THREAD): needs and clock drive NPCs;
++an occupation's loop at most 1 turn in 3;
++exactly one change;
++idle and NPC-to-NPC talk, refusals to engage;
++more dialogue;
++Residue as material.
++q 0-2: aftermath, nobody solves anything, no NPC opens a pursuit unforced.
++Bullets (8 max, TIME-LOCKED included): load ≤1/turn for setups a reader would notice unpaid, weight 1-3;
++[hot] if {{user}} caused it;
++prune at age 12.
++A named future time loads an ageless TIME-LOCKED one at absolute Day # HH:MM, firing on time at any tier;
++NPCs return naturally.
++Ledger (reply's end;
++ts, ages +1/turn): <details><summary>🎲</summary>q | hp | thread ts | deferred | world | bullets | ambitions | residue | last tier+source (5 words)</details>;
++prose names no mechanic.
++</fate>
+################ 31c8b43 Keep Fate from emptying the scene below a natural 20
+@@ -33,0 +34 @@
++Same gate for the scene's place: on every other turn it keeps running, everyone stays and carries on with what they were doing, a LOCAL happening reaches them from outside through their circumstances, and nothing inside stops them or sends them out, however much drama it would bring.
+################ 684cbeb Port the final Kimi K3 Fate patch to both presets
+@@ -34 +34 @@
+-Same gate for the scene's place: on every other turn it keeps running, everyone stays and carries on with what they were doing, a LOCAL happening reaches them from outside through their circumstances, and nothing inside stops them or sends them out, however much drama it would bring.
++Same gate for the scene's place: on every other turn it keeps running, everyone stays and carries on with what they were doing, a LOCAL happening reaches them from outside through their circumstances, and anything that would stop them or send them out waits for that gate, wherever it starts, in whatever form it reaches them, however much drama it would bring.
+@@ -38 +38,3 @@
+-MAJOR a REGIONAL/LOCAL one whole at 8+, spent with a Residue.
++MAJOR lands a REGIONAL/LOCAL one at 8+ in full, as a lasting change in the characters' circumstances, spent with a Residue;
++a ripe entry does not check whether {{user}} has been busy.
++A MAJOR with nothing logged behind it must be the kind that gives no warning.
+################ 279bb31 Fix the Logic Core thinking trick and add Fate & Bonds ledger panels
+@@ -63 +63 @@
+-ts, ages +1/turn): <details><summary>🎲</summary>q | hp | thread ts | deferred | world | bullets | ambitions | residue | last tier+source (5 words)</details>;
++ts, ages +1/turn): <details><summary>🎲</summary>q: | hp: | thread: goal, ts | deferred: | world: | bullets: | ambitions: | residue: | last: tier source, 5 words</details>;
+################ 6061a45 Keep the 🎲/💚 ledger consistent on MiMo V2.6, the way RF did
+@@ -7,2 +7,2 @@
+-ledger;
+-results only.}}{{trim}}
++results only.}}{{setvar::ariaLedgerLine::- Ledger: last 🎲 block's fields plus this turn's changes, ages +1;
++the closing 🎲 block copies these.}}{{setvar::ariaLedgerGate::- Ledger: one full 🎲 block ends the reply.}}{{trim}}
+@@ -62,2 +62,2 @@
+-Ledger (reply's end;
+-ts, ages +1/turn): <details><summary>🎲</summary>q: | hp: | thread: goal, ts | deferred: | world: | bullets: | ambitions: | residue: | last: tier source, 5 words</details>;
++Ledger, once at the very end of every reply, every field present, none when empty;
++ts and ages +1/turn: <details><summary>🎲</summary>q: n | hp: n | thread: goal, ts n | deferred: item, age n | world: event, BAND, age n | bullets: setup, weight, age n | ambitions: goal n/5 | residue: change | last: TIER SOURCE, 5 words</details>;
+################ 570c222 Compress ARIA by a quarter, add the 🔦 Flash Gate, fix the review findings
+@@ -7,2 +7,2 @@
+-results only.}}{{setvar::ariaLedgerLine::- Ledger: last 🎲 block's fields plus this turn's changes, ages +1;
+-the closing 🎲 block copies these.}}{{setvar::ariaLedgerGate::- Ledger: one full 🎲 block ends the reply.}}{{trim}}
++results only.}}{{setvar::ariaLedgerLine::- Ledger: last 🎲 block plus this turn's changes, ages +1;
++the closing 🎲 block copies it.}}{{setvar::ariaLedgerGate::- Ledger: one full 🎲 block ends the reply.}}{{trim}}
+@@ -10,12 +10,21 @@
+-{{user}} is always answered in full, and intentions may fail;
+-carried state schedules nothing.
+-Will: a pursuit by {{user}} or an NPC, or a due TIME-LOCKED Bullet, sets THREAD, ts 0;
+-close or park by ts 8.
+-{{user}}'s far-reaching acts enter World unrolled.
+-Their stated goal: Ambition 0/5, +1 per serving pursuit closed, never cut by fate;
+-5/5 logs LOCAL.
+-Tier: A + first match (-3 if MAJOR in last 2 turns;
+-+2 at 1-2 Deferred, +4 at 3+);
+-MINOR/MAJOR: q 0-2 16+/20, q 3-6 12+/19+, q 7+ 8+/17+;
+-else AMBIENT, where C 1-6 means logged world news, skipping source.
+-q: AMBIENT +1, else 0.
++{{user}} is always answered in full;
++intentions may fail;
++carried state schedules nothing;
++prose names no mechanic.
++THREAD: a pursuit anyone present chooses;
++close or park it by age 8.
++Against it, MINOR defers on C 1-12, else complicates;
++MAJOR complicates on C 1-10, else displaces;
++with none open, either opens one.
++Deferred items expire at age 6;
++a MINOR may bring one back, and one deferred twice next lands as MAJOR.
++Each close, park or expiry leaves Residue.
++{{user}}'s far-reaching acts enter World (5 max) unrolled;
++a goal {{user}} states is an Ambition 0/5, +1 per serving pursuit closed, never cut by fate, a LOCAL World entry at 5/5.
++Tier: A, -3 if MAJOR in last 2 turns, else +4 at 3+ Deferred, else +2 at 1-2.
++q 0-2: MINOR 16+, MAJOR 20+;
++q 3-6: 12+, 19+;
++q 7+: 8+, 17+;
++lower: AMBIENT, q +1;
++else q 0.
++AMBIENT on C 1-6 is logged world news, skipping Source.
+@@ -23,19 +32,9 @@
+-WEIGHTED on B 14+ at hp 1-2, 9+ at 3-4, 5+ at 5+;
+-hp 0 or B 1-3: TRUE.
+-AMBIENT+TRUE offscreen texture the place allows, never revisited;
+-+WEIGHTED warms a Bullet offscreen, +1 extra age.
+-MINOR+TRUE small cost or pleasure in time, attention, comfort;
+-+WEIGHTED a consequence brushes {{user}}.
+-MAJOR+TRUE large, arbitrary, someone else's;
+-+WEIGHTED alone fires a Bullet: [hot], age 6+, highest weight then oldest;
+-no opening: MAJOR+TRUE.
+-Fate's harm enters {{user}}'s scene or close circle only on MAJOR+TRUE with C 20;
+-else it comes as news or changed circumstances.
+-Same gate for the scene's place: on every other turn it keeps running, everyone stays and carries on with what they were doing, a LOCAL happening reaches them from outside through their circumstances, and anything that would stop them or send them out waits for that gate, wherever it starts, in whatever form it reaches them, however much drama it would bring.
+-World (5 max): event, ELSEWHERE/REGIONAL/LOCAL, age;
+-escalation: a band closer.
+-MINOR may land an entry's first material effect at age 4+;
+-MAJOR lands a REGIONAL/LOCAL one at 8+ in full, as a lasting change in the characters' circumstances, spent with a Residue;
+-a ripe entry does not check whether {{user}} has been busy.
+-A MAJOR with nothing logged behind it must be the kind that gives no warning.
+-News: era's channel, late, slanted, often misheard;
++WEIGHTED on B 14+ at hp 1-2, 9+ at 3-4, 5+ at 5+, else TRUE.
++Cells (TRUE | WEIGHTED):
++AMBIENT, offscreen: texture the place allows, never revisited | a [hot] Bullet warms, +1 extra age.
++MINOR: small cost or pleasure in time, attention, comfort, or a World entry moves a band toward LOCAL or, at age 4+, lands its first effect | a consequence brushes {{user}}.
++MAJOR: a REGIONAL/LOCAL World entry aged 8+ lands in full as Residue, however busy {{user}} is;
++with nothing logged behind it, it is large, arbitrary, someone else's and must be the kind that gives no warning | alone fires the heaviest, then oldest [hot] Bullet aged 6+ (none, or a LOCAL World entry aged 12+: TRUE).
++Only MAJOR+TRUE with C 20 lets fate bring harm into {{user}}'s scene or close circle, or stop those present or send them out, whatever the source or form, however dramatic;
++otherwise all stay and carry on, and harm and LOCAL events arrive from outside, as news or changed circumstances.
++News: era's channel, late, slanted, misheard;
+@@ -44,6 +42,0 @@
+-Collision (THREAD): MINOR defers on C 1-12, else complicates;
+-MAJOR complicates on 1-10, else displaces;
+-no THREAD: it opens one.
+-Deferred twice lands as MAJOR;
+-at age 6 it expires.
+-Each close, park or expiry leaves Residue, a lasting change to daily life.
+@@ -51,5 +44,3 @@
+-an occupation's loop at most 1 turn in 3;
+-exactly one change;
+-idle and NPC-to-NPC talk, refusals to engage;
+-more dialogue;
+-Residue as material.
++more talk, idle or NPC-to-NPC;
++exactly one thing changes;
++draw on Residue.
+@@ -57,2 +48 @@
+-Bullets (8 max, TIME-LOCKED included): load ≤1/turn for setups a reader would notice unpaid, weight 1-3;
+-[hot] if {{user}} caused it;
++Bullets (8 max): load ≤1/turn for setups a reader would notice unpaid, [hot] if {{user}} caused it;
+@@ -60,5 +50,2 @@
+-A named future time loads an ageless TIME-LOCKED one at absolute Day # HH:MM, firing on time at any tier;
+-NPCs return naturally.
+-Ledger, once at the very end of every reply, every field present, none when empty;
+-ts and ages +1/turn: <details><summary>🎲</summary>q: n | hp: n | thread: goal, ts n | deferred: item, age n | world: event, BAND, age n | bullets: setup, weight, age n | ambitions: goal n/5 | residue: change | last: TIER SOURCE, 5 words</details>;
+-prose names no mechanic.
++A named future time loads an ageless TIME-LOCKED one at Day # HH:MM that fires on time at any tier and sets THREAD.
++Ledger, "none" in an empty field, ages +1 at turn start: <details><summary>🎲</summary>q: n | hp: n | thread: pursuit, age n | deferred: item xN, age n | world: event, ELSEWHERE/REGIONAL/LOCAL, age n | bullets: setup [hot], weight 1-3, age n | ambitions: goal n/5 | residue: lasting change | last: AMBIENT/MINOR/MAJOR TRUE/WEIGHTED, 5-word happening</details>
+################ fe6c27f Issue #10 fixes: bodies, names, secrets, hesitation loops, clearer Fate
+@@ -6 +6,2 @@
+-C collision;
++C vs THREAD;
++C 20 limit;
+@@ -16,3 +17,2 @@
+-Against it, MINOR defers on C 1-12, else complicates;
+-MAJOR complicates on C 1-10, else displaces;
+-with none open, either opens one.
++MINOR or MAJOR opens one if none is open, else meets it: MINOR defers on C 1-12 (seen, handled later), else complicates;
++MAJOR complicates on C 1-10, else displaces.
+@@ -20 +20 @@
+-a MINOR may bring one back, and one deferred twice next lands as MAJOR.
++a MINOR may bring one back, and one deferred twice returns as MAJOR.
+@@ -24,2 +24,3 @@
+-Tier: A, -3 if MAJOR in last 2 turns, else +4 at 3+ Deferred, else +2 at 1-2.
+-q 0-2: MINOR 16+, MAJOR 20+;
++Tier: A, -3 if MAJOR in last 2 turns, else +4 at 3+ or +2 at 1-2 Deferred items.
++q counts AMBIENT turns in a row, from 0;
++read the total on q's band: q 0-2: MINOR 16+, MAJOR 20+;
+@@ -28 +29 @@
+-lower: AMBIENT, q +1;
++lower total: AMBIENT, q +1;
+@@ -30,2 +31,2 @@
+-AMBIENT on C 1-6 is logged world news, skipping Source.
+-Source: hp = [hot] Bullets;
++AMBIENT on C 1-6 is heard world news, logged, skipping Source.
++Source: hp counts [hot] Bullets;
+@@ -37 +38 @@
+-with nothing logged behind it, it is large, arbitrary, someone else's and must be the kind that gives no warning | alone fires the heaviest, then oldest [hot] Bullet aged 6+ (none, or a LOCAL World entry aged 12+: TRUE).
++with nothing logged behind it, it is large, arbitrary, someone else's, lands whole this turn and must be the kind that gives no warning | alone fires the heaviest, then oldest [hot] Bullet aged 6+ (none, or a LOCAL World entry aged 12+: TRUE).
+@@ -51 +52 @@
+-Ledger, "none" in an empty field, ages +1 at turn start: <details><summary>🎲</summary>q: n | hp: n | thread: pursuit, age n | deferred: item xN, age n | world: event, ELSEWHERE/REGIONAL/LOCAL, age n | bullets: setup [hot], weight 1-3, age n | ambitions: goal n/5 | residue: lasting change | last: AMBIENT/MINOR/MAJOR TRUE/WEIGHTED, 5-word happening</details>
++Ledger, "none" in an empty field, ages +1 at turn start: <details><summary>🎲</summary>q: n | hp: n | thread: pursuit, age n | deferred: item xN, age n | world: event, ELSEWHERE/REGIONAL/LOCAL, age n | bullets: setup [hot], weight 1-3, age n | ambitions: goal n/5 | residue: lasting change | last: AMBIENT/MINOR/MAJOR TRUE/WEIGHTED, fate's 5-word happening</details>
+################ 76a53ac ARIA 1.0 beta 6: second compression on RF's winning formulas
+@@ -2,2 +2 @@
+-{{setvar::ariaDice::Fate dice: A {{roll::1d20}} | B {{roll::1d20}} | C {{roll::1d20}}}}{{setvar::ariaFateLine::- Fate: A tier;
+-C news;
++{{setvar::ariaDice::Fate dice: A {{roll::1d20}} | B {{roll::1d20}} | C {{roll::1d20}}}}{{setvar::ariaFateLine::- Fate: A tier on q's band;
+@@ -4,0 +4 @@
++C form vs THREAD;
+@@ -6 +5,0 @@
+-C vs THREAD;
+@@ -10,2 +9 @@
+-<fate>
+-{{user}} is always answered in full;
++Fate: {{user}} is always answered in full;
+@@ -15,4 +13,20 @@
+-THREAD: a pursuit anyone present chooses;
+-close or park it by age 8.
+-MINOR or MAJOR opens one if none is open, else meets it: MINOR defers on C 1-12 (seen, handled later), else complicates;
+-MAJOR complicates on C 1-10, else displaces.
++World (5 max): {{user}}'s far-reaching acts, unrolled, and news heard by the era's channels by turns, late, slanted, misheard;
++nobody ties effect to news aloud.
++Ambitions: a want in {{user}}'s own words reaching past this scene logs at 0/5;
+++1 only when a closed THREAD served it, never cut by fate;
++at 5/5 it leaves as Residue and a LOCAL World entry.
++Tier, read A alone, adjusted at most once: -3 if MAJOR in last 2 turns, else +4 at 3+ or +2 at 1-2 Deferred items.
++q counts AMBIENT turns in a row, from 0;
++compare adjusted A with q's band: q 0-2: MINOR 16+, MAJOR 20+;
++q 3-6: 12+, 19+;
++q 7+: 8+, 17+;
++below MINOR: AMBIENT, q +1;
++else q 0.
++Source, read B: hp counts [hot] Bullets;
++WEIGHTED on B 14+ at hp 1-2, 9+ at 3-4, 5+ at 5+, else TRUE.
++Form, read C once, at the line the tier names:
++AMBIENT on C 1-6 is World news in place of either cell.
++With no THREAD open, MINOR or MAJOR opens one, a pursuit anyone present chooses;
++else it meets the open one: MINOR defers on C 1-12 (seen, handled later), else complicates;
++MAJOR complicates on C 1-10, else displaces, parking it and opening one on the happening.
++THREADs close or park by age 8;
+@@ -22,12 +35,0 @@
+-{{user}}'s far-reaching acts enter World (5 max) unrolled;
+-a goal {{user}} states is an Ambition 0/5, +1 per serving pursuit closed, never cut by fate, a LOCAL World entry at 5/5.
+-Tier: A, -3 if MAJOR in last 2 turns, else +4 at 3+ or +2 at 1-2 Deferred items.
+-q counts AMBIENT turns in a row, from 0;
+-read the total on q's band: q 0-2: MINOR 16+, MAJOR 20+;
+-q 3-6: 12+, 19+;
+-q 7+: 8+, 17+;
+-lower total: AMBIENT, q +1;
+-else q 0.
+-AMBIENT on C 1-6 is heard world news, logged, skipping Source.
+-Source: hp counts [hot] Bullets;
+-WEIGHTED on B 14+ at hp 1-2, 9+ at 3-4, 5+ at 5+, else TRUE.
+@@ -35,4 +37,4 @@
+-AMBIENT, offscreen: texture the place allows, never revisited | a [hot] Bullet warms, +1 extra age.
+-MINOR: small cost or pleasure in time, attention, comfort, or a World entry moves a band toward LOCAL or, at age 4+, lands its first effect | a consequence brushes {{user}}.
+-MAJOR: a REGIONAL/LOCAL World entry aged 8+ lands in full as Residue, however busy {{user}} is;
+-with nothing logged behind it, it is large, arbitrary, someone else's, lands whole this turn and must be the kind that gives no warning | alone fires the heaviest, then oldest [hot] Bullet aged 6+ (none, or a LOCAL World entry aged 12+: TRUE).
++AMBIENT, offscreen, two sentences at most: texture the place allows, never foreshadowed or revisited | a [hot] Bullet warms, +1 extra age.
++MINOR: small cost or pleasure in time, attention, comfort, or news escalates a World entry a band toward LOCAL or, at age 4+, lands its first effect | a consequence brushes {{user}}.
++MAJOR: a REGIONAL/LOCAL World entry aged 8+, or a younger one that news has escalated, lands in full as Residue, however busy {{user}} is;
++with no such entry, someone else's large, arbitrary happening lands whole this turn without warning | alone fires the heaviest, then oldest [hot] Bullet aged 6+ (none, or a LOCAL World entry aged 12+: TRUE).
+@@ -41,3 +42,0 @@
+-News: era's channel, late, slanted, misheard;
+-reactions proportional;
+-nobody ties effect to news aloud.
+@@ -45,2 +44,2 @@
+-more talk, idle or NPC-to-NPC;
+-exactly one thing changes;
++more idle or NPC-to-NPC talk;
++exactly one thing changes, without escalation;
+@@ -50,4 +49,4 @@
+-prune at age 12.
+-A named future time loads an ageless TIME-LOCKED one at Day # HH:MM that fires on time at any tier and sets THREAD.
+-Ledger, "none" in an empty field, ages +1 at turn start: <details><summary>🎲</summary>q: n | hp: n | thread: pursuit, age n | deferred: item xN, age n | world: event, ELSEWHERE/REGIONAL/LOCAL, age n | bullets: setup [hot], weight 1-3, age n | ambitions: goal n/5 | residue: lasting change | last: AMBIENT/MINOR/MAJOR TRUE/WEIGHTED, fate's 5-word happening</details>
+-</fate>
++prune at age 12;
++a named future time loads an ageless TIME-LOCKED one at Day # HH:MM, firing on time at any tier and setting THREAD.
++Ledger ("none" if empty;
++ages +1 at turn start): <details><summary>🎲</summary>q: n | hp: n | thread: pursuit, age n | deferred: item xN, age n | world: event, ELSEWHERE/REGIONAL/LOCAL, age n | bullets: setup [hot], weight 1-3, age n | ambitions: goal n/5 | residue: lasting change | last: AMBIENT/MINOR/MAJOR TRUE/WEIGHTED, fate's 5-word happening</details>
+################ ece78b2 ARIA 1.0 beta 7: third rewrite against Marvel humour and the rule of three
+@@ -9,2 +9 @@
+-Fate: {{user}} is always answered in full;
+-intentions may fail;
++Fate: {{user}} is always answered in full, though intentions may fail;
+@@ -13 +12 @@
+-World (5 max): {{user}}'s far-reaching acts, unrolled, and news heard by the era's channels by turns, late, slanted, misheard;
++World (5 max): {{user}}'s far-reaching acts, unrolled, and news arriving by the era's channels, late or slanted;
+@@ -15,2 +14 @@
+-Ambitions: a want in {{user}}'s own words reaching past this scene logs at 0/5;
+-+1 only when a closed THREAD served it, never cut by fate;
++Ambitions: a want in {{user}}'s own words reaching past this scene logs at 0/5, +1 only when a closed THREAD served it;
+@@ -29,3 +27,2 @@
+-With no THREAD open, MINOR or MAJOR opens one, a pursuit anyone present chooses;
+-else it meets the open one: MINOR defers on C 1-12 (seen, handled later), else complicates;
+-MAJOR complicates on C 1-10, else displaces, parking it and opening one on the happening.
++With no THREAD open, MINOR or MAJOR opens one, a pursuit the card's characters or {{user}} take up;
++else MINOR defers it on C 1-12 (seen, handled later) or complicates it, and MAJOR complicates it on C 1-10 or displaces it, parking it and opening one on the happening.
+@@ -33,3 +30,2 @@
+-Deferred items expire at age 6;
+-a MINOR may bring one back, and one deferred twice returns as MAJOR.
+-Each close, park or expiry leaves Residue.
++Deferred items expire at age 6, a MINOR may bring one back, and one deferred twice returns as MAJOR;
++each THREAD or Deferred item that ends leaves Residue.
+@@ -38,10 +34,9 @@
+-MINOR: small cost or pleasure in time, attention, comfort, or news escalates a World entry a band toward LOCAL or, at age 4+, lands its first effect | a consequence brushes {{user}}.
+-MAJOR: a REGIONAL/LOCAL World entry aged 8+, or a younger one that news has escalated, lands in full as Residue, however busy {{user}} is;
+-with no such entry, someone else's large, arbitrary happening lands whole this turn without warning | alone fires the heaviest, then oldest [hot] Bullet aged 6+ (none, or a LOCAL World entry aged 12+: TRUE).
+-Only MAJOR+TRUE with C 20 lets fate bring harm into {{user}}'s scene or close circle, or stop those present or send them out, whatever the source or form, however dramatic;
+-otherwise all stay and carry on, and harm and LOCAL events arrive from outside, as news or changed circumstances.
+-Quiet (AMBIENT or no THREAD): needs and clock drive NPCs;
+-more idle or NPC-to-NPC talk;
+-exactly one thing changes, without escalation;
+-draw on Residue.
+-q 0-2: aftermath, nobody solves anything, no NPC opens a pursuit unforced.
++MINOR: a small cost or pleasure in time or comfort, or news escalates a World entry a band toward LOCAL or, at age 4+, lands its first effect | a consequence brushes {{user}}.
++MAJOR, rare: a REGIONAL/LOCAL World entry aged 8+, or a younger one news escalated, lands in full as Residue, however busy {{user}} is;
++with none, someone else's large, arbitrary happening lands whole this turn without warning | alone fires the heaviest, then oldest [hot] Bullet aged 6+ (none, or a LOCAL World entry aged 12+: TRUE).
++Only MAJOR+TRUE on C 20 lets fate harm {{user}}'s scene or close circle or stop or remove anyone present, however dramatic the cell;
++otherwise everyone stays and carries on, harm and LOCAL events arrive from outside as news or changed circumstances, and anyone fate brings keeps to the edge.
++Quiet (AMBIENT or no THREAD): needs and the clock drive people, with idle and side talk, a lost thread, a distracted answer or a joke that falls flat;
++one thing changes without escalating, a posture, the topic, who holds the floor or a task, coloured by Residue.
++q 0-2: aftermath;
++nobody solves anything or opens a pursuit unforced.
+################ 6993aed Beta 7 tester fixes: GLM Flash stiffness, DeepSeek echoes and invented body parts
+@@ -12 +12 @@
+-World (5 max): {{user}}'s far-reaching acts, unrolled, and news arriving by the era's channels, late or slanted;
++World (5 max): {{user}}'s far-reaching acts, unrolled, and news arriving by the era's channels, late or slanted, on the page only once it reaches someone present, else in the ledger alone;
+@@ -33 +33 @@
+-AMBIENT, offscreen, two sentences at most: texture the place allows, never foreshadowed or revisited | a [hot] Bullet warms, +1 extra age.
++AMBIENT, one sentence at most, folded into a paragraph about someone present and never the reply's last line: texture seen or heard where {{user}} is, never foreshadowed or revisited | a [hot] Bullet warms, +1 extra age.

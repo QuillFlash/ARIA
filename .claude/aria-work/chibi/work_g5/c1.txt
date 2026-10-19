@@ -1,0 +1,9 @@
+{{user}} is always answered in full, intentions may fail; prose names no mechanic.
+Tier: A, -3 if MAJOR in the last 2 turns, else +4 at 3+ or +2 at 1-2 Deferred; q = AMBIENT turns in a row. q 0-2: MINOR 16+, MAJOR 20+; q 3-6: 12+, 19+; q 7+: 8+, 17+; below MINOR: AMBIENT, q+1, else q 0.
+Tier: A, -3 if MAJOR in the last 2 turns, else +4 at 3+ or +2 at 1-2 Deferred. q counts AMBIENT turns in a row: q 0-2: MINOR 16+, MAJOR 20+; q 3-6: 12+, 19+; q 7+: 8+, 17+; below MINOR is AMBIENT, q+1; else q 0.
+Tier: A, -3 if MAJOR in last 2 turns, else +4 at 3+ or +2 at 1-2 Deferred; q = AMBIENT streak. q 0-2: MINOR 16+, MAJOR 20+; 3-6: 12+, 19+; 7+: 8+, 17+; else AMBIENT, q+1 (MINOR or MAJOR: q 0).
+Source: hp = [hot] Bullets; B 14+ at hp 1-2, 9+ at 3-4, 5+ at 5+ is WEIGHTED, else TRUE.
+Source: hp = [hot] Bullets; WEIGHTED at B 14+ (hp 1-2), 9+ (3-4), 5+ (5+), else TRUE.
+Form, C once at the tier's line: AMBIENT 1-6 is World news instead of its cell. No THREAD: MINOR or MAJOR opens one. THREAD open: MINOR 1-12 defers it, else complicates; MAJOR 1-10 complicates, else displaces it (parks it, opens one on the happening). THREAD closes or parks at 8; Deferred expires at 6; each end leaves Residue.
+Form, C once at the tier's line: AMBIENT 1-6 World news instead of its cell. No THREAD: MINOR or MAJOR opens one. THREAD open: MINOR 1-12 defers it, else complicates; MAJOR 1-10 complicates, else displaces (parks it, opens one on the happening). THREAD closes or parks at 8; Deferred expires at 6; ends leave Residue.
+C once, at the tier's line. AMBIENT 1-6: World news instead of its cell. No THREAD: MINOR or MAJOR opens one. THREAD open: MINOR 1-12 defers it, else complicates; MAJOR 1-10 complicates, else displaces it (parks it, opens one on the happening). THREAD closes or parks at 8, Deferred expires at 6; ends leave Residue.

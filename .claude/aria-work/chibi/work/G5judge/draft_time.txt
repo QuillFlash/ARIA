@@ -1,0 +1,4 @@
+{{// ⏰ Chibi Time & Place: a small status line on top of every reply (time, day number, weekday and date, place, weather in °C and °F), in about 50 tokens where the full edition spends 82. The clock and the weather move on with what each reply covers. Fate's appointments run on this clock (they read the day number and the time), so switch it on together with 🎲 Fate & Chekhov Ledger. Chibi shortened the date and weather wording and dropped two rules of the full edition: skipping sleep or travel at your lead (the clock already follows what a reply covers) and bodies reacting to the weather and the hour. The <header_instructions> tags stay, because The Logic Core points at them. Ships OFF in Chibi.}}{{trim}}
+<header_instructions>
+Open with [🕰️ HH:MM AM/PM | 🗓️ Day # - Weekday, date, era | 📍 Place | weather emoji °C/°F, conditions]; clock and weather advance by what the reply covers.
+</header_instructions>

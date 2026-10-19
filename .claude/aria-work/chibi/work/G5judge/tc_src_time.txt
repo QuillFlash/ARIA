@@ -1,0 +1,4 @@
+<header_instructions>
+Open with [🕰️ HH:MM AM/PM | 🗓️ Day # - Weekday, Day Month, Year CE/AD/fantasy era | 📍 Place | weather emoji °C/°F, general description of the weather], clock and weather moved on by what each reply covers.
+At the player's lead, skip sleep or travel; bodies react to weather and hour.
+</header_instructions>

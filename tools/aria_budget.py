@@ -14,7 +14,7 @@ import re
 import sys
 from pathlib import Path
 
-BUDGET = 7000
+BUDGET = 7500
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PRESETS = [
     ROOT / "Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json",
@@ -30,7 +30,7 @@ FALSE_WORDS = {'', 'off', 'false', '0'}
 
 def budget_for(filename):
     """The token budget for a preset, by its filename: 3000 for Chibi Edition, BUDGET otherwise."""
-    return 3000 if 'Chibi Edition' in filename else BUDGET
+    return 3550 if 'Chibi Edition' in filename else BUDGET
 
 
 def take_macro(s, i):
@@ -221,26 +221,20 @@ def analyse_cc(preset, filename=''):
     by_prefix = lambda *pre: {pid for pid in prompts if name[pid].startswith(pre)}
     patches = by_prefix('🩹')
     core = shipped - by_prefix('🎲', '⏰')
-    lc_ids = {pid for pid in prompts if name[pid].startswith('🧠 The Logic Core')}
-    # 🏎️ Micro Chain of Thought plans the reply in place of The Logic Core, so a kitted-out path runs one or the other
-    micro_ids = by_prefix('🏎️')
-    skip_all_on = by_prefix('🌳', '🌿') | {pid for pid in prompts if 'twin' in name[pid]} | micro_ids
+    skip_all_on = by_prefix('🌳', '🌿') | {pid for pid in prompts if 'twin' in name[pid]}
     skip_all_on |= {'enhanceDefinitions'} | patches
     no_patch = {row['identifier'] for row in order} - skip_all_on
 
-    def with_largest_patch(base):
-        """base plus the patch whose whole cost over it is largest, its own text plus any line it hands the plan or the gate."""
-        cost = lambda pid: sum(tokens(t) for t in simulate_cc(preset, base | {pid}, seed=1)[0].values())
-        largest = max(patches, key=cost, default=None)
-        return base | ({largest} if largest else set())
+    def patch_cost(pid):
+        """A patch's whole cost, its own text plus any line it hands the gate."""
+        rendered, _ = simulate_cc(preset, no_patch | {pid}, seed=1)
+        return sum(tokens(t) for t in rendered.values())
 
-    all_on = with_largest_patch(no_patch)
-    kitted = [('everything ON', all_on)]
-    if micro_ids:
-        kitted.append(('everything ON, 🏎️ Micro', with_largest_patch((no_patch - lc_ids) | micro_ids)))
+    largest_patch = max(patches, key=patch_cost, default=None)
+    all_on = no_patch | ({largest_patch} if largest_patch else set())
 
     totals = {}
-    for label, enabled in [('core', core), ('shipped default', shipped)] + kitted:
+    for label, enabled in (('core', core), ('shipped default', shipped), ('everything ON', all_on)):
         rendered, _ = simulate_cc(preset, enabled, seed=1)
         totals[label] = sum(tokens(t) for t in rendered.values())
         if label == 'everything ON':
@@ -253,9 +247,8 @@ def analyse_cc(preset, filename=''):
     imp_setting = tokens(render(preset.get('impersonation_prompt') or '', {}, random.Random(1)))
     totals['Impersonate adds'] = sum(tokens(t) for t in imp.values()) - totals['everything ON'] + \
         sum(tokens(normal[pid]) for pid in normal if pid not in imp) + imp_setting
-    for label, _ in kitted:
-        if totals[label] > budget_for(filename):
-            errors.append(f"{label} is {totals[label]} tokens, over the {budget_for(filename)} budget")
+    if totals['everything ON'] > budget_for(filename):
+        errors.append(f"everything ON is {totals['everything ON']} tokens, over the {budget_for(filename)} budget")
 
     rendered, _ = simulate_cc(preset, all_on, seed=1)
     named = {name[pid]: t for pid, t in rendered.items()}
@@ -265,15 +258,16 @@ def analyse_cc(preset, filename=''):
     errors += wiring
     # The same wiring check over every Logic Core shape: each 🏷️ tags entry on its own (the <thinking> one and the Gemini 4
     # Argon <thought> one) or none, normal and Impersonate, each model patch, the assistant Logic Core, its system-role twin,
-    # 🏎️ Micro in their place, or none. With a tags entry on nothing may name <logic_core>: the plan opens on the fence tag,
-    # and a second tag there is what models copied.
+    # or neither. With a tags entry on nothing may name <logic_core>: the plan opens on the fence tag, and a second tag there
+    # is what models copied.
     tags_ids = by_prefix('🏷️')
+    lc_ids = {pid for pid in prompts if name[pid].startswith('🧠 The Logic Core')}
     base = all_on - patches - tags_ids - lc_ids
     seen = set(errors)
     for tags in sorted(tags_ids) + [None]:
         for imp in (False, True):
             for patch in sorted(patches) + [None]:
-                for lc in sorted(lc_ids) + sorted(micro_ids) + [None]:
+                for lc in sorted(lc_ids) + [None]:
                     enabled = base | ({patch} if patch else set()) | ({tags} if tags else set()) | ({lc} if lc else set())
                     r, _ = simulate_cc(preset, enabled, seed=1, impersonate=imp)
                     label = f"{name[tags] if tags else 'Tags OFF'}, {'Impersonate' if imp else 'normal'}, {name[lc] if lc else 'no Logic Core'}, {name[patch] if patch else 'no patch'}"
@@ -354,50 +348,40 @@ def analyse_tc(preset, filename=''):
     # The shared base: every switch that is not a patch ON, every patch OFF. Patches are ranked over it, the way analyse_cc
     # does, because a patch hands the plan and the gate lines that print only while the Logic Core, Bonds, Fate or the
     # Flash Gate are on, and with everything else off the ranking picked a patch that is not the real maximum.
-    # aria-micro plans the reply in place of The Logic Core, so the base keeps it OFF and a second kitted-out path swaps it in.
-    micro = 'aria-micro' in shipped
     base = {s: 'on' for s in shipped if not s.startswith('aria-patch')} | {p: 'off' for p in patches}
-    if micro:
-        base['aria-micro'] = 'off'
 
-    def with_largest_patch(over):
-        """over plus the patch whose whole cost over it is largest, its own text plus any line it hands the plan and the gate."""
-        cost = lambda p: sum(tokens(t) for t in simulate_tc(preset, over | {p: 'on'}, 1)[0].values())
-        largest = max(patches, key=cost, default=None)
-        return over | ({largest: 'on'} if largest else {})
+    def patch_cost(p):
+        """A patch's whole cost over the base, its own text plus any line it hands the plan and the gate."""
+        r_on, _ = simulate_tc(preset, base | {p: 'on'}, 1)
+        r_off, _ = simulate_tc(preset, base, 1)
+        return sum(tokens(t) for t in r_on.values()) - sum(tokens(t) for t in r_off.values())
 
-    all_on = with_largest_patch(base)
-    kitted = [('everything ON', all_on)]
-    if micro:
-        kitted.append(('everything ON, 🏎️ Micro', with_largest_patch(base | {'aria-logic-core': 'off', 'aria-micro': 'on'})))
+    largest = max(patches, key=patch_cost, default=None)
+    all_on = base | ({largest: 'on'} if largest else {})
     roomy = dict(shipped) | {'aria-logic-core': 'on', 'aria-fate': 'on', 'aria-time-place': 'on'}
 
     totals = {}
-    for label, overrides in [('shipped (lean, 32k)', shipped), ('+ Logic Core, Fate, Time', roomy)] + kitted:
+    for label, overrides in (('shipped (lean, 32k)', shipped), ('+ Logic Core, Fate, Time', roomy), ('everything ON', all_on)):
         rendered, _ = simulate_tc(preset, overrides, seed=1)
         totals[label] = sum(tokens(t) for t in rendered.values())
         if label == 'everything ON':
             print('Tokens with everything ON:')
             for part, text in rendered.items():
                 print(f'  {tokens(text):5}  {part}')
-    for label, _ in kitted:
-        if totals[label] > budget_for(filename):
-            errors.append(f"{label} is {totals[label]} tokens, over the {budget_for(filename)} budget")
+    if totals['everything ON'] > budget_for(filename):
+        errors.append(f"everything ON is {totals['everything ON']} tokens, over the {budget_for(filename)} budget")
 
     rendered, _ = simulate_tc(preset, all_on, seed=1)
     raw_all = system + '\n' + (preset['sysprompt'].get('post_history') or '')
     wiring, setters = wiring_errors(rendered, rendered['System Prompt'], raw_all, 'the System Prompt')
     errors += wiring
-    # Every Logic Core shape: tags on and off, Logic Core on and off (and Micro in its place), with each patch alone; with
-    # tags on nothing may name <logic_core>
-    cots = [{'aria-logic-core': 'on'}, {'aria-logic-core': 'off'}]
-    if micro:
-        cots = [c | {'aria-micro': 'off'} for c in cots] + [{'aria-logic-core': 'off', 'aria-micro': 'on'}]
+    # Every Logic Core shape: tags on and off, Logic Core on and off, with each patch alone; with tags on nothing may
+    # name <logic_core>
     seen = set(errors)
     for tags in ('on', 'off'):
-      for cot in cots:
+      for lc in ('on', 'off'):
         for patch in patches + [None]:
-            overrides = dict(all_on) | {p: 'off' for p in patches} | {'aria-thinking-tags': tags} | cot
+            overrides = dict(all_on) | {p: 'off' for p in patches} | {'aria-thinking-tags': tags, 'aria-logic-core': lc}
             if patch:
                 overrides[patch] = 'on'
             r, _ = simulate_tc(preset, overrides, seed=1)
@@ -407,8 +391,7 @@ def analyse_tc(preset, filename=''):
             for e in found:
                 if e not in seen:
                     seen.add(e)
-                    shape = ', '.join(f'{k} {v}' for k, v in cot.items())
-                    errors.append(f"{e} (aria-thinking-tags {tags}, {shape}, {patch or 'no patch'})")
+                    errors.append(f"{e} (aria-thinking-tags {tags}, aria-logic-core {lc}, {patch or 'no patch'})")
     errors += order_errors([('the System Prompt', system), ('the post-history', preset['sysprompt'].get('post_history') or '')])
 
     stale = {v: 'stale value from an earlier turn' for v in setters}

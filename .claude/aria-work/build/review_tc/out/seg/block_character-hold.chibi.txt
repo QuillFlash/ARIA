@@ -1,0 +1,1 @@
+{{#if .aria-character-hold}}{{setvar::ariaHoldLine::- Layers: per card character, one trait the mood fits, one it buries, in card words; both show this reply.}}{{setvar::ariaHoldGate::- Layers: card characters keep every trait and want the whole chat; strong moods tint, buried traits still show.}}{{/if}}

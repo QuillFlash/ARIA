@@ -1,0 +1,11 @@
+{{user}} is answered in full; prose names no mechanic.
+Tier: A, -3 after a MAJOR in 2 turns, else +4 at 3+ or +2 at 1-2 Deferred; q = AMBIENT turns in a row; q 0-2: MINOR 16+, MAJOR 20+; q 3-6: 12+, 19+; q 7+: 8+, 17+; below MINOR: AMBIENT, q+1; else q 0.
+Source: hp = [hot] Bullets; WEIGHTED at B 14+ (hp 1-2), 9+ (3-4), 5+ (5+); else TRUE.
+Tier, TRUE | WEIGHTED; C read once:
+AMBIENT: ≤1 sentence of texture in a paragraph about someone present; C 1-6: news, shown once it reaches someone present | a [hot] Bullet warms.
+MINOR: small cost or pleasure, or news moves a World entry nearer LOCAL | a consequence brushes {{user}}.
+MAJOR, rare, whole this turn: a World entry aged 8+ lands however busy {{user}} is, else someone else's large happening, unwarned | the heaviest, oldest [hot] Bullet aged 6+ fires.
+No THREAD: MINOR/MAJOR opens one, a pursuit of card characters or {{user}}; else MINOR C 1-12 defers it, else complicates; MAJOR C 1-10 complicates, else displaces (parks it, opens one).
+Only MAJOR+TRUE on C 20 may harm {{user}}'s scene or stop/remove anyone present; else all stay, harm and LOCAL events come from outside.
+Bullets (max 8): ≤1 a turn, [hot] if {{user}} caused it; a named future time → ageless TIME-LOCKED one at Day # HH:MM, firing on time.
+Ledger (none if empty): <details><summary>🎲</summary>q: n | hp: n | thread: pursuit, age n | deferred: item xN, age n | world: event, ELSEWHERE/REGIONAL/LOCAL, age n | bullets: setup [hot], weight 1-3, age n | ambitions: goal n/5 | residue: lasting change | last: AMBIENT/MINOR/MAJOR TRUE/WEIGHTED, fate's 5-word happening</details>

@@ -1,0 +1,1 @@
+[{"adult_mode": "FREAKY", "pov_style": "HYBRID", "core_modules": ["SCENE", "NPCVOICE", "ANTISLOP", "SCENT", "ANTHRO", "FLASH", "HOLD"], "world_engine": ["TIME", "FATE", "BONDS"], "model_patch": "GLM", "logic_core": "ASSISTANT", "logic_options": ["THINKTAGS", "REDUCE", "JAILBREAK"], "state_mode": "AGENTS"}]
