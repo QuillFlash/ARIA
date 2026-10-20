@@ -796,7 +796,7 @@
                 },
                 {
                     "identifier": "379e3c22-9a25-5e6d-bf4a-037d49aa60d9",
-                    "enabled": false
+                    "enabled": true
                 },
                 {
                     "identifier": "ab7782ab-d257-4fef-8973-cd9633e7aa99",
@@ -804,6 +804,10 @@
                 },
                 {
                     "identifier": "2c6f02bf-f7b6-4a68-a4d5-d022eaf6b8f1",
+                    "enabled": false
+                },
+                {
+                    "identifier": "8c537226-3a58-4abf-af4f-5298a7052bc3",
                     "enabled": false
                 },
                 {
