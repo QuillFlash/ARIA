@@ -34,7 +34,7 @@ Every idol needs to know her stage before the show, so let's learn ours! Nangong
 | **AI model** | The singer on that stage: Claude, Gemini, DeepSeek, GLM, MiMo and friends. Each one has its own voice and its own bad habits. |
 | **Preset** | The setlist and stage notes the app hands the model before every single reply. ARIA is a preset! |
 | **Prompt** | Everything the model reads at once: the preset's rules, your character card, the chat so far and your newest message. |
-| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 4,563 tokens as shipped in the Chat Completions file and stay under a 7,500 cap on every path: about 6,441 with The Logic Core and about 7,500 at most with the Big 👹 jailbreak in its place. The Text Completions file starts at about 3,106. My pocket-sized Chibi Edition (section 7) comes to 1,629 as shipped and 3,550 at most fully kitted out with the 👹 Small Jailbreak in place of the plan (3,136 with The Logic Core instead, and Marinara peaks at 3,307), all inside its 3,550 cap. |
+| **Token** | The little chunks models read text in, about three quarters of an English word each. Providers bill you per token, so a lean preset means cheaper, faster replies. My rules come to roughly 4,561 tokens as shipped in the Chat Completions file and stay under a 7,500 cap on every path: about 6,439 with The Logic Core and about 7,498 at most with the Big 👹 jailbreak in its place. The Text Completions file starts at about 3,104. My pocket-sized Chibi Edition (section 7) comes to 1,619 as shipped and 3,550 at most fully kitted out with the 👹 Small Jailbreak in place of the plan (3,136 with The Logic Core instead, and Marinara peaks at 3,307), all inside its 3,550 cap. |
 | **Toggle** | The on/off switch next to each entry in the preset list. ON sends that entry to the model, OFF leaves it out. |
 | **Character card** | The file that describes who you're talking to: looks, personality, first message. |
 | **Lorebook** (World Info) | Notes about your world that pop into the prompt when their keywords show up in the chat. |
@@ -253,7 +253,7 @@ The Claude 5 and Gemini patches live only in the Chat Completions file, since th
 My lean start uses about 3,100 tokens, and SillyTavern also keeps your Response (tokens) free for the reply. Your character card usually takes 1,000 to 3,000 more, and everything else is chat. Most switches cost their tokens once per turn, while Time & Place, Fate and Bonds also leave a small line inside every reply, and those lines stay in the chat. After 100 replies, Fate's 🎲 lines alone add up to about 9,000 tokens, more than a quarter of a 32k window! My advice:
 
 - **32k:** stay lean. Turn on The Logic Core only if your model has 24B parameters or more and a few extra seconds per reply don't bother you.
-- **Tight on room anyway:** my Chibi Edition (section 7) starts at about 1,690 tokens, with The Logic Core already on.
+- **Tight on room anyway:** my Chibi Edition (section 7) starts at about 1,680 tokens, with The Logic Core already on.
 - **64k or more:** switch on `aria-fate` and `aria-time-place` together for the full world engine, and add `aria-bonds` if you love relationship drama~
 - **Small models (12B and below):** keep Fate off whatever your context size, because its bookkeeping asks a lot of a small model.
 
@@ -312,7 +312,7 @@ Chibi comes in three files that sit next to the full ones, plus the regex file m
 | `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition — Agent Gating.json` | Marinara Engine | Below |
 
 - **Chat Completions.** Follow the five steps of section 2 with the Chibi file. The prompt list still starts with 🌳 README and ⚡ ARIA Main Prompt, and the README entry's version line reads Chibi Edition — Version 1.0 beta 8. Allow the regex scripts when SillyTavern asks. They're the very same ones the full file carries.
-- **Text Completions.** Follow section 6 with the Chibi file. Both dropdowns should read **ARIA 1.0 beta 8 Chibi Edition (Text Completions)**, and the five settings, the switch lines, the thinking setup and the speed tips are all the same. One difference: Chibi starts with 🧠 The Logic Core already ON, because without it my lean start would be only about 1,350 tokens. The regex file is shared too: `regex/ARIA 1.0 Regex Scripts (Text Completions).json` serves both Text Completions editions, so one copy covers whichever one you run. Make it the current copy, though. An older copy can leave the last lines of a plan behind when a model echoes it, so delete the old ARIA scripts from the **Global** list before you import the new file, as section 6 describes.
+- **Text Completions.** Follow section 6 with the Chibi file. Both dropdowns should read **ARIA 1.0 beta 8 Chibi Edition (Text Completions)**, and the five settings, the switch lines, the thinking setup and the speed tips are all the same. One difference: Chibi starts with 🧠 The Logic Core already ON, because without it my lean start would be only about 1,345 tokens. The regex file is shared too: `regex/ARIA 1.0 Regex Scripts (Text Completions).json` serves both Text Completions editions, so one copy covers whichever one you run. Make it the current copy, though. An older copy can leave the last lines of a plan behind when a model echoes it, so delete the old ARIA scripts from the **Global** list before you import the new file, as section 6 describes.
 - **Marinara Engine.** The third file is a Marinara preset, built on u/BSPiotr's Marinara conversion of the full edition. Import it into Marinara Engine like any Marinara preset, then pick your options in its choice blocks (adult mode, point of view, core modules, world engine, model patch, Logic Core, Logic Core options and State backend) instead of flipping toggles. The Marinara file carries no regex scripts, so there are no panels and no 💭 Thoughts box there. Chibi's starting choices leave 🎲 Fate and ⏰ Time & Place unticked. Five of its sections also ship switched off in Marinara's own section list, just as in the full edition's file: 😈 Freaky Override, 🐺 Anthro Vocals, 🩹 Claude 5, 🩹 Gemini and 🩹 MiMo V2.6 Pro. The 👹 Demons of Delusion Small Jailbreak section ships off too, in the 🧠 Logic Core group: pick that option in the Logic Core block and switch the section on. Picking one of the other choices doesn't bring its entry's own text until you switch its section on as well.
 
 ### How big am I?
@@ -321,17 +321,17 @@ Measured with `python3 tools/aria_budget.py` (and the Marinara render checker fo
 
 | Configuration | Full edition | Chibi Edition |
 |---|---|---|
-| Chat Completions, shipped default | ~4,563 | 1,629 |
-| Chat Completions, fully kitted out on The Logic Core path (every module ON, with the largest patch, 🩹 GLM) | ~6,441 | 3,136 |
-| Chat Completions, the same with the 👹 Demons of Delusion Small Jailbreak in place of The Logic Core | 6,688 (the Big is 7,500, the Pico 5,531) | 3,550 (3,533 without Reduce Reasoning) |
+| Chat Completions, shipped default | ~4,561 | 1,619 |
+| Chat Completions, fully kitted out on The Logic Core path (every module ON, with the largest patch, 🩹 GLM) | ~6,439 | 3,136 |
+| Chat Completions, the same with the 👹 Demons of Delusion Small Jailbreak in place of The Logic Core | 6,686 (the Big is 7,498, the Pico 5,529) | 3,550 (3,533 without Reduce Reasoning) |
 | An Impersonate turn against those | ~63 fewer on The Logic Core path, ~23 fewer on the Small Jailbreak path | 65 fewer on The Logic Core path (3,071), 35 fewer on the jailbreak path (3,515) |
-| Text Completions, lean start | ~3,100 | ~1,690 |
-| Text Completions, plus The Logic Core, Fate and Time & Place | ~4,615 | ~2,126 |
-| Text Completions, fully kitted out on The Logic Core path (🩹 GLM, 🔦 Flash Gate and 🧷 Character Hold included) | ~6,337 | 3,065 |
-| Marinara, everything ticked with 🩹 GLM, no agents | ~6,495 | 3,220 |
-| Marinara, the same with the Agents state backend | ~6,754 | 3,307 |
+| Text Completions, lean start | ~3,100 | ~1,680 |
+| Text Completions, plus The Logic Core, Fate and Time & Place | ~4,613 | ~2,116 |
+| Text Completions, fully kitted out on The Logic Core path (🩹 GLM, 🔦 Flash Gate and 🧷 Character Hold included) | ~6,335 | 3,065 |
+| Marinara, everything ticked with 🩹 GLM, no agents | ~6,494 | 3,220 |
+| Marinara, the same with the Agents state backend | ~6,752 | 3,307 |
 
-Chibi's Chat Completions file ships 🎲 Fate & Chekhov Ledger and ⏰ Time & Place OFF, which is how its shipped default lands at 1,629 (the full file ships both ON). Chibi's Text Completions file starts with The Logic Core ON and the full one starts with it OFF, so those two lean starts aren't a fair match: switch The Logic Core off and Chibi's lean start would be about 1,350.
+Chibi's Chat Completions file ships 🎲 Fate & Chekhov Ledger and ⏰ Time & Place OFF, which is how its shipped default lands at 1,619 (the full file ships both ON). Chibi's Text Completions file starts with The Logic Core ON and the full one starts with it OFF, so those two lean starts aren't a fair match: switch The Logic Core off and Chibi's lean start would be about 1,345.
 
 The Agents state backend in Marinara adds its protocol note, about 86 tokens (the full edition's adds about 260), so with 🩹 GLM everything ticked comes to 3,307, still under the cap. Every other patch stays under 3,550 there too.
 
@@ -501,10 +501,10 @@ Measured with `python3 tools/aria_budget.py`, which counts rendered text with co
 
 | Chat Completions configuration | Tokens |
 |---|---|
-| Core (everything that ships ON except Fate and Time & Place) | ~3,564 |
-| Shipped default | ~4,563 |
-| Fully kitted out on The Logic Core path (the defaults plus Logic Core Tags, Adult, Freaky, Hybrid POV, Anthro, Bonds, 🔦 Flash Gate, 🧷 Character Hold, Reduce Reasoning and the largest model patch, now 🩹 GLM) | ~6,441 |
-| The same with a 👹 Demons of Delusion jailbreak in place of The Logic Core | 6,688 (Small), 5,531 (Pico), 7,500 (Big) |
+| Core (everything that ships ON except Fate and Time & Place) | ~3,562 |
+| Shipped default | ~4,561 |
+| Fully kitted out on The Logic Core path (the defaults plus Logic Core Tags, Adult, Freaky, Hybrid POV, Anthro, Bonds, 🔦 Flash Gate, 🧷 Character Hold, Reduce Reasoning and the largest model patch, now 🩹 GLM) | ~6,439 |
+| The same with a 👹 Demons of Delusion jailbreak in place of The Logic Core | 6,686 (Small), 5,529 (Pico), 7,498 (Big) |
 | An Impersonate turn against that (the 🪞 entry and SillyTavern's impersonation prompt come in, while the Fate, Bonds, ledger, dice, POV, Own words and 🧷 Character Hold lines drop out) | ~63 fewer on The Logic Core path, ~23 fewer on the Small Jailbreak path, ~62 fewer on the Big and 50 more on the Pico |
 
 For comparison, Realistic Frankenstein 2.2.1.3 set up the same way (its Fate & Routine engine, Chekhov's Gun, the killswitches, the last-mile gates and a model patch) renders about 23,800 tokens, so a fully kitted ARIA path is roughly 73% smaller. Beta 7 is the third rewrite, and as first released it came out a little larger than beta 6: about 100 tokens more as shipped and about 40 more with every switch on. Its new rules against superhero banter, lists of three, drifting temperament and scene-stealing newcomers cost about 400 tokens, and dropping gate lines that repeated rules nobody broke paid back most of that. Getting clearly below beta 6 would mean cutting rules the testers proved useful, so that trade is yours to call.
@@ -513,10 +513,10 @@ The Text Completions file, measured the same way:
 
 | Text Completions configuration | Tokens |
 |---|---|
-| Lean start, as shipped for 32k | ~3,106 |
-| Plus The Logic Core, Fate and Time & Place | ~4,615 |
-| Fully kitted out on The Logic Core path (largest patch, 🔦 Flash Gate and 🧷 Character Hold included) | ~6,337 |
-| The same with the Micro jailbreak in place of The Logic Core | 6,846 |
+| Lean start, as shipped for 32k | ~3,104 |
+| Plus The Logic Core, Fate and Time & Place | ~4,613 |
+| Fully kitted out on The Logic Core path (largest patch, 🔦 Flash Gate and 🧷 Character Hold included) | ~6,335 |
+| The same with the Micro jailbreak in place of The Logic Core | 6,844 |
 
 The checker ranks the patches over a setup with every other switch on, the way it does for the Chat Completions file, so the largest one in this row is 🩹 GLM, whose five lines print in the plan as well as in the gate. (Before beta 8's checker fix it sized each patch with every other switch off, picked 🩹 MiMo V2.6 Flash and showed this row as about 5,940.) Beta 5 measured about 4,430 here with everything ON. Want to compare the two builds for yourself? Beta 5 waits in `archive/ARIA 1.0 beta 5/` with its presets and regex file, plus `Model fixes.md`, which lists all 139 model fixes it carried. Its presets carry their own names, so you can import them next to the current ones. Its regex file uses the same script names as mine, so on the Text Completions file swap it in only while you test beta 5 and put the current file back afterwards, the way section 6 describes.
 
@@ -631,7 +631,7 @@ On Impersonate, the 🪞 Impersonation Turn blanks the Fate, Bonds, ledger, dice
 - Beta 6 rewrote every rule to lead with what to write and turned the gate's questions into instructions, after our beta tester found MiMo V2.6 Flash and Pro sloppy on beta 5. It still needs live re-tests on Kimi K3 and on both MiMo models: Flash with the tester's own setup (🏷️ Logic Core Tags, 🔞 Adult Context, 👀 Hybrid POV, the 🩹 MiMo V2.6 Flash patch and the 🔦 Flash Gate) and Pro with no plan at all. The live test plan below lists what to look for.
 - Ambitions use a compact form of the Douyin Edition's wording that no live model has run yet. Watch for counters stuck at 0/5 after a thread that served them closed, and for goals you never stated.
 - In Text Completions, ticking **Prefer Char. Instructions** lets a card's own Post-History Instructions replace my post-history block, and the 🚪 Last-Mile Gate goes with it. Since beta 6 that gate carries the only copy of the thought-form rule, so keep the box unticked (section 6).
-- The Chat Completions default now sits at about 4,563 tokens, and its largest Logic Core path (every entry that goes with it and the largest patch, 🩹 GLM) at about 6,441 of the checker's 7,500; the Big 👹 jailbreak path is the biggest at 7,500. The Text Completions file's largest Logic Core path is about 6,337, and its Micro jailbreak path 6,846. The Chibi Edition files have a cap of 3,550: with The Logic Core they sit at 3,136 (Chat Completions) and 3,065 (Text Completions), and their 👹 Small Jailbreak path at 3,550. The checker sizes one plan at a time, because The Logic Core and the jailbreak entries are alternatives, never additive. The cap went from 5,000 to 6,000 when model patches started handing their gate lines to The Logic Core as well. Those lines now sit on their own between Voice and Move, and the plan's "N dashed lines" counts them. The cap then went from 6,000 to 7,000 for Realistic Frankenstein's jailbreak pieces, and from 7,000 to 7,500 in beta 8 to fit the Big jailbreak path; the Chibi cap went from 3,000 to 3,550 for the same reason. The 🔓 Jailbreak toggle that first used that room is gone again, and the Micro-based Logic Core in its place costs about 110 tokens more than the old one. New model fixes fit best inside model patches, since a path counts only the largest one.
+- The Chat Completions default now sits at about 4,561 tokens, and its largest Logic Core path (every entry that goes with it and the largest patch, 🩹 GLM) at about 6,439 of the checker's 7,500; the Big 👹 jailbreak path is the biggest at 7,498. The Text Completions file's largest Logic Core path is about 6,335, and its Micro jailbreak path 6,844. The Chibi Edition files have a cap of 3,550: with The Logic Core they sit at 3,136 (Chat Completions) and 3,065 (Text Completions), and their 👹 Small Jailbreak path at 3,550. The checker sizes one plan at a time, because The Logic Core and the jailbreak entries are alternatives, never additive. The cap went from 5,000 to 6,000 when model patches started handing their gate lines to The Logic Core as well. Those lines now sit on their own between Voice and Move, and the plan's "N dashed lines" counts them. The cap then went from 6,000 to 7,000 for Realistic Frankenstein's jailbreak pieces, and from 7,000 to 7,500 in beta 8 to fit the Big jailbreak path; the Chibi cap went from 3,000 to 3,550 for the same reason. The 🔓 Jailbreak toggle that first used that room is gone again, and the Micro-based Logic Core in its place costs about 110 tokens more than the old one. New model fixes fit best inside model patches, since a path counts only the largest one.
 - GLM has its own patch since this update, with five lines at the end of the gate and in the plan about talking like a person, pushing back as plain fact while a refusal stays a plain no, and saying each sentence once. Its Person line limits help, praise, advice and comfort to what the card and the bond allow, so watch for the opposite problem too: a card written kind that turns cold. The patch quotes none of the phrases it targets, since a quoted example primed Kimi in beta 5; Restate names only what a filing phrase marks a line as, on record, honest, clear or said first. If GLM keeps writing "real talk" or "fair point" on a fresh chat, quoting them for GLM alone is the next thing to try.
 - Register now tells characters to take the floor before heavy news with an act, a name, a question or an accusation, and to show any approval or grade of what you said through what they do next. The gate opens on "As game master" too, the way Realistic Frankenstein's plans ended. Watch GLM 5.3, Kimi, Qwen and Claude for the assistant talk going away, and for two new habits it could cause: every line opening on your name, or characters who never just say yes.
 - The speech method that used to live in the 🔦 Flash Gate now runs for every model inside 🎭 NPC Voice & Emotions, and the joke reactions moved into the Codex's Humour line. The Flash Gate keeps the card's mood and interests, the office-word rule and one raw thought per speaker in the plan, so tell me how GLM Flash and MiMo Flash take the move.
