@@ -6,6 +6,10 @@ presets, counts the rendered tokens (characters / 4, comments stripped) for a
 few configurations, and fails when something would break the budget, the
 wiring or prompt caching.
 
+The fully kitted paths (the largest path for each plan) are reported, and held
+against the budget, LARGEST_PATH_CORRECTION tokens lower than characters / 4,
+because SillyTavern's own counter read that much less on the largest path.
+
 Usage: python3 tools/aria_budget.py [preset.json ...]   (no arguments: every preset in DEFAULT_PRESETS)
 """
 import json
@@ -15,6 +19,10 @@ import sys
 from pathlib import Path
 
 BUDGET = 7500
+# SillyTavern's own counter (the number next to "Total Tokens:" in the prompt list, with the card and memory toggles off) showed
+# 7,264 on the largest Chat Completions path where characters / 4 gave 7,498 (the author's reading, 2026-11-16). The fully kitted
+# paths are therefore reported, and held against the budget, 234 tokens lower. Every other figure stays plain characters / 4.
+LARGEST_PATH_CORRECTION = 234
 ROOT = Path(__file__).resolve().parent.parent
 DEFAULT_PRESETS = [
     ROOT / "Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json",
@@ -81,11 +89,13 @@ def render(s, state, rng):
         elif m == 'trim':
             out.append('\x00TRIM\x00')
         elif m.startswith('setvar::'):
+            # SillyTavern takes a macro argument from its first to its last token, so the whitespace at both ends of the raw
+            # value is gone before the nested macros run: a value cannot end on a plain newline, only on {{newline}}.
             name, _, value = m[len('setvar::'):].partition('::')
-            state[name] = render(value, state, rng)
+            state[name] = render(value.strip(), state, rng)
         elif m.startswith('addvar::'):
             name, _, value = m[len('addvar::'):].partition('::')
-            value = render(value, state, rng)
+            value = render(value.strip(), state, rng)
             try:
                 state[name] = str(int(state.get(name) or 0) + int(value))
             except ValueError:
@@ -109,6 +119,8 @@ def render(s, state, rng):
             out.append(str(rng.randint(1, 20)))
         elif m.startswith('random::'):
             out.append(rng.choice(m[len('random::'):].split('::')))
+        elif m == 'newline':
+            out.append('\n')
         elif m == 'user':
             out.append('User')
         elif m == 'char':
@@ -263,7 +275,7 @@ def analyse_cc(preset, filename=''):
     for pid, text in rendered.items():
         print(f'  {tokens(text):5}  {name[pid]}')
     for label, (total, enabled) in paths.items():
-        totals[f'fully kitted ({label})'] = total
+        totals[f'fully kitted ({label})'] = total - LARGEST_PATH_CORRECTION
     # SillyTavern also appends the preset's own impersonation_prompt setting on Impersonate turns
     imp_setting = tokens(render(preset.get('impersonation_prompt') or '', {}, random.Random(1)))
     for label, (total, enabled) in paths.items():
@@ -273,8 +285,9 @@ def analyse_cc(preset, filename=''):
             sum(tokens(normal[pid]) for pid in normal if pid not in imp) + imp_setting
     budget = budget_for(filename)
     for label, (total, enabled) in paths.items():
-        if total > budget:
-            errors.append(f'fully kitted ({label}) is {total} tokens, over the {budget} budget')
+        if total - LARGEST_PATH_CORRECTION > budget:
+            errors.append(f'fully kitted ({label}) is {total - LARGEST_PATH_CORRECTION} tokens ({total} by characters / 4), '
+                          f'over the {budget} budget')
 
     lc_patch = best_patch(lc_plan) if lc_plan else None
     lc_path = no_patch | ({lc_plan} if lc_plan else set()) | ({lc_patch} if lc_patch else set())
@@ -285,7 +298,7 @@ def analyse_cc(preset, filename=''):
     wiring, setters = wiring_errors(named, main_text, raw_all)
     errors += wiring
     # The same wiring check over every Logic Core shape: each 🏷️ tags entry on its own (the <thinking> one and the Gemini 4
-    # Argon <thought> one) or none, normal and Impersonate, each model patch, the assistant Logic Core, its system-role twin,
+    # family of models <thought> one) or none, normal and Impersonate, each model patch, the assistant Logic Core, its system-role twin,
     # or neither. With a tags entry on nothing may name <logic_core>: the plan opens on the fence tag, and a second tag there
     # is what models copied. The jailbreak entries stay out: their imported text names Realistic Frankenstein's tags and
     # helper variables, which ARIA does not define.
@@ -410,11 +423,11 @@ def analyse_tc(preset, filename=''):
         print(f'  {tokens(text):5}  {part}')
     for label, overrides in paths.items():
         rendered, _ = simulate_tc(preset, overrides, seed=1)
-        totals[f'fully kitted ({label})'] = sum(tokens(t) for t in rendered.values())
+        totals[f'fully kitted ({label})'] = sum(tokens(t) for t in rendered.values()) - LARGEST_PATH_CORRECTION
     budget = budget_for(filename)
     for label, total in totals.items():
         if label.startswith('fully kitted (') and total > budget:
-            errors.append(f'{label} is {total} tokens, over the {budget} budget')
+            errors.append(f'{label} is {total} tokens ({total + LARGEST_PATH_CORRECTION} by characters / 4), over the {budget} budget')
 
     lc_overrides = paths.get('Logic Core') or paths.get('no plan')
     rendered, _ = simulate_tc(preset, lc_overrides, seed=1)
@@ -482,6 +495,7 @@ def main():
         print('Totals:')
         for label, value in totals.items():
             print(f'  {label:26} {value:5}')
+        print(f'  (fully kitted rows: characters / 4 minus {LARGEST_PATH_CORRECTION}, as SillyTavern counted the largest path)')
         if errors:
             failed = True
             print('FAILED:')
