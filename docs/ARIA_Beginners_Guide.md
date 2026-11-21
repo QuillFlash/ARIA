@@ -54,7 +54,7 @@ Sunna timed this once and finished in under two minutes, and she was also tuning
 
 These steps are for the Chat Completions file. Running a model on your own computer instead? Hop over to [section 6](#6-run-me-on-your-own-computer)! Either way, you need SillyTavern 1.19.0 or newer; its version shows on the welcome screen. Want my smaller Chibi Edition? It installs the same way, and [section 7](#7-meet-chibi-me-the-chibi-edition) has its file names.
 
-1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` from this repository. On GitHub, open the file and press the "Download raw file" button.
+1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` from the `presets/Chat Completions/Base/` folder of this repository, or a ready-made config for your model from the model folders next to it. On GitHub, open the file and press the "Download raw file" button.
 2. **Connect and import.** Open **API Connections** (the plug icon at the top), set **API** to **Chat Completion**, pick your provider and paste your key. Then open **AI Response Configuration** (the sliders icon at the top left), press **Import preset** next to the preset dropdown and choose the file. The prompt list below the sliders should start with 🌳 README and ⚡ ARIA Main Prompt. If you see a plain "Main Prompt" and "NSFW Prompt" instead, you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
 3. **Say YES to the regex scripts.** SillyTavern asks whether to allow the scripts that come with the preset. Allow them, or my thinking box and the Impersonate clean-up won't work, and my ledgers stay plain text.
 4. **Check the macro engine.** Open **User Settings** and make sure **Experimental Macro Engine** is ticked. New versions tick it for you. If you had to tick it yourself, reload the page afterwards. My dice and switches can't work without it!
@@ -203,7 +203,7 @@ Running a model at home with KoboldCpp, llama.cpp, TabbyAPI or text-generation-w
 
 ### Install the Text Completions file
 
-1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` from this repository.
+1. **Download** `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` from the `presets/Text Completions/Base/` folder of this repository, or a ready-made config for your model from the model folders next to it.
 2. **Connect.** In **API Connections** (the plug icon), set **API** to **Text Completion**, pick your backend and connect.
 3. **Import.** Open **Advanced Formatting** (the big "A" icon), press **Master Import** and choose the file. A window asks what to import: keep **Context Template** and **System Prompt** ticked and press **Import**. Both dropdowns should now read **ARIA 1.0 beta 8 (Text Completions)**. If they say "Geechan - Universal Roleplay", you grabbed the file from the wrong branch: switch GitHub's branch selector to `beta` and download it again.
 4. **Switch on Instruct Mode.** In the same panel, make sure the **System Prompt** is switched on. Then press the power button next to the **Instruct Template** title to switch on Instruct Mode, and pick the template that matches your model (ChatML, Llama 3, Mistral, Gemma and so on). The model's download page usually names it. Leave the link icon next to it (**Bind to Context**) off, so it keeps my Context Template. I don't bring an instruct template myself, because every model family speaks its own format.
@@ -271,7 +271,7 @@ Models that already think on their own, like Qwen 3 or the DeepSeek R1 distills,
 
 ### Pretty panels and tidy thinking
 
-The Text Completions file can't carry regex scripts, so mine come in their own little file! Download `regex/ARIA 1.0 Regex Scripts (Text Completions).json` from the `beta` branch, open **Extensions** (the cubes icon at the top), then **Regex**, press **Import**, pick the file and choose **Global** when SillyTavern asks where the scripts go. Updating from an older build? Delete every script whose name starts with ARIA from the **Global** list first, then import the new file. SillyTavern adds imported scripts next to the ones you already have, and the old copies run first, so my newer clean-up tricks would miss their chance. From then on:
+The Text Completions file can't carry regex scripts, so mine come in their own little file! Download `regex/ARIA 1.0 Regex Scripts (Text Completions).json` from this repository, open **Extensions** (the cubes icon at the top), then **Regex**, press **Import**, pick the file and choose **Global** when SillyTavern asks where the scripts go. Updating from an older build? Delete every script whose name starts with ARIA from the **Global** list first, then import the new file. SillyTavern adds imported scripts next to the ones you already have, and the old copies run first, so my newer clean-up tricks would miss their chance. From then on:
 
 - the 🎲 ledger shows up as the orange **Fate & Routine** panel and the 💚 ledger as the teal **Bonds** panel, with bond bars (section 4 explains every row);
 - a plan the model wrote without its tags still folds into a 💭 **Thoughts** box and stays out of what the model rereads, even when it opens with a bare `thinking` line instead of `<thinking>`;
@@ -309,13 +309,13 @@ The Chibi Edition is the same band with a smaller backpack, packed for small con
 
 ### The three files
 
-Chibi comes in three files that sit next to the full ones, plus the regex file my Text Completions editions share:
+Chibi comes in three files that sit next to the full ones in the `presets/<format>/Base/` folders, plus the regex file my Text Completions editions share:
 
 | File | For | Install it like |
 |---|---|---|
 | `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Chat Completions).json` | Online models: Claude, Gemini, DeepSeek, OpenRouter and friends | [Section 2](#2-install-me-in-five-steps) |
 | `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Text Completions).json` | Models on your own computer | [Section 6](#6-run-me-on-your-own-computer) |
-| `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition — Agent Gating.json` | Marinara Engine | Below |
+| `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition — Marinara Engine Edition.json` | Marinara Engine | Below |
 
 - **Chat Completions.** Follow the five steps of section 2 with the Chibi file. The prompt list still starts with 🌳 README and ⚡ ARIA Main Prompt, and the README entry's version line reads Chibi Edition — Version 1.0 beta 8. Allow the regex scripts when SillyTavern asks. They're the very same ones the full file carries.
 - **Text Completions.** Follow section 6 with the Chibi file. Both dropdowns should read **ARIA 1.0 beta 8 Chibi Edition (Text Completions)**, and the five settings, the switch lines, the thinking setup and the speed tips are all the same. One difference: Chibi starts with 🧠 The Logic Core already ON, because without it my lean start would be only about 1,345 tokens. The regex file is shared too: `regex/ARIA 1.0 Regex Scripts (Text Completions).json` serves both Text Completions editions, so one copy covers whichever one you run. Make it the current copy, though. An older copy can leave the last lines of a plan behind when a model echoes it, so delete the old ARIA scripts from the **Global** list before you import the new file, as section 6 describes.
