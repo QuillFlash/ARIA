@@ -5,15 +5,24 @@
     <em>The image is the copyrighted work of HoYoverse/Cognosphere Pte. Ltd. and is used under fair use as part of a work that is considered fan fiction and is not affiliated with HoYoverse in any capacity. All rights reserved.</em>
 </p>
 
-## Quick start (ARIA 1.0)
+## Quick start (ARIA 1.0 beta 8)
 
-- **Online models** (Claude, Gemini, DeepSeek, OpenRouter and similar): download `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` from [`presets/Chat Completions/Base/`](presets/Chat%20Completions/Base/) and follow [Install me in five steps](docs/ARIA_Beginners_Guide.md#2-install-me-in-five-steps).
-- **Local models** (KoboldCpp, llama.cpp, TabbyAPI, text-generation-webui): download `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` from [`presets/Text Completions/Base/`](presets/Text%20Completions/Base/) and follow [Run me on your own computer](docs/ARIA_Beginners_Guide.md#6-run-me-on-your-own-computer).
-- **Marinara Engine:** import `Aria's Realistic Intelligence Assistance 1.0 — Marinara Engine Edition.json` from [`presets/Marinara Engine Edition/Base/`](presets/Marinara%20Engine%20Edition/Base/) and pick your options in its choice blocks.
-- **Ready-made configs:** next to each `Base/` folder sit model folders with configs for Claude, Gemini, GLM, Kimi and Qwen, MiMo, DeepSeek, MiniMax and (Text Completions only) Gemma 4, full and Chibi, with the patch, switches and reasoning settings already set. Marinara can't store connection settings, so its configs list them at the top of their description.
-- **Short on context or budget?** The **Chibi Edition** is the same preset worded far more briefly: 2,825 tokens as shipped and 3,976 fully kitted out with The Logic Core (Marinara peaks at 3,990 with the Agents state backend and the GLM patch), inside its 4,000 cap; its 👹 jailbreak paths run bigger and stay outside the cap. These follow SillyTavern's own count. Take `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Chat Completions).json` for online models, `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Text Completions).json` for local models (it uses the same regex file) or `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition — Marinara Engine Edition.json` for Marinara Engine. They sit in the same `Base/` folders and install like their full siblings; [Meet Chibi me](docs/ARIA_Beginners_Guide.md#7-meet-chibi-me-the-chibi-edition) has the details.
+- **Online models** (Claude, Gemini, DeepSeek, OpenRouter and similar): download `Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json` and follow [Install me in five steps](docs/ARIA_Beginners_Guide.md#2-install-me-in-five-steps).
+- **Local models** (KoboldCpp, llama.cpp, TabbyAPI, text-generation-webui): download `Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json` and follow [Run me on your own computer](docs/ARIA_Beginners_Guide.md#6-run-me-on-your-own-computer).
+- **Short on context or budget?** The **Chibi Edition** is the same preset worded far more briefly: 1,619 tokens as shipped and 3,379 at most fully kitted out with the 👹 Small Jailbreak (3,026 with The Logic Core in its place; Marinara peaks at 3,297 with the 👹 Small Jailbreak, the Agents state backend and the GLM patch), all inside its 3,550 cap. Take `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Chat Completions).json` for online models, `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Text Completions).json` for local models (it uses the same regex file) or `Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition — Agent Gating.json` for Marinara Engine. They install like their full siblings; [Meet Chibi me](docs/ARIA_Beginners_Guide.md#7-meet-chibi-me-the-chibi-edition) has the details.
 - **You need** SillyTavern 1.19.0 or newer with **Experimental Macro Engine** ticked in User Settings. With the Chat Completions file, also allow the preset's regex scripts when SillyTavern asks. With the Text Completions file, import `regex/ARIA 1.0 Regex Scripts (Text Completions).json` under Extensions → Regex. It brings the thinking box and the Impersonate clean-up, and it draws the Fate & Routine and Bonds panels.
 - **Something broke?** Check [Uh-oh! moments](docs/ARIA_Beginners_Guide.md#8-uh-oh-moments). The full [Beginner's Guide](docs/ARIA_Beginners_Guide.md) covers every toggle and switch.
+
+## Reporting bugs (beta)
+
+Please open an issue on the [GitHub issues page](https://github.com/QuillFlash/ARIA/issues) and include:
+
+- the build: ARIA 1.0 beta 8, full or Chibi Edition, shown in the 🌳 README entry (Chat Completions) or in the template name (Text Completions)
+- your SillyTavern version
+- your API source or local backend, and the model (plus the quant for local models)
+- your thinking style (A or B from the guide), or your `aria-*` switch lines on the Text Completions file
+- every toggle or switch you changed from the defaults
+- the prompt of the failing turn (the message's **Prompt** button) or an exported chat
 
 ## Introduction
 
@@ -180,7 +189,6 @@ and a significantly smaller and more cache-efficient Fate & Routine Engine stay 
 and other bloated mechanics get the boot.
 
 The goal is to put all of this into something **between 3000 and 5000 tokens**. This would mean quality output at about a fifth of the footprint of Realistic Frankenstein 2.2.1.2.
-This has largely been achieved with the Chibi Edition, costing 4000 tokens for the user, while the full edition is roughly 7500 tokens big.
 
 I hope you like what you see and you write me some feedback on the Reddit announcement posts for further improvements you want to see in the future.
 
