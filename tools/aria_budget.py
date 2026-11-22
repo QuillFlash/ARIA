@@ -6,11 +6,18 @@ presets, counts the rendered tokens (characters / 4, comments stripped) for a
 few configurations, and fails when something would break the budget, the
 wiring or prompt caching.
 
-The fully kitted paths (the largest path for each plan) are reported, and held
-against the budget, LARGEST_PATH_CORRECTION tokens lower than characters / 4,
-because SillyTavern's own counter read that much less on the largest path.
+Every total it reports (core, shipped default, lean start, each fully kitted
+path) carries its edition's correction toward SillyTavern's own counter
+(TOKEN_CORRECTION: 234 fewer for the full edition, about 450 more for the Chibi
+Edition), and the fully kitted paths are held against the budget that way:
+7,500 for the full edition, 4,000 for the Chibi Edition. The 👹 jailbreak paths
+(and the Text Completions Micro jailbreak) are listed but never fail the budget:
+they are imported from Realistic Frankenstein and stay exactly as they are.
+A fully kitted path is the shared base with one plan, one model patch and one
+Reduce Reasoning entry (the plain note or the Gemini 4 HNC Thinking Leash, the
+costlier one), since a config picks one of each of those.
 
-Usage: python3 tools/aria_budget.py [preset.json ...]   (no arguments: every preset in DEFAULT_PRESETS)
+Usage: python3 tools/aria_budget.py [preset.json ...]   (no arguments: the four Base presets, see default_presets())
 """
 import json
 import random
@@ -19,17 +26,43 @@ import sys
 from pathlib import Path
 
 BUDGET = 7500
-# SillyTavern's own counter (the number next to "Total Tokens:" in the prompt list, with the card and memory toggles off) showed
-# 7,264 on the largest Chat Completions path where characters / 4 gave 7,498 (the author's reading, 2026-11-16). The fully kitted
-# paths are therefore reported, and held against the budget, 234 tokens lower. Every other figure stays plain characters / 4.
-LARGEST_PATH_CORRECTION = 234
+CHIBI_BUDGET = 4000            # the author, 2026-11-19 (was 3,550 before the Chibi correction)
+# SillyTavern's own counter (the number next to "Total Tokens:" in the prompt list, with the card and memory toggles off) against
+# characters / 4, the author's readings: the full edition's largest Chat Completions path showed 7,264 where characters / 4 gave
+# 7,498, so 234 fewer (2026-11-16); the Chibi Edition shows about 450 more (2026-11-19), its compressed wording packing more tokens
+# into each character. Every total this checker reports carries its edition's correction; per-entry figures and Impersonate
+# differences stay plain characters / 4.
+TOKEN_CORRECTION = {'full': -234, 'chibi': 450}
+LARGEST_PATH_CORRECTION = 234  # the full edition's correction as a positive number, kept for older callers
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_PRESETS = [
-    ROOT / "Aria's Realistic Intelligence Assistance 1.0 — (Chat Completions).json",
-    ROOT / "Aria's Realistic Intelligence Assistance 1.0 — (Text Completions).json",
-    ROOT / "Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Chat Completions).json",
-    ROOT / "Aria's Realistic Intelligence Assistance 1.0 — Chibi Edition (Text Completions).json",
+# The four Base presets, by edition and never by version, so a new ARIA version needs no change here: each name is
+# "<stem> — <edition>.json", where the stem ("Aria's Realistic Intelligence Assistance 1.0") never contains " — ".
+BASE_EDITIONS = [
+    ('Chat Completions', re.compile(r"((?:(?! — ).)+) — \(Chat Completions\)\.json")),
+    ('Text Completions', re.compile(r"((?:(?! — ).)+) — \(Text Completions\)\.json")),
+    ('Chat Completions', re.compile(r"((?:(?! — ).)+) — Chibi Edition \(Chat Completions\)\.json")),
+    ('Text Completions', re.compile(r"((?:(?! — ).)+) — Chibi Edition \(Text Completions\)\.json")),
 ]
+
+
+def _version(stem):
+    m = re.search(r'(\d+(?:\.\d+)+)$', stem)
+    return tuple(int(x) for x in m.group(1).split('.')) if m else ()
+
+
+def default_presets():
+    """presets/<format>/Base/ (the layout since 2026-11-19), else the repository root (older checkouts). When two versions sit
+    side by side, the highest one is checked; pass the files as arguments to check another."""
+    out = []
+    for folder, pattern in BASE_EDITIONS:
+        for d in (ROOT / 'presets' / folder / 'Base', ROOT):
+            if not d.is_dir():
+                continue
+            hits = [(_version(m.group(1)), f) for f in d.iterdir() if (m := pattern.fullmatch(f.name))]
+            if hits:
+                out.append(max(hits)[1])
+                break
+    return out
 VOLATILE = re.compile(r'\{\{(roll|random|pick|time|date|weekday|isotime|isodate|idle_duration|lastMessage|'
                       r'lastCharMessage|lastUserMessage|lastMessageId|currentSwipeId|char|group|charIfNotGroup|input)\b')
 HTML_TAGS = {'details', 'summary', 'thinking', 'think', 'br', 'b', 'span', 'div'}
@@ -37,8 +70,18 @@ FALSE_WORDS = {'', 'off', 'false', '0'}
 
 
 def budget_for(filename):
-    """The token budget for a preset, by its filename: 3550 for Chibi Edition, BUDGET otherwise."""
-    return 3550 if 'Chibi Edition' in filename else BUDGET
+    """The token budget for a preset, by its filename: CHIBI_BUDGET for Chibi Edition, BUDGET otherwise."""
+    return CHIBI_BUDGET if 'Chibi Edition' in filename else BUDGET
+
+
+def correction_for(filename):
+    """The correction toward SillyTavern's own count, by the file's edition (see TOKEN_CORRECTION)."""
+    return TOKEN_CORRECTION['chibi' if 'Chibi Edition' in filename else 'full']
+
+
+def held_to_budget(label):
+    """A fully kitted path the budget applies to: every one except the 👹 jailbreaks and the Micro jailbreak."""
+    return 'Demons of Delusion' not in label and 'jailbreak' not in label.lower()
 
 
 def take_macro(s, i):
@@ -242,7 +285,20 @@ def analyse_cc(preset, filename=''):
     twin_ids = {pid for pid in prompts if 'twin' in name[pid]}
     skip_all_on = by_prefix('🌳', '🌿') | twin_ids | plan_ids
     skip_all_on |= {'enhanceDefinitions'} | patches
-    no_patch = {row['identifier'] for row in order} - skip_all_on
+    all_on = {row['identifier'] for row in order} - skip_all_on
+    # The Reduce Reasoning entries (the plain note and, since 2026-11-21, the Gemini 4 HNC Thinking Leash) are alternatives too:
+    # a config runs one of them, so a sized path holds the one that costs more over the shared base with the Logic Core. The
+    # wiring and cache checks below keep every entry ON, both of these included, as they always did.
+    reduce_ids = {pid for pid in all_on if name[pid].startswith('Reduce Reasoning')}
+    first_lc = min(lc_ids - twin_ids, key=lambda pid: name[pid], default=None)
+
+    def reduce_cost(rid):
+        rendered, _ = simulate_cc(preset, (all_on - reduce_ids) | {rid} | ({first_lc} if first_lc else set()), seed=1)
+        return sum(tokens(t) for t in rendered.values())
+    best_reduce = max(sorted(reduce_ids), key=reduce_cost, default=None)
+    no_patch = (all_on - reduce_ids) | ({best_reduce} if best_reduce else set())
+    if len(reduce_ids) > 1:
+        print(f'(the fully kitted paths hold one Reduce Reasoning entry, the costlier one: {name[best_reduce]})')
 
     def path_total(plan, patch):
         """Render a real path: every module on, one plan (the Logic Core or one jailbreak), one patch."""
@@ -264,18 +320,19 @@ def analyse_cc(preset, filename=''):
         label = 'Logic Core' if plan in lc_ids else name[plan]
         paths[label] = (total, enabled)
     table_patch = best_patch(lc_plan) if lc_plan else (best_patch(path_plans[0]) if path_plans else None)
-    everything = no_patch | plan_ids | ({table_patch} if table_patch else set())
+    everything = all_on | plan_ids | ({table_patch} if table_patch else set())
 
+    corr = correction_for(filename)
     totals = {}
     for label, enabled in (('core', core), ('shipped default', shipped)):
         rendered, _ = simulate_cc(preset, enabled, seed=1)
-        totals[label] = sum(tokens(t) for t in rendered.values())
+        totals[label] = sum(tokens(t) for t in rendered.values()) + corr
     rendered, _ = simulate_cc(preset, everything, seed=1)
     print('Per-entry tokens with every entry ON (alternatives included; not a runnable path):')
     for pid, text in rendered.items():
         print(f'  {tokens(text):5}  {name[pid]}')
     for label, (total, enabled) in paths.items():
-        totals[f'fully kitted ({label})'] = total - LARGEST_PATH_CORRECTION
+        totals[f'fully kitted ({label})'] = total + corr
     # SillyTavern also appends the preset's own impersonation_prompt setting on Impersonate turns
     imp_setting = tokens(render(preset.get('impersonation_prompt') or '', {}, random.Random(1)))
     for label, (total, enabled) in paths.items():
@@ -285,12 +342,12 @@ def analyse_cc(preset, filename=''):
             sum(tokens(normal[pid]) for pid in normal if pid not in imp) + imp_setting
     budget = budget_for(filename)
     for label, (total, enabled) in paths.items():
-        if total - LARGEST_PATH_CORRECTION > budget:
-            errors.append(f'fully kitted ({label}) is {total - LARGEST_PATH_CORRECTION} tokens ({total} by characters / 4), '
+        if held_to_budget(label) and total + corr > budget:
+            errors.append(f'fully kitted ({label}) is {total + corr} tokens ({total} by characters / 4), '
                           f'over the {budget} budget')
 
     lc_patch = best_patch(lc_plan) if lc_plan else None
-    lc_path = no_patch | ({lc_plan} if lc_plan else set()) | ({lc_patch} if lc_patch else set())
+    lc_path = all_on | ({lc_plan} if lc_plan else set()) | ({lc_patch} if lc_patch else set())
     rendered, _ = simulate_cc(preset, lc_path, seed=1)
     named = {name[pid]: t for pid, t in rendered.items()}
     main_text = named.get(name.get('main', ''), '')
@@ -350,7 +407,7 @@ def analyse_cc(preset, filename=''):
     # holds only one patch, so a variable that one patch sets, another patch prints and the Main Prompt does not blank (the Gemini
     # 3.8 Flash text that Gemini All-In-One printed after the 3.8 patch was switched off) stays invisible there.
     for patch in [pid for pid in ids if pid in patches] + [None]:
-        enabled = no_patch | ({patch} if patch else set())
+        enabled = all_on | ({patch} if patch else set())
         if stale_changes_system_block(enabled, stale):
             leaks = [v for v in sorted(setters) if stale_changes_system_block(enabled, {v: stale[v]})]
             errors.append(f"cache: with {name[patch] if patch else 'no patch'} on over the shared base, a stale "
@@ -411,10 +468,11 @@ def analyse_tc(preset, filename=''):
         paths[label] = path_base | ({largest: 'on'} if largest else set())
     roomy = dict(shipped) | {'aria-logic-core': 'on', 'aria-fate': 'on', 'aria-time-place': 'on'}
 
+    corr = correction_for(filename)
     totals = {}
     for label, overrides in (('shipped (lean, 32k)', shipped), ('+ Logic Core, Fate, Time', roomy)):
         rendered, _ = simulate_tc(preset, overrides, seed=1)
-        totals[label] = sum(tokens(t) for t in rendered.values())
+        totals[label] = sum(tokens(t) for t in rendered.values()) + corr
     raw_base = base | {s: 'on' for s in plans}
     raw_patch = max(patches, key=lambda p: patch_cost(p, raw_base), default=None)
     print('Tokens with every switch ON (alternatives included; not a runnable path):')
@@ -423,11 +481,11 @@ def analyse_tc(preset, filename=''):
         print(f'  {tokens(text):5}  {part}')
     for label, overrides in paths.items():
         rendered, _ = simulate_tc(preset, overrides, seed=1)
-        totals[f'fully kitted ({label})'] = sum(tokens(t) for t in rendered.values()) - LARGEST_PATH_CORRECTION
+        totals[f'fully kitted ({label})'] = sum(tokens(t) for t in rendered.values()) + corr
     budget = budget_for(filename)
     for label, total in totals.items():
-        if label.startswith('fully kitted (') and total > budget:
-            errors.append(f'{label} is {total} tokens ({total + LARGEST_PATH_CORRECTION} by characters / 4), over the {budget} budget')
+        if label.startswith('fully kitted (') and held_to_budget(label) and total > budget:
+            errors.append(f'{label} is {total} tokens ({total - corr} by characters / 4), over the {budget} budget')
 
     lc_overrides = paths.get('Logic Core') or paths.get('no plan')
     rendered, _ = simulate_tc(preset, lc_overrides, seed=1)
@@ -485,7 +543,7 @@ def analyse_tc(preset, filename=''):
 
 
 def main():
-    paths = [Path(p) for p in sys.argv[1:]] or DEFAULT_PRESETS
+    paths = [Path(p) for p in sys.argv[1:]] or default_presets()
     failed = False
     for path in paths:
         preset = json.loads(path.read_text(encoding='utf-8'))
@@ -495,7 +553,9 @@ def main():
         print('Totals:')
         for label, value in totals.items():
             print(f'  {label:26} {value:5}')
-        print(f'  (fully kitted rows: characters / 4 minus {LARGEST_PATH_CORRECTION}, as SillyTavern counted the largest path)')
+        corr, budget = correction_for(path.name), budget_for(path.name)
+        print(f'  (every total: characters / 4 {corr:+d}, the {"Chibi" if "Chibi Edition" in path.name else "full"} edition\'s '
+              f'correction toward SillyTavern\'s count; fully kitted paths are held to {budget}, the jailbreak paths only listed)')
         if errors:
             failed = True
             print('FAILED:')
