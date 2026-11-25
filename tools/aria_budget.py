@@ -10,7 +10,8 @@ Every total it reports (core, shipped default, lean start, each fully kitted
 path) carries its edition's correction toward SillyTavern's own counter
 (TOKEN_CORRECTION: 152 fewer for the full edition, about 482 more for the Chibi
 Edition), and the fully kitted paths are held against the budget that way:
-7,500 for the full edition, 4,200 for the Chibi Edition. The 👹 jailbreak paths
+7,500 for the full edition, 4,200 for the Chibi Edition, failing only past BUDGET_SLACK
+(200 tokens) over it and printing a note in between. The 👹 jailbreak paths
 (and the Text Completions Micro jailbreak) are listed but never fail the budget:
 they are imported from Realistic Frankenstein and stay exactly as they are.
 A fully kitted path is the shared base with one plan, one model patch and one
@@ -28,6 +29,8 @@ from pathlib import Path
 BUDGET = 7500
 CHIBI_BUDGET = 4200            # 2026-11-25, for the spacey layout (4,150 from earlier that day for the 🩹 GLM 5.4 patch, the author's
                                # call; 4,000 from 2026-11-19; 3,550 before the Chibi correction)
+BUDGET_SLACK = 200             # the author, 2026-11-25: a path over its cap is only a problem past 200 tokens over it; in between,
+                               # the checker prints a note and passes
 # SillyTavern's own counter (the number next to "Total Tokens:" in the prompt list, with the card and memory toggles off) against
 # characters / 4, the author's readings: the full edition's largest Chat Completions path showed 7,264 where characters / 4 gave
 # 7,498, so 234 fewer (2026-11-16); the Chibi Edition shows about 450 more (2026-11-19), its compressed wording packing more tokens
@@ -347,9 +350,12 @@ def analyse_cc(preset, filename=''):
             sum(tokens(normal[pid]) for pid in normal if pid not in imp) + imp_setting
     budget = budget_for(filename)
     for label, (total, enabled) in paths.items():
-        if held_to_budget(label) and total + corr > budget:
+        if held_to_budget(label) and total + corr > budget + BUDGET_SLACK:
             errors.append(f'fully kitted ({label}) is {total + corr} tokens ({total} by characters / 4), '
-                          f'over the {budget} budget')
+                          f'more than {BUDGET_SLACK} over the {budget} budget')
+        elif held_to_budget(label) and total + corr > budget:
+            print(f'(note: fully kitted ({label}) is {total + corr - budget} tokens over the {budget} budget, inside the '
+                  f'{BUDGET_SLACK}-token slack)')
 
     lc_patch = best_patch(lc_plan) if lc_plan else None
     lc_path = all_on | ({lc_plan} if lc_plan else set()) | ({lc_patch} if lc_patch else set())
@@ -489,8 +495,11 @@ def analyse_tc(preset, filename=''):
         totals[f'fully kitted ({label})'] = sum(tokens(t) for t in rendered.values()) + corr
     budget = budget_for(filename)
     for label, total in totals.items():
-        if label.startswith('fully kitted (') and held_to_budget(label) and total > budget:
-            errors.append(f'{label} is {total} tokens ({total - corr} by characters / 4), over the {budget} budget')
+        if label.startswith('fully kitted (') and held_to_budget(label) and total > budget + BUDGET_SLACK:
+            errors.append(f'{label} is {total} tokens ({total - corr} by characters / 4), more than {BUDGET_SLACK} over '
+                          f'the {budget} budget')
+        elif label.startswith('fully kitted (') and held_to_budget(label) and total > budget:
+            print(f'(note: {label} is {total - budget} tokens over the {budget} budget, inside the {BUDGET_SLACK}-token slack)')
 
     lc_overrides = paths.get('Logic Core') or paths.get('no plan')
     rendered, _ = simulate_tc(preset, lc_overrides, seed=1)
@@ -560,7 +569,7 @@ def main():
             print(f'  {label:26} {value:5}')
         corr, budget = correction_for(path.name), budget_for(path.name)
         print(f'  (every total: characters / 4 {corr:+d}, the {"Chibi" if "Chibi Edition" in path.name else "full"} edition\'s '
-              f'correction toward SillyTavern\'s count; fully kitted paths are held to {budget}, the jailbreak paths only listed)')
+              f'correction toward SillyTavern\'s count; fully kitted paths are held to {budget} with {BUDGET_SLACK} tokens of slack, the jailbreak paths only listed)')
         if errors:
             failed = True
             print('FAILED:')
