@@ -75,8 +75,18 @@ def dump(obj, like):
 def regen_cc(base, cfg):
     new = copy.deepcopy(base)
     for key, value in cfg.items():
-        if key not in ('prompts', 'prompt_order'):
+        if key not in ('prompts', 'prompt_order', 'extensions'):
             new[key] = copy.deepcopy(value)
+    # Regex scripts are preset content, so they follow the Base (a script added there reaches every config); a script the
+    # config already carries keeps the config's own on/off state.
+    ext = copy.deepcopy(cfg.get('extensions', {}))
+    own = {r.get('scriptName'): r for r in ext.get('regex_scripts', [])}
+    scripts = copy.deepcopy(base.get('extensions', {}).get('regex_scripts', []))
+    for script in scripts:
+        if script.get('scriptName') in own:
+            script['disabled'] = own[script['scriptName']].get('disabled', script.get('disabled', False))
+    ext['regex_scripts'] = scripts
+    new['extensions'] = ext
     state = {}
     for block in cfg.get('prompt_order', []):
         for row in block['order']:
