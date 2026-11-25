@@ -8,9 +8,9 @@ wiring or prompt caching.
 
 Every total it reports (core, shipped default, lean start, each fully kitted
 path) carries its edition's correction toward SillyTavern's own counter
-(TOKEN_CORRECTION: 234 fewer for the full edition, about 450 more for the Chibi
+(TOKEN_CORRECTION: 152 fewer for the full edition, about 482 more for the Chibi
 Edition), and the fully kitted paths are held against the budget that way:
-7,500 for the full edition, 4,000 for the Chibi Edition. The 👹 jailbreak paths
+7,500 for the full edition, 4,200 for the Chibi Edition. The 👹 jailbreak paths
 (and the Text Completions Micro jailbreak) are listed but never fail the budget:
 they are imported from Realistic Frankenstein and stay exactly as they are.
 A fully kitted path is the shared base with one plan, one model patch and one
@@ -26,17 +26,22 @@ import sys
 from pathlib import Path
 
 BUDGET = 7500
-CHIBI_BUDGET = 4000            # the author, 2026-11-19 (was 3,550 before the Chibi correction)
+CHIBI_BUDGET = 4200            # 2026-11-25, for the spacey layout (4,150 from earlier that day for the 🩹 GLM 5.4 patch, the author's
+                               # call; 4,000 from 2026-11-19; 3,550 before the Chibi correction)
 # SillyTavern's own counter (the number next to "Total Tokens:" in the prompt list, with the card and memory toggles off) against
 # characters / 4, the author's readings: the full edition's largest Chat Completions path showed 7,264 where characters / 4 gave
 # 7,498, so 234 fewer (2026-11-16); the Chibi Edition shows about 450 more (2026-11-19), its compressed wording packing more tokens
-# into each character. Every total this checker reports carries its edition's correction; per-entry figures and Impersonate
-# differences stay plain characters / 4.
-TOKEN_CORRECTION = {'full': -234, 'chibi': 450}
-LARGEST_PATH_CORRECTION = 234  # the full edition's correction as a positive number, kept for older callers
+# into each character. The spacey layout (2026-11-25) puts rules on their own lines, a dash before each, and a blank line
+# between blocks; a line break and a dash are cheap in characters and cost a token each, so the BPE tokenizers ST uses
+# (cl100k and o200k agree within 2) count 82 more than characters / 4 does on the full edition's largest Logic Core path and
+# 32 more on the Chibi Edition's: -234 + 82 and 450 + 32, until the author reads SillyTavern's counter again. Every total
+# this checker reports carries its edition's correction; per-entry figures and Impersonate differences stay plain
+# characters / 4.
+TOKEN_CORRECTION = {'full': -152, 'chibi': 482}
+LARGEST_PATH_CORRECTION = 152  # the full edition's correction as a positive number, kept for older callers
 ROOT = Path(__file__).resolve().parent.parent
 # The four Base presets, by edition and never by version, so a new ARIA version needs no change here: each name is
-# "<stem> — <edition>.json", where the stem ("Aria's Realistic Intelligence Assistance 1.0") never contains " — ".
+# "<stem> — <edition>.json", where the stem ("Aria's Realistic Intelligence Assistance 1.1") never contains " — ".
 BASE_EDITIONS = [
     ('Chat Completions', re.compile(r"((?:(?! — ).)+) — \(Chat Completions\)\.json")),
     ('Text Completions', re.compile(r"((?:(?! — ).)+) — \(Text Completions\)\.json")),
