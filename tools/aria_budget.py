@@ -41,7 +41,7 @@ TOKEN_CORRECTION = {'full': -152, 'chibi': 482}
 LARGEST_PATH_CORRECTION = 152  # the full edition's correction as a positive number, kept for older callers
 ROOT = Path(__file__).resolve().parent.parent
 # The four Base presets, by edition and never by version, so a new ARIA version needs no change here: each name is
-# "<stem> — <edition>.json", where the stem ("Aria's Realistic Intelligence Assistance 1.0") never contains " — ".
+# "<stem> — <edition>.json", where the stem ("Aria's Realistic Intelligence Assistance 1.1") never contains " — ".
 BASE_EDITIONS = [
     ('Chat Completions', re.compile(r"((?:(?! — ).)+) — \(Chat Completions\)\.json")),
     ('Text Completions', re.compile(r"((?:(?! — ).)+) — \(Text Completions\)\.json")),
