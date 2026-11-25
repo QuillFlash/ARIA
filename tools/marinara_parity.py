@@ -323,6 +323,10 @@ def choices_for(cc, enabled):
                 ch[var] = value
         else:
             ch[var] = value
+    if ch['model_patch'] == 'GLM54':
+        # CC's 🩹 GLM 5.4 always sends its sentence notes; Marinara sends them only with this opt-in, since its users
+        # first import the regex file that strips them (a Marinara preset can't carry regex scripts)
+        ch['logic_options'].append('NOTES')
     return ch
 
 
