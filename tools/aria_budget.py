@@ -10,7 +10,7 @@ Every total it reports (core, shipped default, lean start, each fully kitted
 path) carries its edition's correction toward SillyTavern's own counter
 (TOKEN_CORRECTION: 234 fewer for the full edition, about 450 more for the Chibi
 Edition), and the fully kitted paths are held against the budget that way:
-7,500 for the full edition, 4,000 for the Chibi Edition. The 👹 jailbreak paths
+7,500 for the full edition, 4,050 for the Chibi Edition. The 👹 jailbreak paths
 (and the Text Completions Micro jailbreak) are listed but never fail the budget:
 they are imported from Realistic Frankenstein and stay exactly as they are.
 A fully kitted path is the shared base with one plan, one model patch and one
@@ -26,7 +26,7 @@ import sys
 from pathlib import Path
 
 BUDGET = 7500
-CHIBI_BUDGET = 4000            # the author, 2026-11-19 (was 3,550 before the Chibi correction)
+CHIBI_BUDGET = 4050            # the author, 2026-11-25, for the 🩹 GLM 5.4 patch (4,000 from 2026-11-19; 3,550 before the Chibi correction)
 # SillyTavern's own counter (the number next to "Total Tokens:" in the prompt list, with the card and memory toggles off) against
 # characters / 4, the author's readings: the full edition's largest Chat Completions path showed 7,264 where characters / 4 gave
 # 7,498, so 234 fewer (2026-11-16); the Chibi Edition shows about 450 more (2026-11-19), its compressed wording packing more tokens
